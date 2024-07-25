@@ -1,0 +1,84 @@
+.text-orange {
+  color: rgb(255, 140, 0);
+}
+
+.text-white {
+  color: rgb(236, 250, 255);
+}
+
+.text-primary {
+  color: rgb(6, 89, 122);
+}
+
+.text-primary-dark {
+  color: rgb(2, 52, 71);
+}
+
+.text-secondary {
+  color: rgb(187, 214, 224);
+}
+
+.link-01 {
+  text-decoration: none;
+  font-weight: 700;
+}
+.link-01:hover {
+  color: rgb(6, 89, 122);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(6, 89, 122);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  color: rgb(2, 52, 71);
+}
+
+header {
+  background-color: rgb(187, 214, 224);
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  padding-bottom: 13px;
+}
+
+footer {
+  background-color: rgb(187, 214, 224);
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  padding-bottom: 6px;
+}
+
+.main {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  padding-top: 20px;
+  padding-bottom: 13px;
+  color: rgb(236, 250, 255);
+}
+
+/*# sourceMappingURL=app.css.map */

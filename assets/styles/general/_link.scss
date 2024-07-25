@@ -1,0 +1,8 @@
+.link-01 {
+    text-decoration:none;
+    //color: $primary-color-dark;
+    font-weight: 700;
+    &:hover {
+        color: $primary-color;
+    }
+}
