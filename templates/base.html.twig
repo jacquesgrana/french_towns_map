@@ -21,11 +21,11 @@
                 <p class="text-primary-dark">Vous êtes connecté comme : 
                 <span class="text-orange">{{ app.user.userIdentifier }}</span> • pseudo : 
                 <span class="text-orange">{{ app.user.pseudo }}</span> • 
-                <span><a class="link-01" href="{{ path('app_logout') }}"><span  class="text-orange link-01">Déconnexion</span></a></span>
+                <span><a class="link-01 text-orange" href="{{ path('app_logout') }}"><span>Déconnexion</span></a></span>
                 </p>
             {% else %}
                 <p class="text-primary-dark">Vous n'êtes pas connecté • 
-                <span><a href="{{ path('app_login') }}" class="link-01"><span class="text-orange link-01">Connexion</span></a></span>
+                <span><a href="{{ path('app_login') }}" class="link-01 text-orange"><span>Connexion</span></a></span>
                 </p>
             {% endif %}
         </header>
