@@ -1,7 +1,13 @@
 $primary-color: rgb(6, 89, 122);
 $primary-color-dark: rgb(2, 52, 71);
+$primary-color-light: rgb(50, 135, 168);
 $secondary-color: rgb(187, 214, 224);
 
 $white:rgb(236, 250, 255);
 
-$orange:rgb(255, 140, 0)
+$orange:rgb(255, 140, 0);
+$orange-dark-01:rgb(255, 100, 0);
+$orange-light-01:rgb(255, 180, 0);
+
+$primary: $primary-color !important;
+$secondary: $secondary-color !important;

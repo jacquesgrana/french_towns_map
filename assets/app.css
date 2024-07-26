@@ -26,6 +26,25 @@
   color: rgb(6, 89, 122);
 }
 
+.link-02 {
+  text-decoration: none;
+  font-weight: 700;
+}
+.link-02:hover {
+  color: rgb(2, 52, 71);
+}
+
+.btn-primary {
+  background-color: rgb(50, 135, 168);
+  border-color: rgb(6, 89, 122);
+  color: rgb(236, 250, 255);
+}
+.btn-primary:hover {
+  background-color: rgb(2, 52, 71);
+  border-color: rgb(2, 52, 71);
+  color: rgb(236, 250, 255);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -53,7 +72,6 @@ header {
   flex-direction: column;
   flex-wrap: wrap;
   padding-top: 20px;
-  padding-bottom: 13px;
 }
 
 footer {
@@ -66,7 +84,6 @@ footer {
   flex-direction: column;
   flex-wrap: wrap;
   padding-top: 10px;
-  padding-bottom: 6px;
 }
 
 .main {
