@@ -26,6 +26,12 @@ class Town
     #[ORM\JoinColumn(nullable: false)]
     private ?PositionGps $positionGps = null;
 
+    #[ORM\OneToOne(mappedBy: 'capitalTown', cascade: ['persist', 'remove'])]
+    private ?Region $capitalOfRegion = null;
+
+    #[ORM\OneToOne(mappedBy: 'capitalTown', cascade: ['persist', 'remove'])]
+    private ?Departement $capitalOfDepartement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +81,50 @@ class Town
     public function setPositionGps(?PositionGps $positionGps): static
     {
         $this->positionGps = $positionGps;
+
+        return $this;
+    }
+
+    public function getCapitalOfRegion(): ?Region
+    {
+        return $this->capitalOfRegion;
+    }
+
+    public function setCapitalOfRegion(?Region $capitalOf): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($capitalOf === null && $this->capitalOf !== null) {
+            $this->capitalOf->setCapitalTown(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($capitalOf !== null && $capitalOf->getCapitalTown() !== $this) {
+            $capitalOf->setCapitalTown($this);
+        }
+
+        $this->capitalOf = $capitalOf;
+
+        return $this;
+    }
+
+    public function getCapitalOfDepartement(): ?Departement
+    {
+        return $this->capitalOfDepartement;
+    }
+
+    public function setCapitalOfDepartement(?Departement $capitalOf): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($capitalOf === null && $this->capitalOf !== null) {
+            $this->capitalOf->setCapitalTown(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($capitalOf !== null && $capitalOf->getCapitalTown() !== $this) {
+            $capitalOf->setCapitalTown($this);
+        }
+
+        $this->capitalOf = $capitalOf;
 
         return $this;
     }

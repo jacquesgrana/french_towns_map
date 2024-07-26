@@ -23,6 +23,9 @@ class Departement
     #[ORM\JoinColumn(nullable: false)]
     private ?Region $region = null;
 
+    #[ORM\OneToOne(inversedBy: 'capitalOfDepartement', cascade: ['persist', 'remove'])]
+    private ?Town $capitalTown = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,23 @@ class Departement
     public function setRegion(?Region $region): static
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    public function getCapitalTown(): ?Town
+    {
+        return $this->capitalTown;
+    }
+
+    public function setCapitalTown(?Town $capitalTown): static
+    {
+        $this->capitalTown = $capitalTown;
+
+        // set (or unset) the owning side of the relation if necessary
+        if ($capitalTown->getCapitalOfDepartement() !== $this) {
+            $capitalTown->setCapitalOfDepartement($this);
+        }
 
         return $this;
     }

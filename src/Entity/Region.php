@@ -27,6 +27,9 @@ class Region
     #[ORM\OneToMany(targetEntity: Departement::class, mappedBy: 'region')]
     private Collection $departements;
 
+    #[ORM\OneToOne(inversedBy: 'capitalOfRegion', cascade: ['persist', 'remove'])]
+    private ?Town $capitalTown = null;
+
     public function __construct()
     {
         $this->departements = new ArrayCollection();
@@ -86,6 +89,23 @@ class Region
             if ($departement->getRegion() === $this) {
                 $departement->setRegion(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getCapitalTown(): ?Town
+    {
+        return $this->capitalTown;
+    }
+
+    public function setCapitalTown(?Town $capitalTown): static
+    {
+        $this->capitalTown = $capitalTown;
+
+        // set (or unset) the owning side of the relation if necessary
+        if ($capitalTown->getCapitalOfRegion() !== $this) {
+            $capitalTown->setCapitalOfRegion($this);
         }
 
         return $this;
