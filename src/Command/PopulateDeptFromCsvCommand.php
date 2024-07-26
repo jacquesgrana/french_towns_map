@@ -9,16 +9,21 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\RegionRepository;
 use App\Entity\Region;
+use App\Entity\Departement;
 
 #[AsCommand(
-    name: 'app:populate-table-region',
-    description: 'Populate Region table from CSV file',
+    name: 'app:populate-table-dept',
+    description: 'Populate Departement table from CSV file',
 )]
-class PopulateRegionFromCsvCommand extends Command
+class PopulateDeptFromCsvCommand extends Command
 {
 
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(
+        private EntityManagerInterface $em,
+        private RegionRepository $regionRepository
+        )
     {
         parent::__construct();
     }
@@ -56,17 +61,26 @@ class PopulateRegionFromCsvCommand extends Command
 
             // Traitement des données
             foreach ($data as $row) {
-                $regionCode = $row[0];
-                $regionName = $row[4];
+                $deptCode = $row[0];
+                $deptRegCode = $row[1];
+                $deptName = $row[5];
 
-                $newRegion = new Region();
-                $newRegion->setRegCode($regionCode);
-                $newRegion->setRegName($regionName);
+                $region = $this->regionRepository->findOneBy(['regCode' => $deptRegCode]);
+                if(!$region) {
+                    $io->error('Region not found: ' . $deptRegCode);
+                    return Command::FAILURE;
+                }
 
-                $this->em->persist($newRegion);
+                $newDept = new Departement();
+                $newDept->setDepCode($deptCode);
+                $newDept->setDepName($deptName);
+                $newDept->setRegion($region);
+                $region->addDepartement($newDept);
+                $this->em->persist($region);
+                $this->em->persist($newDept);
 
                 // afficher chaque ligne
-                $io->text($newRegion->getRegCode() . ' - ' . $newRegion->getRegName());
+                $io->text($newDept->getDepCode() . ' - ' . $newDept->getDepName() . ' - ' . $newDept->getRegion()->getRegName());
             }
 
             $this->em->flush();
