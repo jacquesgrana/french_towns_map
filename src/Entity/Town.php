@@ -32,6 +32,10 @@ class Town
     #[ORM\OneToOne(mappedBy: 'capitalTown', cascade: ['persist', 'remove'])]
     private ?Departement $capitalOfDepartement = null;
 
+    #[ORM\ManyToOne(inversedBy: 'towns')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Departement $departement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +129,18 @@ class Town
         }
 
         $this->capitalOf = $capitalOf;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?Departement
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?Departement $departement): static
+    {
+        $this->departement = $departement;
 
         return $this;
     }
