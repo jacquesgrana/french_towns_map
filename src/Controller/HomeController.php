@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\TownRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HomeController extends AbstractController
 {
@@ -27,5 +29,20 @@ class HomeController extends AbstractController
     public function redirectToHome(): Response
     {
         return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/get-towns-by-bounds', name: 'get_towns_by_bounds', methods: ['POST'])]
+    public function getTownsByBounds(
+        TownRepository $townRepository,
+        Request $request
+    ) {
+        $data = json_decode($request->getContent(), true);
+
+        $sw_lat = $data['sw_lat'];
+        $sw_lng = $data['sw_lng'];
+        $ne_lat = $data['ne_lat'];
+        $ne_lng = $data['ne_lng'];
+
+        return new JsonResponse($townRepository->findByBoundingBox($sw_lat, $sw_lng, $ne_lat, $ne_lng));
     }
 }

@@ -6,34 +6,80 @@
 <div class="main">
     <div id="map"></div>
 
-    <p>Liste des villes à afficher :</p>
-    <ul>
-        {% for town in townsGps %}
-            <li>{{ town.townName }} / {{ town.latitude }} / {{ town.longitude }}</li>
-        {% else %}
-            <li>Aucune ville trouvée</li>
-        {% endfor %}
-    </ul>
-    <p class="mt-4">Liste des villes trouvées par nom :</p>
-    <ul>
-        {% for town in townsName %}
-            <li>{{ town.townName }} / {{ town.latitude }} / {{ town.longitude }}</li>
-        {% else %}
-            <li>Aucune ville trouvée</li>
-        {% endfor %}
-    </ul>
+    
 
 </div>
 {% endblock %}
 {% block js %}
 <script>
-    console.log('test 01');
+    var map;
+    var townsData = [];
     document.addEventListener('DOMContentLoaded',() => {
-    var map = L.map('map').setView([43.610769, 3.876716], 13);
-    //console.log('test 02 : map : ', map);
+    initMap();
+    });
+    document.addEventListener('turbo:load',() => {
+        const mapContainer = document.getElementById('map');
+        if(mapContainer) initMap();
+    });
+
+function initMap() {
+    if (map) {
+        map.remove(); 
+    }
+    map = L.map('map').setView([43.610769, 3.876716], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-});
+    sendBoundsToServer();
+    map.on('moveend', sendBoundsToServer);
+}
+
+
+
+const updateBounds = () => {
+    var bounds = map.getBounds();
+    var sw = bounds.getSouthWest();
+    var ne = bounds.getNorthEast();
+    
+    console.log('Sud-Ouest:', sw.lat, sw.lng);
+    console.log('Nord-Est:', ne.lat, ne.lng);
+}
+const sendBoundsToServer = () => {
+    var bounds = map.getBounds();
+    var sw = bounds.getSouthWest();
+    var ne = bounds.getNorthEast();
+    //console.log('Sud-Ouest:', sw.lat, sw.lng);
+    //console.log('Nord-Est:', ne.lat, ne.lng);
+    fetch('/get-towns-by-bounds', {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            sw_lat: sw.lat,
+            sw_lng: sw.lng,
+            ne_lat: ne.lat,
+            ne_lng: ne.lng
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        //console.log('Success:', data);
+        townsData = data;
+        refreshMap(map, data);
+        })
+    .catch((error) => console.error('Error:', error));
+}
+
+const refreshMap = (map, towns) => {
+    //console.log('test');
+    towns.forEach((town) => {
+        L.marker([town.latitude, town.longitude])
+            .addTo(map)
+            .bindPopup(town.townName);
+    });
+}
+
 </script>
 {% endblock %}
