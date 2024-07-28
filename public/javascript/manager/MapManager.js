@@ -1,15 +1,31 @@
 class MapManager {
     map;
     townsData;
+    selectedTown;
     constructor() {
         this.map = null;
         this.townsData = [];
+        this.selectedTown = null;
     }
 
     run() {
         document.addEventListener('DOMContentLoaded',() => {
             const mapContainer = document.getElementById('map');
             if(mapContainer) this.initMap();
+            const btnCenterOnTown = document.getElementById('btn-center-town');
+            //console.log('this.selectedTown : ', this.selectedTown);
+            if(btnCenterOnTown) btnCenterOnTown.addEventListener('click', () => {
+                this.centerMapOnSelectedTown();
+            });
+            const btnCenterPosGps = document.getElementById('btn-center-position');
+            if(btnCenterPosGps) btnCenterPosGps.addEventListener('click', () => {
+                this.askGeoLocationAndCenterMap(this);
+            });
+            //btn-search
+            const btnSearch = document.getElementById('btn-search');
+            if(btnSearch) btnSearch.addEventListener('click', () => {
+                this.toggleSearchDiv();
+            });
         });
         document.addEventListener('turbo:load',() => {
             const mapContainer = document.getElementById('map');
@@ -76,7 +92,7 @@ class MapManager {
                 .addTo(map)
                 .bindPopup(town.townName);
             marker.on('click', () => {
-            this.displayTownDetails(town);
+            this.updateSelectedTown(town);
             //marker.openPopup();
             });
         });
@@ -84,7 +100,7 @@ class MapManager {
 
     async displayTownDetails(town) {
         //console.log(town);
-        // appel fonction qui fait une requete sur /get-town-infos-from-apis avec ?townCode = ...
+
         const infos = await this.getInfosFromApis(town.townCode);
         const population = infos.population;
         const altitude = infos.altitude;
@@ -114,4 +130,48 @@ class MapManager {
         return await result.json();
     }
 
+    async updateSelectedTown(town) {
+        this.selectedTown = town;
+        this.displayTownDetails(town);
+    }
+
+    centerMapOnSelectedTown() {
+        if(!this.selectedTown) return;
+        this.centerMapOnPosition(this.selectedTown.latitude, this.selectedTown.longitude);
+    }
+
+
+    
+  async  askGeoLocationAndCenterMap(that) {
+    function success(position) {
+        //console.log("Latitude: " + position.coords.latitude + "°, Longitude: " + position.coords.longitude + "°");
+        that.centerMapOnPosition(position.coords.latitude, position.coords.longitude);
+    }
+
+    function error() {
+      alert("Pas de position accessible !");
+    }
+    const options = {
+      enableHighAccuracy: true,
+      maximumAge: 30000,
+      timeout: 27000,
+    };
+
+    const watchID = navigator.geolocation.getCurrentPosition(
+      success,
+      error,
+      options
+    );
+  }
+    
+
+    centerMapOnPosition(latitude, longitude) {
+    //console.log('latitude : ', latitude, 'longitude : ', longitude);
+        this.map.panTo([latitude, longitude]);
+    }
+
+    toggleSearchDiv() {
+        const searchDiv = document.getElementById('search-div');
+        searchDiv.classList.toggle('display-none');
+    }
 }
