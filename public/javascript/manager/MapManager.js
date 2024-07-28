@@ -87,11 +87,13 @@ class MapManager {
         // appel fonction qui fait une requete sur /get-town-infos-from-apis avec ?townCode = ...
         const infos = await this.getInfosFromApis(town.townCode);
         const population = infos.population;
+        const altitude = infos.altitude;
+        //console.log('infos : ', infos);
         const textElement = document.getElementById('result-text');
         let html = "<p class='result-line'>" + town.townName + "</p>";
         html += "<p class='result-line'>" + town.townZipCode + "</p>";
         html += "<p class='result-line'>" + town.depName + " / " + town.regName + "</p>";
-        if(infos !== '') html += "<p class='result-line'>Population : " + population + "</p>";
+        if(infos !== '') html += "<p class='result-line'>Population : " + population + " / Altitude : " + altitude + "</p>";
         //html += "<p class='result-line'>" + town.regName + "</p>";
         textElement.innerHTML = html;
     }

@@ -2,18 +2,21 @@
 
 namespace App\Service;
 
-class GeoApiService
+class MeteoCptApiService
 {
-    private string $geoApiUrl;
+    private string $meteoCptUrl;
+    private string $meteoCptToken;
     public function __construct()
     {
-        $this->geoApiUrl = "https://geo.api.gouv.fr";
+        $this->meteoCptUrl = "https://api.meteo-concept.com";
+        $this->meteoCptToken = "06a3e3f2f54d0caa80e3915bca02c559b6d425804cd52155164e57c6d48bd43e";
     }
 
-    public function callGeoApi($code)
+    public function callMeteoCptApi($code)
     {
-        $url = $this->geoApiUrl . "/communes/" . $code;
+        $url = $this->meteoCptUrl . "/api/ephemeride/1?token=" . $this->meteoCptToken . "&insee=" . $code;
         $curl = curl_init();
+        //${Config.METEO_CPT_URL}/api/ephemeride/1?token=${Config.METEO_CPT_TOKEN}&insee=${code_commune}
 
         /*
         // Si des données sont fournies, ajoutez-les à l'URL en tant que paramètres de requête
@@ -52,6 +55,13 @@ const datas = await fetch(
         method: "GET",
       }
     );
+
+    const url = `${Config.METEO_CPT_URL}/api/ephemeride/1?token=${Config.METEO_CPT_TOKEN}&insee=${code_commune}`;
+
+    return fetch(url, {
+      //headers: headers,
+      method: "GET",
+    })
 
     public static GEO_API_URL: string = "https://geo.api.gouv.fr";
     public static METEO_CPT_URL: string = "https://api.meteo-concept.com";
