@@ -1,6 +1,45 @@
 #map { 
     height: 600px; 
     min-width: 500px;
-    width: 100vw;
+    width: 100%;
     max-width: 900px;
+    margin-bottom: 20px;
+}
+
+#result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    min-width: 500px;
+    min-height: 40px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: $primary-color-dark;
+}
+
+#result-block {
+    border-radius: 10px;
+    min-height: 40px;
+    width: 100%;
+    padding: 10px;
+    background-color: $primary-color;
+}
+
+#result-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    color: $white;
+}
+
+.result-line {
+    color: $white;
+    font-size: 1.2em;
+    margin-bottom: 0px;
 }

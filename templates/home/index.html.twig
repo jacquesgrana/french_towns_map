@@ -5,81 +5,17 @@
 {% block body %}
 <div class="main">
     <div id="map"></div>
-
-    
-
+    <div id="result-container">
+        <div id="result-block">
+            <div id="result-text"></div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block js %}
+<script src="{{ asset('javascript/manager/MapManager.js') }}"></script>
 <script>
-    var map;
-    var townsData = [];
-    document.addEventListener('DOMContentLoaded',() => {
-    initMap();
-    });
-    document.addEventListener('turbo:load',() => {
-        const mapContainer = document.getElementById('map');
-        if(mapContainer) initMap();
-    });
-
-function initMap() {
-    if (map) {
-        map.remove(); 
-    }
-    map = L.map('map').setView([43.610769, 3.876716], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    sendBoundsToServer();
-    map.on('moveend', sendBoundsToServer);
-}
-
-
-
-const updateBounds = () => {
-    var bounds = map.getBounds();
-    var sw = bounds.getSouthWest();
-    var ne = bounds.getNorthEast();
-    
-    console.log('Sud-Ouest:', sw.lat, sw.lng);
-    console.log('Nord-Est:', ne.lat, ne.lng);
-}
-const sendBoundsToServer = () => {
-    var bounds = map.getBounds();
-    var sw = bounds.getSouthWest();
-    var ne = bounds.getNorthEast();
-    //console.log('Sud-Ouest:', sw.lat, sw.lng);
-    //console.log('Nord-Est:', ne.lat, ne.lng);
-    fetch('/get-towns-by-bounds', {
-        credentials: 'include',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            sw_lat: sw.lat,
-            sw_lng: sw.lng,
-            ne_lat: ne.lat,
-            ne_lng: ne.lng
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        //console.log('Success:', data);
-        townsData = data;
-        refreshMap(map, data);
-        })
-    .catch((error) => console.error('Error:', error));
-}
-
-const refreshMap = (map, towns) => {
-    //console.log('test');
-    towns.forEach((town) => {
-        L.marker([town.latitude, town.longitude])
-            .addTo(map)
-            .bindPopup(town.townName);
-    });
-}
-
+    var mapManager = new MapManager();
+    mapManager.run();
 </script>
 {% endblock %}

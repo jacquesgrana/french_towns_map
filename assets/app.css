@@ -95,14 +95,56 @@ footer {
   flex-grow: 1;
   padding-top: 20px;
   padding-bottom: 13px;
+  padding-left: 20px;
+  padding-right: 20px;
   color: rgb(236, 250, 255);
+  width: 100vw;
 }
 
 #map {
   height: 600px;
   min-width: 500px;
-  width: 100vw;
+  width: 100%;
   max-width: 900px;
+  margin-bottom: 20px;
+}
+
+#result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  max-width: 900px;
+  min-width: 500px;
+  min-height: 40px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: rgb(2, 52, 71);
+}
+
+#result-block {
+  border-radius: 10px;
+  min-height: 40px;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(6, 89, 122);
+}
+
+#result-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  color: rgb(236, 250, 255);
+}
+
+.result-line {
+  color: rgb(236, 250, 255);
+  font-size: 1.2em;
+  margin-bottom: 0px;
 }
 
 /*# sourceMappingURL=app.css.map */
