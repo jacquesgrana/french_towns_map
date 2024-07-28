@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\GeoApiService;
+use App\Service\MeteoCptApiService;
 
 class ApiController extends AbstractController
 {
@@ -17,23 +18,40 @@ class ApiController extends AbstractController
     public function getTownsByBounds(
         //TownRepository $townRepository,
         Request $request,
-        GeoApiService $geoApiService
+        GeoApiService $geoApiService,
+        MeteoCptApiService $meteoCptApiService
     ) {
+        $population = 0;
+        $altitude = 0;
         $data = json_decode($request->getContent(), true);
 
         $townCode = $data['townCode'];
         $result = $geoApiService->callGeoApi($townCode);
 
         $totalData = json_decode($result, true);
-        $population = 0;
+
         // Vérifier si le décodage a réussi
         if (json_last_error() === JSON_ERROR_NONE) {
             // Extraire la population
             $population = $totalData['population'];
         }
-        //$population = $result->population;
-        $toReturn = new \stdClass();
-        $toReturn->population = $population;
+
+        $resultMeteoCpt = $meteoCptApiService->callMeteoCptApi($townCode);
+        //.city.altitude
+
+        $dataMeteoCpt = json_decode($resultMeteoCpt, true);
+
+        if (json_last_error() === JSON_ERROR_NONE) {
+            // Extraire la population
+            $altitude = $dataMeteoCpt['city']['altitude'];
+        }
+
+        //$toReturn = new \stdClass();
+        //$toReturn->population = $population;
+        $toReturn = [
+            'population' => $population,
+            'altitude' => $altitude
+        ];
         return new JsonResponse($toReturn); 
         // améliorer : renvoyer un objet
     }
