@@ -27,22 +27,16 @@ class ApiController extends AbstractController
 
         $townCode = $data['townCode'];
         $result = $geoApiService->callGeoApi($townCode);
-
         $totalData = json_decode($result, true);
 
-        // Vérifier si le décodage a réussi
         if (json_last_error() === JSON_ERROR_NONE) {
-            // Extraire la population
             $population = $totalData['population'];
         }
 
         $resultMeteoCpt = $meteoCptApiService->callMeteoCptApi($townCode);
-        //.city.altitude
-
         $dataMeteoCpt = json_decode($resultMeteoCpt, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
-            // Extraire la population
             $altitude = $dataMeteoCpt['city']['altitude'];
         }
 

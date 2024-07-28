@@ -5,6 +5,16 @@
 {% block body %}
 <div class="main">
     <div id="map"></div>
+    <div class="container-01" id="map-btn-container">
+        <button id="btn-center-position" class="btn btn-primary">Centrer Position</button>
+        <button id="btn-center-town" class="btn btn-primary">Centrer Commune</button>
+        <button id="btn-search" class="btn btn-primary">Rechercher</button>
+        <div id="search-div" class="display-none">
+            <label for="map-search-request">Recherche</label>
+            <input type="text" id="map-search-request" />
+            <button class="btn btn-sm btn-primary">Ok</button>
+        </div>
+    </div>
     <div id="result-container">
         <div id="result-block">
             <div id="result-text"></div>

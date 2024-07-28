@@ -41,7 +41,7 @@
 }
 .btn-primary:hover {
   background-color: rgb(2, 52, 71);
-  border-color: rgb(2, 52, 71);
+  border-color: rgb(50, 135, 168);
   color: rgb(236, 250, 255);
 }
 
@@ -107,6 +107,8 @@ footer {
   width: 100%;
   max-width: 900px;
   margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid rgb(2, 52, 71);
 }
 
 #result-container {
@@ -145,6 +147,31 @@ footer {
   color: rgb(236, 250, 255);
   font-size: 1.2em;
   margin-bottom: 0px;
+}
+
+.container-01 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 900px;
+  min-width: 500px;
+  min-height: 40px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: rgb(2, 52, 71);
+}
+
+#search-div {
+  transition: 0.3s;
+}
+
+.display-none {
+  transition: 0.3s;
+  display: none;
 }
 
 /*# sourceMappingURL=app.css.map */

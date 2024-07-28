@@ -14,14 +14,14 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(TownRepository $townRepository): Response
     {
-        $townsGps = $townRepository->findByBoundingBox(43.520769, 3.752716, 43.700769, 4.000716);
+        //$townsGps = $townRepository->findByBoundingBox(43.520769, 3.752716, 43.700769, 4.000716);
 
-        $townsName = $townRepository->findByName('Montp');
+        //$townsName = $townRepository->findByName('Montp');
 
         return $this->render('home/index.html.twig', 
         [
-            'townsGps' => $townsGps,
-            'townsName' => $townsName
+            //'townsGps' => $townsGps,
+            //'townsName' => $townsName
         ]);
     }
 
@@ -35,7 +35,7 @@ class HomeController extends AbstractController
     public function getTownsByBounds(
         TownRepository $townRepository,
         Request $request
-    ) {
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
         $sw_lat = $data['sw_lat'];
