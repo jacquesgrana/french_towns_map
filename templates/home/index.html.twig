@@ -23,13 +23,16 @@
     <div id="result-container">
         <div id="result-block">
             <div id="result-text"></div>
+            <button id="btn-favorite" class="btn btn-sm btn-primary-small">+</button>
         </div>
+        
     </div>
 </div>
 {% endblock %}
 {% block js %}
 <script src="{{ asset('javascript/manager/MapManager.js') }}"></script>
 <script src="{{ asset('javascript/service/TownService.js') }}"></script>
+<script src="{{ asset('javascript/service/SecurityService.js') }}"></script>
 <script>
     var mapManager = new MapManager();
     mapManager.run();

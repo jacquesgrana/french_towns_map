@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,6 +45,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $active = null;
 
+    /**
+     * @var Collection<int, Town>
+     */
+    #[ORM\ManyToMany(targetEntity: Town::class, inversedBy: 'favoriteOfUsers')]
+    private Collection $favoriteTowns;
+
+    public function __construct()
+    {
+        $this->favoriteTowns = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,11 +90,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        //$roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        //if (!\in_array('ROLE_USER', $roles, true)) $roles[] = 'ROLE_USER';
+        //$roles[] = 'ROLE_USER';
+        //$this->roles = array_unique($roles);
+        return $this->roles;
     }
 
     /**
@@ -162,6 +176,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActive(?bool $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Town>
+     */
+    public function getFavoriteTowns(): Collection
+    {
+        return $this->favoriteTowns;
+    }
+
+    public function addFavoriteTown(Town $favoriteTown): static
+    {
+        if (!$this->favoriteTowns->contains($favoriteTown)) {
+            $this->favoriteTowns->add($favoriteTown);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteTown(Town $favoriteTown): static
+    {
+        $this->favoriteTowns->removeElement($favoriteTown);
 
         return $this;
     }

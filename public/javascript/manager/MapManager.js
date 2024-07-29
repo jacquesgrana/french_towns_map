@@ -3,18 +3,75 @@ class MapManager {
     townsData;
     selectedTown;
     townService;
+    securityService;
+    //isLoggedIn;
     constructor() {
         this.map = null;
         this.townsData = [];
         this.selectedTown = null;
         this.townService = TownService.getInstance();
+        this.securityService = SecurityService.getInstance();
+        //this.isLoggedIn = this.securityService.checkAuthStatus();
     }
 
     run() {
         document.addEventListener('DOMContentLoaded',() => {
             const mapContainer = document.getElementById('map');
-            if(mapContainer) this.initMap();
-            const btnCenterOnTown = document.getElementById('btn-center-town');
+            if(mapContainer) this.init();
+            this.initListeners();
+        });
+        document.addEventListener('turbo:load',() => {
+            const mapContainer = document.getElementById('map');
+            if(mapContainer) this.init();
+            this.initListeners();
+        });
+    }
+
+     async init() {
+        await this.securityService.checkAuthStatus();
+        this.manageButtonsWithLoggedIn();
+        //this.selectedTown = null;
+        if (this.map) {
+            this.map.remove();
+            this.map = null;
+        }
+    
+        // Récupérer l'élément conteneur de la carte
+        let mapContainer = document.getElementById('map');
+    
+        // Si le conteneur existe, le supprimer et le recréer
+        if (mapContainer) {
+            const parent = mapContainer.parentNode;
+            parent.removeChild(mapContainer);
+            mapContainer = document.createElement('div');
+            mapContainer.id = 'map';
+            // placer au debut
+            parent.insertBefore(mapContainer, parent.firstChild);
+            //parent.appendChild(mapContainer);
+        } else {
+            console.error("L'élément 'map' n'existe pas dans le DOM");
+            return;
+        }
+    
+        // Créer une nouvelle carte
+        const latitude = this.selectedTown ? this.selectedTown.latitude : 43.610769;
+        const longitude = this.selectedTown ? this.selectedTown.longitude : 3.876716;
+        this.map = L.map('map', {
+            scrollWheelZoom: false  // Désactive le zoom avec la molette
+        }).setView([latitude, longitude], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(this.map);
+        
+        if(this.selectedTown) {
+            await this.displayTownDetails(this.selectedTown);
+        }
+        this.updateMapFromBounds();
+        this.map.on('moveend', this.updateMapFromBounds);
+    }
+
+    initListeners() {
+        const btnCenterOnTown = document.getElementById('btn-center-town');
             //console.log('this.selectedTown : ', this.selectedTown);
             if(btnCenterOnTown) btnCenterOnTown.addEventListener('click', () => {
                 this.centerMapOnSelectedTown();
@@ -34,24 +91,13 @@ class MapManager {
             if(btnLaunchSearch) btnLaunchSearch.addEventListener('click', () => {
                 this.launchTownSearch();
             });
-        });
-        document.addEventListener('turbo:load',() => {
-            const mapContainer = document.getElementById('map');
-            if(mapContainer) this.initMap();
-        });
     }
 
-     initMap() {
-        
-        if (this.map) {
-            this.map.remove(); 
-        }
-        this.map = L.map('map').setView([43.610769, 3.876716], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
-        this.updateMapFromBounds();
-        this.map.on('moveend', this.updateMapFromBounds);
+    manageButtonsWithLoggedIn() {
+        const buttonFavorite = document.getElementById('btn-favorite');
+        //console.log('selectedTown : ', this.selectedTown);
+        if(!this.securityService.isLoggedIn || !this.selectedTown) {buttonFavorite.classList.add('display-none');}
+        else {buttonFavorite.classList.remove('display-none');}
     }
     
     
@@ -101,7 +147,7 @@ class MapManager {
     
     refreshMap = (map, towns) => {
         map.eachLayer((layer) => {
-            if(layer instanceof L.Circle) {
+            if(layer instanceof L.Circle || layer instanceof L.Marker) {
                 layer.remove();
             }
         });
@@ -145,6 +191,7 @@ class MapManager {
         this.selectedTown = town;
         this.displayTownDetails(town);
         this.refreshMap(this.map, this.townsData);
+        this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
     }
 
     centerMapOnSelectedTown() {
