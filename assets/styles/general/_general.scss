@@ -1,0 +1,12 @@
+.display-none {
+    transition: 0.3s;
+    display: none;
+}
+
+.display-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}

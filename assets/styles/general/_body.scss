@@ -13,10 +13,12 @@ body {
     align-items: center;
     flex-direction: column;
     color: $primary-color-dark;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 header {
-    background-color: $secondary-color;
+    background-color: $primary-color-light;
     width: 100%;
     min-height: 60px;
     display: flex;
@@ -28,7 +30,7 @@ header {
 }
 
 footer {
-    background-color: $secondary-color;
+    background-color: $primary-color-light;
     width: 100%;
     min-height: 40px;
     display: flex;

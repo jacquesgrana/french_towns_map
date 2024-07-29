@@ -2,9 +2,22 @@
     background-color: $primary-color-light;
     border-color: $primary-color;
     color: $white;
+    min-width: 160px;
     &:hover {
         background-color: $primary-color-dark;
         border-color: $primary-color-light;
-        color: $white;
+        color: $secondary-color;
+    }
+}
+
+.btn-primary-small {
+    background-color: $primary-color-light;
+    border-color: $primary-color;
+    color: $white;
+    min-width: 40px;
+    &:hover {
+        background-color: $primary-color-dark;
+        border-color: $primary-color-light;
+        color: $secondary-color;
     }
 }
