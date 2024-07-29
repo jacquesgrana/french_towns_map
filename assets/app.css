@@ -60,26 +60,26 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
 body {
   background-color: rgb(6, 89, 122);
   min-height: 100vh;
   width: 100vw;
+  max-width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   color: rgb(2, 52, 71);
-  margin-left: 0px;
-  margin-right: 0px;
 }
 
 header {
   background-color: rgb(50, 135, 168);
-  width: 100%;
+  width: 100vw;
+  max-width: 100%;
   min-height: 60px;
   display: flex;
   justify-content: start;
@@ -91,7 +91,8 @@ header {
 
 footer {
   background-color: rgb(50, 135, 168);
-  width: 100%;
+  width: 100vw;
+  max-width: 100%;
   min-height: 40px;
   display: flex;
   justify-content: start;
@@ -114,6 +115,7 @@ footer {
   padding-right: 20px;
   color: rgb(236, 250, 255);
   width: 100vw;
+  max-width: 100%;
 }
 
 .display-none {
@@ -155,6 +157,10 @@ footer {
 }
 
 #result-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   border-radius: 10px;
   min-height: 40px;
   width: 100%;

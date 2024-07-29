@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -34,8 +35,38 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
+    public function logout(): Response
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        return $this->redirectToRoute('app_home');
     }
+
+    #[Route('/check-auth', name: 'check_auth' , methods: ['GET'])]
+    public function checkAuthMethod(): JsonResponse
+    {
+        return $this->json([
+            'isLoggedIn' => $this->getUser() !== null
+        ]);
+    }
+
+    #[Route('/get-user-details', name: 'get_user_details' , methods: ['GET'])]
+    public function getUserDetails(): JsonResponse    {
+        $user = $this->getUser();
+        if($user === null) {
+            return $this->json([
+                'isLoggedIn' => false
+            ]);
+        }
+        else {
+            $userToReturn = [
+                'id' => $user->getId(),
+                'firstName' => $user->getFirstName(),
+                'lastName' => $user->getLastName(),
+                'pseudo' => $user->getPseudo(),
+                'email' => $user->getEmail()
+            ];
+        }
+        
+        return $this->json($userToReturn);
+    }
+    
 }

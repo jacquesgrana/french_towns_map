@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TownRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TownRepository::class)]
@@ -35,6 +37,17 @@ class Town
     #[ORM\ManyToOne(inversedBy: 'towns')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Departement $departement = null;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favoriteTowns')]
+    private Collection $favoriteOfUsers;
+
+    public function __construct()
+    {
+        $this->favoriteOfUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -141,6 +154,33 @@ class Town
     public function setDepartement(?Departement $departement): static
     {
         $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFavoriteOfUsers(): Collection
+    {
+        return $this->favoriteOfUsers;
+    }
+
+    public function addFavoriteOfUser(User $favoriteOfUser): static
+    {
+        if (!$this->favoriteOfUsers->contains($favoriteOfUser)) {
+            $this->favoriteOfUsers->add($favoriteOfUser);
+            $favoriteOfUser->addFavoriteTown($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteOfUser(User $favoriteOfUser): static
+    {
+        if ($this->favoriteOfUsers->removeElement($favoriteOfUser)) {
+            $favoriteOfUser->removeFavoriteTown($this);
+        }
 
         return $this;
     }
