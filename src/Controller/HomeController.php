@@ -45,4 +45,17 @@ class HomeController extends AbstractController
 
         return new JsonResponse($townRepository->findByBoundingBox($sw_lat, $sw_lng, $ne_lat, $ne_lng));
     }
+
+
+    #[Route('/get-towns-by-name', name: 'get_towns_by_name', methods: ['POST'])]
+    public function getTownsByName(
+        TownRepository $townRepository,
+        Request $request
+    ): JsonResponse {
+        $data = json_decode($request->getContent(), true);
+
+        $searchRequest = $data['searchRequest'];
+
+        return new JsonResponse($townRepository->findByName($searchRequest));
+    }
 }
