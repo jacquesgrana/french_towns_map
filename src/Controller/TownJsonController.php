@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\TownRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,21 +58,24 @@ class TownJsonController extends AbstractController
                 return new JsonResponse(['isFavorite' => false]);
             }
     
+            /** @var \App\Entity\User $user **/
             $user = $this->getUser();
+            // force user type to User entity
+
             if ($user === null) {
                 return new JsonResponse(['isFavorite' => false]);
             }
-    
+
             $userFavorites = $user->getFavoriteTowns();
             if (count($userFavorites) === 0) {
                 return new JsonResponse(['isFavorite' => false]);
             }
             $isFavorite = $userFavorites->contains($town);
-    
             return new JsonResponse(['isFavorite' => $isFavorite]);
-        } catch (\Exception $e) {
+        } 
+        catch (\Exception $e) {
             // Log l'erreur
-            $this->logger->error('Error in getIsFavorite: ' . $e->getMessage());
+            //$this->logger->error('Error in getIsFavorite: ' . $e->getMessage());
             return new JsonResponse(['error' => 'An unexpected error occurred'], 500);
         }
     }
@@ -97,12 +99,11 @@ class TownJsonController extends AbstractController
             if ($town === null) {    
                 return new JsonResponse(['message' => 'no town found'], 404);
             }
-    
+            /** @var \App\Entity\User $user **/
             $user = $this->getUser();
             if ($user === null) {
                 return new JsonResponse(['message' => 'user not logged in'], 401);
             }
-    
             $userFavorites = $user->getFavoriteTowns();
             $isFavorite = $userFavorites->contains($town);
     
@@ -132,6 +133,7 @@ class TownJsonController extends AbstractController
         TownRepository $townRepository
     ): JsonResponse
     {
+        /** @var \App\Entity\User $user **/
         $user = $this->getUser();
         if ($user === null) {
             return new JsonResponse(['message' => 'user not logged in'], 401);
