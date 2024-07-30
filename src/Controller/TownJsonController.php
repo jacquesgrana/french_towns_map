@@ -122,9 +122,21 @@ class TownJsonController extends AbstractController
             return new JsonResponse(['message' => "done"], 200);
         } catch (\Exception $e) {
             // Log l'erreur
-            $this->logger->error('Error in toggleFavoriteForTown: ' . $e->getMessage());
+            //$this->logger->error('Error in toggleFavoriteForTown: ' . $e->getMessage());
             return new JsonResponse(['message' => 'An unexpected error occurred'], 500);
         }
+    }
+
+    #[Route('/get-favorite-towns', name: 'get_favorite_towns', methods: ['GET'])]
+    public function getFavoriteTowns(
+        TownRepository $townRepository
+    ): JsonResponse
+    {
+        $user = $this->getUser();
+        if ($user === null) {
+            return new JsonResponse(['message' => 'user not logged in'], 401);
+        }
+        return new JsonResponse($user->getFavoriteTowns());
     }
     
 }

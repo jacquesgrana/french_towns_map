@@ -35,8 +35,19 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: /, roles: PUBLIC_ACCESS }
+        - { path: /home, roles: PUBLIC_ACCESS }
+        - { path: /login, roles: PUBLIC_ACCESS }
+        - { path: /logout, roles: ROLE_USER }
+        - { path: /check-auth, roles: PUBLIC_ACCESS }
+        - { path: /get-user-details, roles: ROLE_USER }
+        - { path: /get-towns-by-bounds, roles: PUBLIC_ACCESS }
+        - { path: /get-towns-by-name, roles: PUBLIC_ACCESS }
+        - { path: /get-town-infos-from-apis, roles: PUBLIC_ACCESS }
+        - { path: /get-is-favorite, roles: ROLE_USER }
+        - { path: /toggle-favorite-for-town, roles: ROLE_USER }
+        - { path: /get-favorite-towns, roles: ROLE_USER }
 
 when@test:
     security:
