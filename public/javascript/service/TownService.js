@@ -9,6 +9,7 @@ class TownService {
     }
 
 
+    // TODO gérer les erreurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     async getInfosFromApis(code) {
         //console.log('code : ', code);
         const result = await fetch('/get-town-infos-from-apis', {
@@ -57,5 +58,37 @@ class TownService {
         });
 
         return await result.json();
+    }
+
+    async getIsFavorite(town) {
+        //return {isFavorite: true}
+        //console.log('town : ', town);
+        const result = await fetch('/get-is-favorite', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                townId: town.id
+            })
+        });
+        const data = await result.json();
+        return data;
+    }
+
+    async toggleFavoriteForTown(town) {
+        const result = await fetch('/toggle-favorite-for-town', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                townId: town.id
+            })
+        });
+        const data = await result.json();
+        return data;
     }
 }

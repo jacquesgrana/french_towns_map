@@ -24,6 +24,7 @@
 }
 
 #result-block {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -133,4 +134,18 @@
         background-color: $primary-color-light;
         color: $primary-color-dark;
     }
+}
+
+.favorite-star {
+    font-size: 1.2em;
+    color: $secondary-color;
+    &:hover {
+        color: $secondary-color-light;
+    }
+}
+
+#btn-favorite {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }

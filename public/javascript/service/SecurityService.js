@@ -23,6 +23,4 @@ class SecurityService {
         this.userDetails = await result.json();
         return this.userDetails;
     }
-
-
 }

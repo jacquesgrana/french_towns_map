@@ -15,15 +15,16 @@ class MapManager {
     }
 
     run() {
+        /*
         document.addEventListener('DOMContentLoaded',() => {
+            this.initListeners();
             const mapContainer = document.getElementById('map');
             if(mapContainer) this.init();
-            this.initListeners();
-        });
+        });*/
         document.addEventListener('turbo:load',() => {
+            this.initListeners();
             const mapContainer = document.getElementById('map');
             if(mapContainer) this.init();
-            this.initListeners();
         });
     }
 
@@ -73,29 +74,34 @@ class MapManager {
     initListeners() {
         const btnCenterOnTown = document.getElementById('btn-center-town');
             //console.log('this.selectedTown : ', this.selectedTown);
-            if(btnCenterOnTown) btnCenterOnTown.addEventListener('click', () => {
-                this.centerMapOnSelectedTown();
-            });
-            const btnCenterPosGps = document.getElementById('btn-center-position');
-            if(btnCenterPosGps) btnCenterPosGps.addEventListener('click', () => {
-                this.askGeoLocationAndCenterMap(this);
-            });
-            //btn-search
-            const btnSearch = document.getElementById('btn-search');
-            if(btnSearch) btnSearch.addEventListener('click', () => {
-                this.toggleSearchDiv();
-            });
+        if(btnCenterOnTown) btnCenterOnTown.addEventListener('click', () => {
+            this.centerMapOnSelectedTown();
+        });
+        const btnCenterPosGps = document.getElementById('btn-center-position');
+        if(btnCenterPosGps) btnCenterPosGps.addEventListener('click', () => {
+            this.askGeoLocationAndCenterMap(this);
+        });
+        const btnSearch = document.getElementById('btn-search');
+        if(btnSearch) btnSearch.addEventListener('click', () => {
+            console.log('click search');
+            this.toggleSearchDiv();
+        });
 
-            //btn-search
-            const btnLaunchSearch = document.getElementById('btn-launch-search');
-            if(btnLaunchSearch) btnLaunchSearch.addEventListener('click', () => {
-                this.launchTownSearch();
-            });
+        const btnLaunchSearch = document.getElementById('btn-launch-search');
+        if(btnLaunchSearch) btnLaunchSearch.addEventListener('click', () => {
+            this.launchTownSearch();
+        });
+        // btn-favorite
+        const btnFavorite = document.getElementById('btn-favorite');
+        if(btnFavorite) btnFavorite.addEventListener('click', () => {
+            this.toggleFavorite();
+        });
     }
 
     manageButtonsWithLoggedIn() {
         const buttonFavorite = document.getElementById('btn-favorite');
         //console.log('selectedTown : ', this.selectedTown);
+
         if(!this.securityService.isLoggedIn || !this.selectedTown) {buttonFavorite.classList.add('display-none');}
         else {buttonFavorite.classList.remove('display-none');}
     }
@@ -164,34 +170,75 @@ class MapManager {
             const marker = L.marker([town.latitude, town.longitude])
                 .addTo(map)
                 .bindPopup(town.townName);
-            marker.on('click', () => {
-            this.updateSelectedTown(town);
+            marker.on('click', async () => {
+                await this.updateSelectedTown(town);
             //marker.openPopup();
             });
 
         });
     }
 
+    // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     async displayTownDetails(town) {
+        let starHtml = '';
         //console.log(town);
+        if(this.securityService.isLoggedIn) {
+            const isFavoriteData = await this.townService.getIsFavorite(town);
+            
+            if(isFavoriteData.isFavorite) {
+                //starHtml = '<i class="fas fa-star"></i>';
+                starHtml = '<strong class="favorite-star">&nbsp;&star;</strong>';
+            } 
+             
+        }
+        //console.log('starHtml : ', starHtml);
         const infos = await this.townService.getInfosFromApis(town.townCode);
         const population = infos.population;
         const altitude = infos.altitude;
         //console.log('infos : ', infos);
         const textElement = document.getElementById('result-text');
         let html = "<p class='result-line'>" + town.townName + " • ";
-        html += town.townZipCode + "</p>";
+        html += town.townZipCode;
+        html += starHtml + "</p>";
         html += "<p class='result-line'>" + town.depName + " • " + town.regName + "</p>";
         if(infos !== '') html += "<p class='result-line'>Population : " + population + " • Altitude : " + altitude + "</p>";
         //html += "<p class='result-line'>" + town.regName + "</p>";
         textElement.innerHTML = html;
     }
 
-    updateSelectedTown(town) {
+    async updateSelectedTown(town) {
+        //console.log('isLoggedIn : ', this.securityService.isLoggedIn);
         this.selectedTown = town;
-        this.displayTownDetails(town);
+        await this.displayTownDetails(town);
         this.refreshMap(this.map, this.townsData);
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
+        // TODO ajouter vérification si deja favori : changer le bouton en '-'
+        // TODO faire requete qui check si la ville est dans la liste des favoris de l'user
+        if(this.securityService.isLoggedIn) {
+            const isFavoriteData = await this.townService.getIsFavorite(this.selectedTown);
+            //console.log('isFavoriteData : ', isFavoriteData);
+            const isFavorite = isFavoriteData.isFavorite;
+            //console.log('isFavorite : ', isFavorite);
+             // appeler fonction qui change le bouton selon isFavorite
+            this.manageFavoriteButton(isFavorite);
+            if(isFavorite) {
+               
+            }
+        }
+        
+        //console.log('isFavorite : ', isFavorite);
+    }
+
+    manageFavoriteButton(isFavorite) {
+        const buttonFavorite = document.getElementById('btn-favorite');
+        if(buttonFavorite) {
+            if(isFavorite) {
+                buttonFavorite.textContent = "-";
+            } 
+            else {
+                buttonFavorite.textContent = "+";
+            }
+        }
     }
 
     centerMapOnSelectedTown() {
@@ -267,11 +314,12 @@ class MapManager {
                 const option = document.createElement('option');
                 option.textContent = town.townName + ' - ' + town.townZipCode;
                 option.value = town.townCode;
+                /*
                 option.onselect = () => {
                     console.log('option : ', option.value);
                     this.updateSelectedTown(town);                    
                     this.centerMapOnSelectedTown();
-                }
+                }*/
                 selectElt.appendChild(option);
             });
 
@@ -287,5 +335,31 @@ class MapManager {
                 }
             });
         }
+    }
+
+    // fonction du clic sur ajouter/enlever favori
+    // faire requete pour toggle le favori dans le townService
+    // mettre a jour le bouton du favori
+    
+    toggleFavorite = async () => {
+        if(!this.selectedTown || !this.securityService.isLoggedIn) return;
+        // appeler methode townService.toggleFavoriteForTown(townId)
+        const resultToggle = await this.townService.toggleFavoriteForTown(this.selectedTown);
+        const resultFavorite = await this.townService.getIsFavorite(this.selectedTown);
+        if(resultFavorite.isFavorite) {
+            this.manageFavoriteButton(true);
+        } else {
+            this.manageFavoriteButton(false);
+        }
+
+        if(resultToggle.message === "done") {
+            // afficher alerte 'favoris mis à jour'
+            alert('Favori mis à jour');
+            //console.log('resultToggle : ', resultToggle);
+        }
+        else {
+            alert('Erreur lors de la mise à jour du favori :', resultToggle.message);
+        }
+        this.displayTownDetails(this.selectedTown);
     }
 }
