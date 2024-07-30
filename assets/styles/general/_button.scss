@@ -21,3 +21,20 @@
         color: $secondary-color;
     }
 }
+
+.btn-primary-dark-small {
+    background-color: $primary-color-dark;
+    border-color: $primary-color-dark;
+    color: $secondary-color;
+    width: 36px;
+    height: 36px;
+    font-size: 1.38em;
+    line-height: 0.62em;
+    text-align: center;
+    border-radius: 50%;
+    &:hover {
+        background-color: $primary-color;
+        border-color: $primary-color;
+        color: $white;
+    }
+}

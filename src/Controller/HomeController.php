@@ -31,6 +31,7 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+    /*
     #[Route('/get-towns-by-bounds', name: 'get_towns_by_bounds', methods: ['POST'])]
     public function getTownsByBounds(
         TownRepository $townRepository,
@@ -58,4 +59,5 @@ class HomeController extends AbstractController
 
         return new JsonResponse($townRepository->findByName($searchRequest));
     }
+    */
 }
