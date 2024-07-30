@@ -44,9 +44,16 @@ class Town
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favoriteTowns')]
     private Collection $favoriteOfUsers;
 
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'town')]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->favoriteOfUsers = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,8 +117,8 @@ class Town
     public function setCapitalOfRegion(?Region $capitalOf): self
     {
         // unset the owning side of the relation if necessary
-        if ($capitalOf === null && $this->capitalOf !== null) {
-            $this->capitalOf->setCapitalTown(null);
+        if ($capitalOf === null && $this->capitalOfRegion !== null) {
+            $this->capitalOfRegion->setCapitalTown(null);
         }
 
         // set the owning side of the relation if necessary
@@ -119,7 +126,7 @@ class Town
             $capitalOf->setCapitalTown($this);
         }
 
-        $this->capitalOf = $capitalOf;
+        $this->capitalOfRegion = $capitalOf;
 
         return $this;
     }
@@ -132,8 +139,8 @@ class Town
     public function setCapitalOfDepartement(?Departement $capitalOf): self
     {
         // unset the owning side of the relation if necessary
-        if ($capitalOf === null && $this->capitalOf !== null) {
-            $this->capitalOf->setCapitalTown(null);
+        if ($capitalOf === null && $this->capitalOfDepartement !== null) {
+            $this->capitalOfDepartement->setCapitalTown(null);
         }
 
         // set the owning side of the relation if necessary
@@ -141,7 +148,7 @@ class Town
             $capitalOf->setCapitalTown($this);
         }
 
-        $this->capitalOf = $capitalOf;
+        $this->capitalOfDepartement = $capitalOf;
 
         return $this;
     }
@@ -180,6 +187,36 @@ class Town
     {
         if ($this->favoriteOfUsers->removeElement($favoriteOfUser)) {
             $favoriteOfUser->removeFavoriteTown($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setTown($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getTown() === $this) {
+                $comment->setTown(null);
+            }
         }
 
         return $this;

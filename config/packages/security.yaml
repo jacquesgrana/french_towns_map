@@ -48,6 +48,8 @@ security:
         - { path: /get-is-favorite, roles: ROLE_USER }
         - { path: /toggle-favorite-for-town, roles: ROLE_USER }
         - { path: /get-favorite-towns, roles: ROLE_USER }
+        - { path: /get-comments-for-user, roles: ROLE_USER }
+        - { path: /get-comments-for-town, roles: PUBLIC_ACCESS }
 
 when@test:
     security:

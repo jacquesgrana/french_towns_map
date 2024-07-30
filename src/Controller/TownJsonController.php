@@ -5,9 +5,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\TownRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
+
 
 class TownJsonController extends AbstractController
 {
@@ -129,9 +131,7 @@ class TownJsonController extends AbstractController
     }
 
     #[Route('/get-favorite-towns', name: 'get_favorite_towns', methods: ['GET'])]
-    public function getFavoriteTowns(
-        TownRepository $townRepository
-    ): JsonResponse
+    public function getFavoriteTowns(): JsonResponse
     {
         /** @var \App\Entity\User $user **/
         $user = $this->getUser();
@@ -139,6 +139,69 @@ class TownJsonController extends AbstractController
             return new JsonResponse(['message' => 'user not logged in'], 401);
         }
         return new JsonResponse($user->getFavoriteTowns());
+    }
+    
+    #[Route('/get-comments-for-user', name: 'get_comments_for_user', methods: ['GET'])]
+    public function getCommentsForUser(): JsonResponse
+    {
+        /** @var \App\Entity\User $user **/
+        $user = $this->getUser();
+        if ($user === null) {
+            return new JsonResponse(['message' => 'user not logged in'], 401);
+        }
+        $comments = $user->getComments();
+        
+        $commentsArray = array_map(function($comment) {
+            return [
+                'id' => $comment->getId(),
+                'title' => $comment->getTitle(),
+                'comment' => $comment->getComment(),
+                'createdAt' => $comment->getCreatedAt()->format('Y-m-d H:i:s'),
+                'modifiedAt' => $comment->getModifiedAt()->format('Y-m-d H:i:s'),
+                'score' => $comment->getScore(),
+                'userPseudo' => $comment->getUser()->getPseudo(),
+                'townName' => $comment->getTown()->getTownName()
+            ];
+        }, $comments->toArray());
+        
+        return new JsonResponse(['comments' => $commentsArray]);
+    }
+
+    ///get-comments-for-town
+    #[Route('/get-comments-for-town', name: 'get_comments_for_town', methods: ['POST'])]
+    public function getCommentsForTown(
+        TownRepository $townRepository,
+        CommentRepository $commentRepository,
+        Request $request
+    ): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        if (!isset($data['townId'])) {
+            return new JsonResponse(['error' => 'townId is required'], 400);
+        }
+
+        $townId = $data['townId'];
+        $town = $townRepository->find($townId);
+        if (!$town) {
+            return new JsonResponse(['message' => 'Town not found'], 404);
+        }
+        
+        $comments = $commentRepository->findBy(['town' => $town]);
+        
+        $commentsArray = array_map(function($comment) {
+            return [
+                'id' => $comment->getId(),
+                'title' => $comment->getTitle(),
+                'comment' => $comment->getComment(),
+                'createdAt' => $comment->getCreatedAt()->format('Y-m-d H:i:s'),
+                'modifiedAt' => $comment->getModifiedAt()->format('Y-m-d H:i:s'),
+                'score' => $comment->getScore(),
+                'userPseudo' => $comment->getUser()->getPseudo(),
+                'townName' => $comment->getTown()->getTownName()
+            ];
+        }, $comments);
+        
+        return new JsonResponse(['comments' => $commentsArray]);
     }
     
 }
