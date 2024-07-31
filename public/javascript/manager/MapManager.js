@@ -187,7 +187,7 @@ class MapManager {
             
             if(isFavoriteData.isFavorite) {
                 //starHtml = '<i class="fas fa-star"></i>';
-                starHtml = '<strong class="favorite-star">&nbsp;&star;</strong>';
+                starHtml = '<strong class="favorite-star">&nbsp;★</strong>';
             } 
              
         }
