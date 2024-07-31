@@ -1,0 +1,14 @@
+<header>
+    <h1 class="">Carte des Communes</h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <p class="text-primary-dark">Vous êtes connecté comme : 
+        <span class="text-orange-dark-02">{{ app.user.userIdentifier }}</span> • pseudo : 
+        <span class="text-orange-dark-02">{{ app.user.pseudo }}</span> • 
+        <span><a class="link-01 text-orange-dark-02" href="{{ path('app_logout') }}"><span>Déconnexion</span></a></span>
+        </p>
+    {% else %}
+        <p class="text-primary-dark">Vous n'êtes pas connecté • 
+        <span><a href="{{ path('app_login') }}" class="link-01 text-orange-dark-02"><span>Connexion</span></a></span>
+        </p>
+    {% endif %}
+</header>

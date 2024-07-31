@@ -5,28 +5,8 @@
 {% block body %}
 <div class="main">
     <div id="map"></div>
-    <div class="container-01" id="map-btn-container">
-        <div class="container-02">
-            <button id="btn-center-position" class="btn btn-primary">Centrer Position</button>
-            <button id="btn-center-town" class="btn btn-primary">Centrer Commune</button>
-            <button id="btn-search" class="btn btn-primary">Rechercher</button>
-        </div>
-        <div id="search-div" class="display-none">
-            <label for="map-search-request">Recherche</label>
-            <input type="text" id="input-search-request" />
-            <button id="btn-launch-search" class="btn btn-sm btn-primary-small">Ok</button>
-            <select id="select-search-request" class="display-none">
-                <option class="option-search-request" value="">Choisir une commune</option>
-            </select>
-        </div>
-    </div>
-    <div id="result-container">
-        <div id="result-block">
-            <div id="result-text"></div>
-            <button id="btn-favorite" class="btn btn-sm btn-primary-dark-small">+</button>
-        </div>
-        
-    </div>
+    {{ include('./home/div_buttons.html.twig') }}
+    {{ include('./home/div_infos.html.twig') }}
 </div>
 {% endblock %}
 {% block js %}
