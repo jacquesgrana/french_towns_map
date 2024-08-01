@@ -78,7 +78,7 @@ class TownService {
     }
 
     async toggleFavoriteForTown(town) {
-        const result = await fetch('/toggle-favorite-for-town', {
+        const result = await fetch('/toggle-favorite-by-town', {
             credentials: 'include',
             method: 'POST',
             headers: {
@@ -94,7 +94,22 @@ class TownService {
 
     //get-comments-for-town
     async getTownComments(town) {
-        const result = await fetch('/get-comments-for-town', {
+        const result = await fetch('/get-comments-by-town', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                townId: town.id
+            })
+        });
+        const data = await result.json();
+        return data;
+    }
+
+    async getTownAverageScore(town) {
+        const result = await fetch('/get-average-score-by-town', {
             credentials: 'include',
             method: 'POST',
             headers: {
