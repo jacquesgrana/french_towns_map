@@ -141,7 +141,7 @@ class TownJsonController extends AbstractController
         return new JsonResponse($user->getFavoriteTowns());
     }
     
-    #[Route('/get-comments-for-user', name: 'get_comments_for_user', methods: ['GET'])]
+    #[Route('/get-comments-by-user', name: 'get_comments_for_user', methods: ['GET'])]
     public function getCommentsForUser(): JsonResponse
     {
         /** @var \App\Entity\User $user **/
@@ -168,7 +168,7 @@ class TownJsonController extends AbstractController
     }
 
     ///get-comments-for-town
-    #[Route('/get-comments-for-town', name: 'get_comments_for_town', methods: ['POST'])]
+    #[Route('/get-comments-by-town', name: 'get_comments_for_town', methods: ['POST'])]
     public function getCommentsForTown(
         TownRepository $townRepository,
         CommentRepository $commentRepository,
@@ -179,7 +179,6 @@ class TownJsonController extends AbstractController
         if (!isset($data['townId'])) {
             return new JsonResponse(['error' => 'townId is required'], 400);
         }
-
         $townId = $data['townId'];
         $town = $townRepository->find($townId);
         if (!$town) {
@@ -202,6 +201,21 @@ class TownJsonController extends AbstractController
         }, $comments);
         
         return new JsonResponse(['comments' => $commentsArray]);
+    }
+
+    #[Route('/get-average-score-by-town', name: 'get_average_score_for_town', methods: ['POST'])]
+
+    public function getAverageScore(
+        TownRepository $townRepository,
+        Request $request
+    ): JsonResponse {
+        $data = json_decode($request->getContent(), true);
+        if (!isset($data['townId'])) {
+            return new JsonResponse(['error' => 'townId is required'], 400);
+        }
+        $townId = $data['townId'];
+        $averageScore = $townRepository->getAverageScore($townId);
+        return new JsonResponse(['averageScore' => $averageScore]);
     }
     
 }

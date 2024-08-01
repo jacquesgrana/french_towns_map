@@ -101,4 +101,21 @@ class TownRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function getAverageScore($townId): float {
+        $town = $this->find($townId);
+        if ($town) {
+            // faire requete qui calcule la moyenne des scores de tous les commentaires de la commune
+            $query = $this->em->createQuery(
+                'SELECT AVG(c.score) FROM App\Entity\Comment c WHERE c.town = :town'
+            );
+            $query->setParameter('town', $town);
+            return floatval(
+                $query->getSingleScalarResult()
+            );
+        } 
+        else {
+            return -1.0;
+        }
+    }
 }

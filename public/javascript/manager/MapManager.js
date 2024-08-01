@@ -182,6 +182,12 @@ class MapManager {
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     async displayTownDetails(town) {
+        const averageScoreData = await this.townService.getTownAverageScore(town);
+        // transformer en nombre a 1 chiffre apres la virgule
+        //console.log('averageScore : ', averageScoreData.averageScore);
+
+        const averageScore = Number(averageScoreData.averageScore.toFixed(1));
+        //console.log('averageScore : ', averageScore);
         let starHtml = '';
         //console.log(town);
         if(this.securityService.isLoggedIn) {
@@ -205,6 +211,7 @@ class MapManager {
         html += "<p class='result-line'>" + town.depName + " • " + town.regName + "</p>";
         if(infos !== '') html += "<p class='result-line'>Population : " + population + " • Altitude : " + altitude + "</p>";
         //html += "<p class='result-line'>" + town.regName + "</p>";
+        if(averageScore > 0) html += "<p class='result-line'>Score moyen : " + averageScore + "/5</p>";
         textElement.innerHTML = html;
     }
 
@@ -277,6 +284,7 @@ class MapManager {
         this.map.panTo([latitude, longitude]);
     }
 
+    // mettre dans la vue
     toggleSearchDiv() {
         const searchDiv = document.getElementById('search-div');
         searchDiv.classList.toggle('display-none');
@@ -302,6 +310,7 @@ class MapManager {
         }
     }
 
+    // mettre dans la vue
     fillSelectWithResults(towns, that) {
         towns.sort((a, b) => (a.townName > b.townName) ? 1 : -1);
         const selectElt = document.getElementById('select-search-request');
