@@ -9,7 +9,8 @@ class TownService {
     }
 
 
-    // TODO gérer les erreurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // TODO gérer les erreurs 
+    // TODO dispatcher certaines méthodes dans des services dédiés (par entité) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     async getInfosFromApis(code) {
         //console.log('code : ', code);
         const result = await fetch('/get-town-infos-from-apis', {
@@ -60,6 +61,7 @@ class TownService {
         return await result.json();
     }
 
+    /*
     async getIsFavorite(town) {
         //return {isFavorite: true}
         //console.log('town : ', town);
@@ -76,7 +78,9 @@ class TownService {
         const data = await result.json();
         return data;
     }
+        */
 
+    /*
     async toggleFavoriteForTown(town) {
         const result = await fetch('/toggle-favorite-by-town', {
             credentials: 'include',
@@ -91,7 +95,9 @@ class TownService {
         const data = await result.json();
         return data;
     }
+    */
 
+    /*
     //get-comments-for-town
     async getTownComments(town) {
         const result = await fetch('/get-comments-by-town', {
@@ -107,6 +113,20 @@ class TownService {
         const data = await result.json();
         return data;
     }
+
+    ///get-comments-by-user
+    async getCommentsForUser() {
+        const result = await fetch('/get-comments-by-user', {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await result.json();
+        return data;
+    }
+    */
 
     async getTownAverageScore(town) {
         const result = await fetch('/get-average-score-by-town', {

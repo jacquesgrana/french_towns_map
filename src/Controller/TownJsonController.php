@@ -9,6 +9,7 @@ use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Serializer\CommentSerializer;
 
 
 class TownJsonController extends AbstractController
@@ -83,7 +84,7 @@ class TownJsonController extends AbstractController
     }
 
     // /toggle-favorite-for-town
-    #[Route('/toggle-favorite-for-town', name: 'toggle_favorite_for_town', methods: ['POST'])]
+    #[Route('/toggle-favorite-by-town', name: 'toggle_favorite_for_town', methods: ['POST'])]
     public function toggleFavoriteForTown(
         TownRepository $townRepository,
         Request $request,
@@ -141,8 +142,11 @@ class TownJsonController extends AbstractController
         return new JsonResponse($user->getFavoriteTowns());
     }
     
+    // TODO mettre dans CommentJsonService
     #[Route('/get-comments-by-user', name: 'get_comments_for_user', methods: ['GET'])]
-    public function getCommentsForUser(): JsonResponse
+    public function getCommentsForUser(
+        CommentSerializer $commentSerializer
+    ): JsonResponse
     {
         /** @var \App\Entity\User $user **/
         $user = $this->getUser();
@@ -151,6 +155,7 @@ class TownJsonController extends AbstractController
         }
         $comments = $user->getComments();
         
+        /*
         $commentsArray = array_map(function($comment) {
             return [
                 'id' => $comment->getId(),
@@ -163,16 +168,20 @@ class TownJsonController extends AbstractController
                 'townName' => $comment->getTown()->getTownName()
             ];
         }, $comments->toArray());
-        
+        */
+
+        $commentsArray = $commentSerializer->serializeComments($comments->toArray());
         return new JsonResponse(['comments' => $commentsArray]);
     }
 
-    ///get-comments-for-town
+    // TODO mettre dans CommentJsonService
+    // /get-comments-for-town
     #[Route('/get-comments-by-town', name: 'get_comments_for_town', methods: ['POST'])]
     public function getCommentsForTown(
         TownRepository $townRepository,
         CommentRepository $commentRepository,
-        Request $request
+        Request $request,
+        CommentSerializer $commentSerializer
     ): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -187,6 +196,7 @@ class TownJsonController extends AbstractController
         
         $comments = $commentRepository->findBy(['town' => $town]);
         
+        /*
         $commentsArray = array_map(function($comment) {
             return [
                 'id' => $comment->getId(),
@@ -199,7 +209,8 @@ class TownJsonController extends AbstractController
                 'townName' => $comment->getTown()->getTownName()
             ];
         }, $comments);
-        
+        */
+        $commentsArray = $commentSerializer->serializeComments($comments);
         return new JsonResponse(['comments' => $commentsArray]);
     }
 

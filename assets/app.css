@@ -362,9 +362,9 @@ footer {
 #map-accordion .comment-score {
   color: rgb(241, 119, 53);
   font-weight: 800;
-  font-size: 2em;
+  font-size: 1.2em;
   position: absolute;
-  top: 0px;
+  top: 10px;
   right: 20px;
 }
 #map-accordion .card-text {

@@ -3,6 +3,8 @@ class MapManager {
     townsData;
     selectedTown;
     townService;
+    favoriteService;
+    commentService;
     securityService;
     //isLoggedIn;
     constructor() {
@@ -11,6 +13,8 @@ class MapManager {
         this.selectedTown = null;
         this.comments = [];
         this.townService = TownService.getInstance();
+        this.favoriteService = FavoriteService.getInstance();
+        this.commentService = CommentService.getInstance();
         this.securityService = SecurityService.getInstance();
         //this.isLoggedIn = this.securityService.checkAuthStatus();
     }
@@ -191,7 +195,7 @@ class MapManager {
         let starHtml = '';
         //console.log(town);
         if(this.securityService.isLoggedIn) {
-            const isFavoriteData = await this.townService.getIsFavorite(town);
+            const isFavoriteData = await this.favoriteService.getIsFavorite(town);
             
             if(isFavoriteData.isFavorite) {
                 //starHtml = '<i class="fas fa-star"></i>';
@@ -225,7 +229,7 @@ class MapManager {
         // TODO ajouter vérification si deja favori : changer le bouton en '-'
         // TODO faire requete qui check si la ville est dans la liste des favoris de l'user
         if(this.securityService.isLoggedIn) {
-            const isFavoriteData = await this.townService.getIsFavorite(this.selectedTown);
+            const isFavoriteData = await this.favoriteService.getIsFavorite(this.selectedTown);
             //console.log('isFavoriteData : ', isFavoriteData);
             const isFavorite = isFavoriteData.isFavorite;
             //console.log('isFavorite : ', isFavorite);
@@ -356,8 +360,8 @@ class MapManager {
     toggleFavorite = async () => {
         if(!this.selectedTown || !this.securityService.isLoggedIn) return;
         // appeler methode townService.toggleFavoriteForTown(townId)
-        const resultToggle = await this.townService.toggleFavoriteForTown(this.selectedTown);
-        const resultFavorite = await this.townService.getIsFavorite(this.selectedTown);
+        const resultToggle = await this.favoriteService.toggleFavoriteForTown(this.selectedTown);
+        const resultFavorite = await this.favoriteService.getIsFavorite(this.selectedTown);
         //TODO : tester : this.manageFavoriteButton(resultFavorite.isFavorite);
 
         if(resultFavorite.isFavorite) {
@@ -381,7 +385,7 @@ class MapManager {
 
     updateComments = async (selectedTown) => {
         //console.log('updateComments for : ', selectedTown);
-        const commentsData = await this.townService.getTownComments(this.selectedTown);
+        const commentsData = await this.commentService.getTownComments(this.selectedTown);
         this.comments = commentsData.comments;
         //console.log('comments : ', this.comments);
         this.displayComments(this.comments);
