@@ -91,4 +91,20 @@ class TownService {
         const data = await result.json();
         return data;
     }
+
+    //get-comments-for-town
+    async getTownComments(town) {
+        const result = await fetch('/get-comments-for-town', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                townId: town.id
+            })
+        });
+        const data = await result.json();
+        return data;
+    }
 }

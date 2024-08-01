@@ -175,13 +175,75 @@
     .accordion-body {
         background-color: $primary-color-medium;
         color: $primary-color-dark;
+        border-radius: 0 0 10px 10px;
+
+    }
+
+    #map-accordion-body-comment {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card {
+        position: relative;
+        border: none;
+        box-shadow: none;
+    }
+
+    .comment-pseudo {
+        color: $secondary-color;
+        font-weight: 300;
+        font-style: italic;
+        font-size: 0.8em;
+    }
+
+    .comment-date {
+        color: $white;
+        font-style: italic;
+        font-size: 0.8em;
+        color: $secondary-color;
+    }
+
+    .comment-score {
+        color: $secondary-color;
+        font-weight: 800;
+        font-size: 2em;
+        position: absolute;
+        top: 0px;
+        right: 20px;
+    }
+
+    .card-text {
+        margin-bottom: 0px;
+    }
+
+    
+    .card-comment {
+        width: 100%;
     }
 
     /*
-    .card-body {
-
+    .card-favorite {
     }
     */
+
+    .card-title {
+        color: $white;
+        font-weight: 700;
+        font-size: 1.2em;
+    }
+    
+    .card-body {
+        background-color: $primary-color-dark;
+        //border: 2px solid $primary-color-light;
+        border:none;
+        border-radius: 5px;
+        box-shadow: none;
+        color: $white;
+    }
 
     .accordion-button {
         background-color: $primary-color-medium;
@@ -200,7 +262,7 @@
 
         &:not(.collapsed)::after,
         &.collapsed::after {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); 
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f17735'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); 
         }
         &::after {
             color: $white !important;

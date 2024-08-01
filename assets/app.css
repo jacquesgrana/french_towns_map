@@ -317,8 +317,7 @@ footer {
   max-width: 900px;
   margin-top: 20px;
   /*
-  .card-body {
-
+  .card-favorite {
   }
   */
 }
@@ -334,6 +333,57 @@ footer {
 #map-accordion .accordion-body {
   background-color: rgb(0, 69, 97);
   color: rgb(2, 52, 71);
+  border-radius: 0 0 10px 10px;
+}
+#map-accordion #map-accordion-body-comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+#map-accordion .card {
+  position: relative;
+  border: none;
+  box-shadow: none;
+}
+#map-accordion .comment-pseudo {
+  color: rgb(241, 119, 53);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.8em;
+}
+#map-accordion .comment-date {
+  color: rgb(236, 250, 255);
+  font-style: italic;
+  font-size: 0.8em;
+  color: rgb(241, 119, 53);
+}
+#map-accordion .comment-score {
+  color: rgb(241, 119, 53);
+  font-weight: 800;
+  font-size: 2em;
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+#map-accordion .card-text {
+  margin-bottom: 0px;
+}
+#map-accordion .card-comment {
+  width: 100%;
+}
+#map-accordion .card-title {
+  color: rgb(236, 250, 255);
+  font-weight: 700;
+  font-size: 1.2em;
+}
+#map-accordion .card-body {
+  background-color: rgb(2, 52, 71);
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  color: rgb(236, 250, 255);
 }
 #map-accordion .accordion-button {
   background-color: rgb(0, 69, 97);
@@ -347,7 +397,7 @@ footer {
   border-radius: 10px;
 }
 #map-accordion .accordion-button:not(.collapsed)::after, #map-accordion .accordion-button.collapsed::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f17735'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 #map-accordion .accordion-button::after {
   color: rgb(236, 250, 255) !important;
