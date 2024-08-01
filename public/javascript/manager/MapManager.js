@@ -9,6 +9,7 @@ class MapManager {
         this.map = null;
         this.townsData = [];
         this.selectedTown = null;
+        this.comments = [];
         this.townService = TownService.getInstance();
         this.securityService = SecurityService.getInstance();
         //this.isLoggedIn = this.securityService.checkAuthStatus();
@@ -66,6 +67,7 @@ class MapManager {
         
         if(this.selectedTown) {
             await this.displayTownDetails(this.selectedTown);
+            await this.updateComments(this.selectedTown);
         }
         this.updateMapFromBounds();
         this.map.on('moveend', this.updateMapFromBounds);
@@ -210,6 +212,7 @@ class MapManager {
         //console.log('isLoggedIn : ', this.securityService.isLoggedIn);
         this.selectedTown = town;
         await this.displayTownDetails(town);
+        await this.updateComments(this.selectedTown);
         this.refreshMap(this.map, this.townsData);
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
         // TODO ajouter vérification si deja favori : changer le bouton en '-'
@@ -346,9 +349,12 @@ class MapManager {
         // appeler methode townService.toggleFavoriteForTown(townId)
         const resultToggle = await this.townService.toggleFavoriteForTown(this.selectedTown);
         const resultFavorite = await this.townService.getIsFavorite(this.selectedTown);
+        //TODO : tester : this.manageFavoriteButton(resultFavorite.isFavorite);
+
         if(resultFavorite.isFavorite) {
             this.manageFavoriteButton(true);
-        } else {
+        } 
+        else {
             this.manageFavoriteButton(false);
         }
 
@@ -360,6 +366,80 @@ class MapManager {
         else {
             alert('Erreur lors de la mise à jour du favori :', resultToggle.message);
         }
-        this.displayTownDetails(this.selectedTown);
+        await this.displayTownDetails(this.selectedTown);
+        await this.updateComments(this.selectedTown);
+    }
+
+    updateComments = async (selectedTown) => {
+        //console.log('updateComments for : ', selectedTown);
+        const commentsData = await this.townService.getTownComments(this.selectedTown);
+        this.comments = commentsData.comments;
+        //console.log('comments : ', this.comments);
+        this.displayComments(this.comments);
+    }
+
+    displayComments = (comments) => {
+        // trier comments par date de création
+        comments.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
+
+        const commentNb = comments.length;
+        const buttonTitle = document.getElementById('acc-button-comment');
+        if(buttonTitle) buttonTitle.textContent = 'Commentaires (' + commentNb + ')';
+        //console.log('comments : ', comments);
+        const commentsDiv = document.getElementById('map-accordion-body-comment');
+        if(!commentsDiv) return;
+        commentsDiv.innerHTML = '';
+        //console.log('commentsDiv : ', commentsDiv);
+        if(comments.length === 0) {
+            const noCommentsDiv = document.createElement('div');
+            const paragraph = document.createElement('p');
+            paragraph.classList.add('text-white');
+            paragraph.textContent = 'Aucun commentaire(s) pour cette commune.';
+            noCommentsDiv.appendChild(paragraph);
+            commentsDiv.appendChild(noCommentsDiv);
+        }
+        else {
+            comments.forEach(comment => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.classList.add('card-comment');
+                const cardBody  = document.createElement('div');
+                cardBody.classList.add('card-body');
+
+                const cardTitle = document.createElement('h5');
+                cardTitle.classList.add('card-title');
+                const titleComment = comment.title + '&nbsp;<span class="comment-pseudo">[' + comment.userPseudo + ']</span>';
+                cardTitle.innerHTML = titleComment;
+
+
+                const cardText = document.createElement('p');
+                cardText.classList.add('card-text');
+                let textComment  = '<span class="comment-date ">Créé le :' + comment.createdAt + ' • Modifié le :' + comment.modifiedAt + '</span></br>';
+                textComment += comment.comment;
+                cardText.innerHTML = textComment;
+
+                const commentScore = document.createElement('div');
+                commentScore.classList.add('comment-score');
+                commentScore.innerHTML = comment.score;
+        
+                cardBody.appendChild(cardTitle);
+                cardBody.appendChild(cardText);
+                cardBody.appendChild(commentScore);
+
+                card.appendChild(cardBody);
+                commentsDiv.appendChild(card);
+            });
+        }
+        
     }
 }
+
+/*
+<div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+*/
