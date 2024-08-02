@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Serializer\CommentSerializer;
-
+use App\Serializer\TownSerializer;
 
 class TownJsonController extends AbstractController
 {
@@ -131,15 +131,19 @@ class TownJsonController extends AbstractController
         }
     }
 
-    #[Route('/get-favorite-towns', name: 'get_favorite_towns', methods: ['GET'])]
-    public function getFavoriteTowns(): JsonResponse
+    #[Route('/get-favorites-by-user', name: 'get_favorite_towns', methods: ['GET'])]
+    public function getFavoritesForUser(
+        TownSerializer $townSerializer
+    ): JsonResponse
     {
         /** @var \App\Entity\User $user **/
         $user = $this->getUser();
         if ($user === null) {
             return new JsonResponse(['message' => 'user not logged in'], 401);
         }
-        return new JsonResponse($user->getFavoriteTowns());
+        $favorites = $user->getFavoriteTowns()->toArray();
+        $favoritesArray = $townSerializer->serializeFavoriteTowns($favorites);
+        return new JsonResponse(['favorites' => $favoritesArray]);
     }
     
     // TODO mettre dans CommentJsonService
@@ -227,6 +231,27 @@ class TownJsonController extends AbstractController
         $townId = $data['townId'];
         $averageScore = $townRepository->getAverageScore($townId);
         return new JsonResponse(['averageScore' => $averageScore]);
+    }
+
+
+    // /get-town-by-id
+    #[Route('/get-town-by-id', name: 'get_town_by_id', methods: ['POST'])]
+    public function getTownById(
+        TownRepository $townRepository,
+        Request $request,
+        TownSerializer $townSerializer
+    ): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        if (!isset($data['townId'])) {
+            return new JsonResponse(['error' => 'townId is required'], 400);
+        }
+        $townId = $data['townId'];
+        $town = $townRepository->find($townId);
+        if ($town === null) {
+            return new JsonResponse(['message' => 'Town not found'], 404);
+        }
+        return new JsonResponse($townSerializer->serializeTown($town), 200);
     }
     
 }
