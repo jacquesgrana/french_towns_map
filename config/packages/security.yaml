@@ -47,10 +47,11 @@ security:
         - { path: /get-town-infos-from-apis, roles: PUBLIC_ACCESS }
         - { path: /get-is-favorite, roles: ROLE_USER }
         - { path: /toggle-favorite-for-town, roles: ROLE_USER }
-        - { path: /get-favorite-towns, roles: ROLE_USER }
+        - { path: /get-favorites-by-user, roles: ROLE_USER }
         - { path: /get-comments-by-user, roles: ROLE_USER }
         - { path: /get-comments-by-town, roles: PUBLIC_ACCESS }
         - { path: /get-average-score-by-town, roles: PUBLIC_ACCESS }
+        - { path: /get-town-by-id, roles: PUBLIC_ACCESS }
 
 when@test:
     security:

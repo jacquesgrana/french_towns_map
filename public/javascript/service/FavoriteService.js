@@ -40,4 +40,16 @@ class FavoriteService {
         return data;
     }
 
+    async getUserFavorites() {
+        const result = await fetch('/get-favorites-by-user', {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await result.json();
+        return data;
+    }
+
 }

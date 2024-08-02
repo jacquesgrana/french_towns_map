@@ -142,4 +142,19 @@ class TownService {
         const data = await result.json();
         return data;
     }
+
+    async getTownById(townId) {
+        const result = await fetch('/get-town-by-id', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                townId: townId
+            })
+        });
+        const data = await result.json();
+        return data;
+    }
 }

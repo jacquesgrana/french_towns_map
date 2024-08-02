@@ -179,6 +179,12 @@
 
     }
 
+    #map-accordion-body-favorite {
+        margin-left: 20px;
+        margin-right: 0px;
+        border-radius: 5px;
+    }
+
     #map-accordion-body-comment {
         display: flex;
         justify-content: center;
@@ -243,6 +249,17 @@
         border-radius: 5px;
         box-shadow: none;
         color: $white;
+    }
+
+    .list-group-item-custom {
+        background-color: $primary-color-dark;
+        border: 1px solid $primary-color-medium;
+        color: $white;
+
+        &:hover {
+            background-color: $primary-color-light;
+            color: $primary-color-dark;
+        }
     }
 
     .accordion-button {
