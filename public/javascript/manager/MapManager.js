@@ -1,4 +1,5 @@
 class MapManager {
+    mapVue;
     map;
     townsData;
     selectedTown;
@@ -10,6 +11,7 @@ class MapManager {
     securityService;
     //isLoggedIn;
     constructor() {
+        this.mapVue = new MapVue();
         this.map = null;
         this.townsData = [];
         this.selectedTown = null;
@@ -57,7 +59,8 @@ class MapManager {
             // placer au debut
             parent.insertBefore(mapContainer, parent.firstChild);
             //parent.appendChild(mapContainer);
-        } else {
+        } 
+        else {
             console.error("L'élément 'map' n'existe pas dans le DOM");
             return;
         }
@@ -115,48 +118,11 @@ class MapManager {
         if(!this.securityService.isLoggedIn || !this.selectedTown) {buttonFavorite.classList.add('display-none');}
         else {buttonFavorite.classList.remove('display-none');}
     }
-    
-    
-    /*
-    updateBounds = () => {
-        var bounds = map.getBounds();
-        var sw = bounds.getSouthWest();
-        var ne = bounds.getNorthEast();
-        
-        console.log('Sud-Ouest:', sw.lat, sw.lng);
-        console.log('Nord-Est:', ne.lat, ne.lng);
-    }
-    */
 
     updateMapFromBounds = async () => {
         var bounds = this.map.getBounds();
         var sw = bounds.getSouthWest();
         var ne = bounds.getNorthEast();
-        //console.log('Sud-Ouest:', sw.lat, sw.lng);
-        //console.log('Nord-Est:', ne.lat, ne.lng);
-/*
-        fetch('/get-towns-by-bounds', {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                sw_lat: sw.lat,
-                sw_lng: sw.lng,
-                ne_lat: ne.lat,
-                ne_lng: ne.lng
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            //console.log('Success:', data);
-            this.townsData = data;
-            this.refreshMap(this.map, data);
-            })
-        .catch((error) => console.error('Error:', error));
-*/
-
         this.townsData = await this.townService.getTownsFromBounds(sw.lat, sw.lng, ne.lat, ne.lng);
         this.refreshMap(this.map, this.townsData);
     }
@@ -189,6 +155,7 @@ class MapManager {
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // TODO créer des méthodes et en mettre dans la vue
     async displayTownDetails(town) {
         const averageScoreData = await this.townService.getTownAverageScore(town);
         // transformer en nombre a 1 chiffre apres la virgule
@@ -204,8 +171,7 @@ class MapManager {
             if(isFavoriteData.isFavorite) {
                 //starHtml = '<i class="fas fa-star"></i>';
                 starHtml = '<strong class="favorite-star">&nbsp;★</strong>';
-            } 
-             
+            }  
         }
         //console.log('starHtml : ', starHtml);
         const infos = await this.townService.getInfosFromApis(town.townCode);
@@ -314,47 +280,8 @@ class MapManager {
             //console.log('isRegHexValid : ', isRegHexValid);
             if(requestValue.length > 3 && isRegHexValid) {
                 const townsToDisplay = await this.townService.getTownsFromSearch(requestValue);
-                this.fillSelectWithResults(townsToDisplay, this);
+                this.mapVue.fillSelectWithResults(townsToDisplay, this);
             }
-        }
-    }
-
-    // mettre dans la vue
-    fillSelectWithResults(towns, that) {
-        towns.sort((a, b) => (a.townName > b.townName) ? 1 : -1);
-        const selectElt = document.getElementById('select-search-request');
-        if(selectElt && towns.length > 0) {
-            selectElt.classList.remove('display-none');
-            selectElt.innerHTML = ''
-            const firstOption = document.createElement('option');
-            firstOption.textContent = 'Choisir une commune';
-            firstOption.value = '';
-            ;
-            selectElt.appendChild(firstOption);
-            towns.forEach((town) => {
-                const option = document.createElement('option');
-                option.textContent = town.townName + ' - ' + town.townZipCode;
-                option.value = town.townCode;
-                /*
-                option.onselect = () => {
-                    console.log('option : ', option.value);
-                    this.updateSelectedTown(town);                    
-                    this.centerMapOnSelectedTown();
-                }*/
-                selectElt.appendChild(option);
-            });
-
-            selectElt.addEventListener('change', async (event) => {
-                const selectedTownCode = event.target.value;
-                const selectedTown = towns.find(town => town.townCode === selectedTownCode);
-                if (selectedTown) {
-                    //console.log('Ville sélectionnée:', selectedTown);
-                    await this.updateSelectedTown(selectedTown);
-                    //this.toggleSearchDiv();
-                    
-                    that.centerMapOnSelectedTown();
-                }
-            });
         }
     }
 
@@ -391,10 +318,10 @@ class MapManager {
 
     updateComments = async (selectedTown) => {
         //console.log('updateComments for : ', selectedTown);
-        const commentsData = await this.commentService.getTownComments(this.selectedTown);
+        const commentsData = await this.commentService.getTownComments(selectedTown);
         this.comments = commentsData.comments;
         //console.log('comments : ', this.comments);
-        this.displayComments(this.comments);
+        this.mapVue.displayComments(this.comments);
     }
 
     updateFavorites = async () => {
@@ -402,135 +329,15 @@ class MapManager {
         const favoritesData = await this.favoriteService.getUserFavorites();
         this.favorites = favoritesData.favorites;
         //console.log('favorites : ', this.favorites);
-        this.displayFavoriteTowns(this.favorites);
+        this.mapVue.displayFavoriteTowns(this.favorites, this);
     }
-
-    // TODO mettre dans la vue
-    displayFavoriteTowns = (towns) => {
-        console.log('displayFavoriteTowns : ', towns);
-        // trier les towns par townName
-        towns.sort((a, b) => (a.townName > b.townName) ? 1 : -1);
-
-        const favoriteTownNb = towns.length;
-        //acc-button-favorite
-        const buttonFavorite = document.getElementById('acc-button-favorite');
-        if(buttonFavorite) buttonFavorite.textContent = 'Favoris (' + favoriteTownNb + ')';
-
-        // map-accordion-body-favorite
-        const favoritesDiv = document.getElementById('map-accordion-body-favorite');
-        if(!favoritesDiv) return;
-        favoritesDiv.innerHTML = '';
-        if(towns.length === 0) {
-            const noFavoriteDiv = document.createElement('div');
-            const paragraph = document.createElement('p');
-            paragraph.classList.add('text-white');
-            paragraph.textContent = 'Vous n\'avez pas de favori(s).';
-            noFavoriteDiv.appendChild(paragraph);
-            favoritesDiv.appendChild(noFavoriteDiv);
-        }
-        else {
-            favoritesDiv.classList.add('list-group');
-            towns.forEach(town => {
-                const button = document.createElement('button');
-                button.classList.add('list-group-item');
-                button.classList.add('list-group-item-custom');
-                button.classList.add('list-group-item-action');
-                button.textContent = town.townName;
-                button.textContent += ' • ' + town.townZipCode;
-                button.textContent += ' • ' + town.townDptName;
-                button.textContent += ' • ' + town.townRegName;
-
-                button.onclick = async () => {
-                    await this.manageClickFavoriteTown(town);
-                }
-                favoritesDiv.appendChild(button);
-            });
-            /*
-            towns.forEach(town => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.classList.add('card-favorite');
-                const cardBody  = document.createElement('div');
-                cardBody.classList.add('card-body');
-                const cardTitle = document.createElement('h5');
-                cardTitle.classList.add('card-title');
-                cardTitle.textContent = town.townName;
-                const cardText = document.createElement('p');
-                cardText.classList.add('card-text');
-                cardText.textContent = town.townZipCode;
-                cardBody.appendChild(cardTitle);
-                cardBody.appendChild(cardText);
-                card.appendChild(cardBody);
-                favoritesDiv.appendChild(card);
-            });
-            */
-        }
-    }
-
-    // TODO mettre dans la vue
-    displayComments = (comments) => {
-        // trier comments par date de création
-        comments.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
-
-        const commentNb = comments.length;
-        const buttonTitle = document.getElementById('acc-button-comment');
-        if(buttonTitle) buttonTitle.textContent = 'Commentaires (' + commentNb + ')';
-        //console.log('comments : ', comments);
-        const commentsDiv = document.getElementById('map-accordion-body-comment');
-        if(!commentsDiv) return;
-        commentsDiv.innerHTML = '';
-        //console.log('commentsDiv : ', commentsDiv);
-        if(comments.length === 0) {
-            const noCommentsDiv = document.createElement('div');
-            const paragraph = document.createElement('p');
-            paragraph.classList.add('text-white');
-            paragraph.textContent = 'Aucun commentaire(s) pour cette commune.';
-            noCommentsDiv.appendChild(paragraph);
-            commentsDiv.appendChild(noCommentsDiv);
-        }
-        else {
-            comments.forEach(comment => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.classList.add('card-comment');
-                const cardBody  = document.createElement('div');
-                cardBody.classList.add('card-body');
-
-                const cardTitle = document.createElement('h5');
-                cardTitle.classList.add('card-title');
-                const titleComment = comment.title + '&nbsp;<span class="comment-pseudo">[' + comment.userPseudo + ']</span>';
-                cardTitle.innerHTML = titleComment;
-
-
-                const cardText = document.createElement('p');
-                cardText.classList.add('card-text');
-                let textComment  = '<span class="comment-date ">Créé le :' + comment.createdAt + ' • Modifié le :' + comment.modifiedAt + '</span></br>';
-                textComment += comment.comment;
-                cardText.innerHTML = textComment;
-
-                const commentScore = document.createElement('div');
-                commentScore.classList.add('comment-score');
-                commentScore.innerHTML = comment.score;
-        
-                cardBody.appendChild(cardTitle);
-                cardBody.appendChild(cardText);
-                cardBody.appendChild(commentScore);
-
-                card.appendChild(cardBody);
-                commentsDiv.appendChild(card);
-            });
-        }
-        
-    }
-
 
     async manageClickFavoriteTown(town) {
-        console.log('clic liste sur town : ', town);
-        
+        //console.log('clic liste sur town : ', town); 
         let realTown = null;
         // appeller méthode de townService qui fait requete pour recuperer la town à partir de son id
         realTown = await this.townService.getTownById(town.id);
-        console.log('realTown : ', realTown);
+        //console.log('realTown : ', realTown);
         if(realTown) {
             await this.updateSelectedTown(realTown);
             this.centerMapOnSelectedTown();
