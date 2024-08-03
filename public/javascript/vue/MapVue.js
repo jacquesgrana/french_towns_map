@@ -27,22 +27,54 @@ class MapVue {
         else {
             favoritesDiv.classList.add('list-group');
             towns.forEach(town => {
-                const button = document.createElement('button');
+                const button = document.createElement('div');
                 button.classList.add('list-group-item');
                 button.classList.add('list-group-item-custom');
-                button.classList.add('list-group-item-action');
-                button.textContent = town.townName;
-                button.textContent += ' • ' + town.townZipCode;
-                button.textContent += ' • ' + town.townDptName;
-                button.textContent += ' • ' + town.townRegName;
+                //button.classList.add('list-group-item-action');
+                button.classList.add('favorite-item');
+                const divInfo = document.createElement('div');
+                divInfo.innerHTML = town.townName;
+                divInfo.innerHTML += ' <span class="text-secondary">•</span> ' + town.townZipCode;
+                divInfo.innerHTML += ' <span class="text-secondary">•</span> ' + town.townDptName;
+                divInfo.innerHTML += ' <span class="text-secondary">•</span> ' + town.townRegName;
+                button.appendChild(divInfo);
+                const divButton = document.createElement('div');
 
+                const buttonCenterFavorite = document.createElement('button');
+                buttonCenterFavorite.classList.add('btn');
+                buttonCenterFavorite.classList.add('btn-sm');
+                buttonCenterFavorite.classList.add('btn-secondary-very-small');
+                buttonCenterFavorite.classList.add('decal-down');
+                buttonCenterFavorite.textContent = '◎';
+                buttonCenterFavorite.onclick = async () => {
+                    await that.manageClickFavoriteTown(town);
+                }
+                divButton.appendChild(buttonCenterFavorite);
+
+                const buttonDeleteFavorite = document.createElement('button');
+                buttonDeleteFavorite.classList.add('btn');
+                buttonDeleteFavorite.classList.add('btn-sm');
+                buttonDeleteFavorite.classList.add('btn-secondary-very-small');
+                buttonDeleteFavorite.classList.add('ms-2');
+                buttonDeleteFavorite.textContent = '-';
+                buttonDeleteFavorite.onclick = async () => {
+                    await that.toggleFavorite(town.id);
+                }
+                divButton.appendChild(buttonDeleteFavorite);
+                button.appendChild(divButton);
+
+                /*
                 button.onclick = async () => {
                     await that.manageClickFavoriteTown(town);
                 }
+                */
                 favoritesDiv.appendChild(button);
             });
         }
     }
+    /*
+<button id="btn-favorite" class="btn btn-sm btn-primary-dark-small display-none">+</button>
+    */
 
     displayComments = (comments) => {
         // trier comments par date de création

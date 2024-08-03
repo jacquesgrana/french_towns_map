@@ -25,7 +25,7 @@ class FavoriteService {
         return data;
     }
 
-    async toggleFavoriteForTown(town) {
+    async toggleFavoriteForTown(townId) {
         const result = await fetch('/toggle-favorite-by-town', {
             credentials: 'include',
             method: 'POST',
@@ -33,7 +33,7 @@ class FavoriteService {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                townId: town.id
+                townId: townId
             })
         });
         const data = await result.json();

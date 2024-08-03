@@ -23,7 +23,7 @@
 }
 
 .text-secondary {
-  color: rgb(241, 119, 53);
+  color: rgb(241, 119, 53) !important;
 }
 
 .link-01 {
@@ -81,6 +81,35 @@
   background-color: rgb(6, 89, 122);
   border-color: rgb(6, 89, 122);
   color: rgb(236, 250, 255);
+}
+
+.btn-secondary-very-small {
+  background-color: rgb(241, 119, 53);
+  border-color: rgb(241, 119, 53);
+  color: rgb(236, 250, 255);
+  width: 28px;
+  height: 28px;
+  font-size: 1.38em;
+  line-height: 0.5em;
+  text-align: center;
+  padding: 0px;
+  border-radius: 50%;
+}
+.btn-secondary-very-small::before {
+  content: attr(data-content);
+  display: block;
+  margin-top: -2px;
+}
+.btn-secondary-very-small.decal-down::before {
+  content: attr(data-content);
+  display: block;
+  margin-top: -5px;
+  margin-left: -1px;
+}
+.btn-secondary-very-small:hover {
+  background-color: rgb(85, 43, 0);
+  border-color: rgb(85, 43, 0);
+  color: rgb(241, 119, 53);
 }
 
 * {
@@ -394,10 +423,17 @@ footer {
   background-color: rgb(2, 52, 71);
   border: 1px solid rgb(0, 69, 97);
   color: rgb(236, 250, 255);
+  /*
+  &:hover {
+      background-color: $primary-color-light;
+      color: $primary-color-dark;
+  }*/
 }
-#map-accordion .list-group-item-custom:hover {
-  background-color: rgb(50, 135, 168);
-  color: rgb(2, 52, 71);
+#map-accordion .favorite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 #map-accordion .accordion-button {
   background-color: rgb(0, 69, 97);

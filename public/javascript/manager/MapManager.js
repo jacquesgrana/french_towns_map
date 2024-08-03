@@ -107,7 +107,7 @@ class MapManager {
         // btn-favorite
         const btnFavorite = document.getElementById('btn-favorite');
         if(btnFavorite) btnFavorite.addEventListener('click', async () => {
-            await this.toggleFavorite();
+            await this.toggleFavorite(this.selectedTown.id);
         });
     }
 
@@ -289,19 +289,31 @@ class MapManager {
     // faire requete pour toggle le favori dans le townService
     // mettre a jour le bouton du favori
     
-    toggleFavorite = async () => {
-        if(!this.selectedTown || !this.securityService.isLoggedIn) return;
+    toggleFavorite = async (townId) => {
+        // attention : on modifie le favori par son id et on vérifie si la vlle affichée (this.selectedTown) est en favori ou pas
+        if(!this.securityService.isLoggedIn) return;
         // appeler methode townService.toggleFavoriteForTown(townId)
-        const resultToggle = await this.favoriteService.toggleFavoriteForTown(this.selectedTown);
-        const resultFavorite = await this.favoriteService.getIsFavorite(this.selectedTown);
+        const resultToggle = await this.favoriteService.toggleFavoriteForTown(townId);
+
+        
+        if(this.selectedTown) {
+            const resultFavorite = await this.favoriteService.getIsFavorite(this.selectedTown); 
+            this.manageFavoriteButton(resultFavorite.isFavorite);
+            await this.displayTownDetails(this.selectedTown);
+        }
+        
         //TODO : tester : this.manageFavoriteButton(resultFavorite.isFavorite);
 
+        /*
         if(resultFavorite.isFavorite) {
             this.manageFavoriteButton(true);
         } 
         else {
             this.manageFavoriteButton(false);
         }
+        */
+
+        
 
         if(resultToggle.message === "done") {
             // afficher alerte 'favoris mis à jour'
@@ -311,8 +323,8 @@ class MapManager {
         else {
             alert('Erreur lors de la mise à jour du favori :', resultToggle.message);
         }
-        await this.displayTownDetails(this.selectedTown);
-        await this.updateComments(this.selectedTown);
+
+        //await this.updateComments(this.selectedTown);
         await this.updateFavorites();
     }
 
