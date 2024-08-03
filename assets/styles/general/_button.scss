@@ -38,3 +38,38 @@
         color: $white;
     }
 }
+
+.btn-secondary-very-small {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    color: $white;
+    width: 28px;
+    height: 28px;
+    font-size: 1.38em;
+    line-height: 0.5em;
+    text-align: center;
+    padding: 0px;
+    border-radius: 50%;
+
+    
+    &::before {
+        content: attr(data-content);
+        display: block;
+        margin-top: -2px; // Ajustez cette valeur selon vos besoins
+    }
+
+    &.decal-down {
+        &::before {
+            content: attr(data-content);
+            display: block;
+            margin-top: -5px; // Ajustez cette valeur selon vos besoins
+            margin-left: -1px;
+        }
+    }
+
+    &:hover {
+        background-color: $secondary-color-dark;
+        border-color: $secondary-color-dark;
+        color: $secondary-color;
+    }
+}
