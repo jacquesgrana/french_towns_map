@@ -142,17 +142,15 @@ class MapVue {
                     buttonEdit.textContent = '✎';
                     buttonEdit.onclick = async () => {
                         //await that.editComment(comment.id);
+                        that.editComment(comment);
                     }
                     buttonsDiv.appendChild(buttonEdit); 
                 }
 
-
-        
                 cardBody.appendChild(cardTitle);
                 cardBody.appendChild(cardText);
                 cardBody.appendChild(commentScore);
                 if (isUserOwnsComment) cardBody.appendChild(buttonsDiv);
-
 
                 card.appendChild(cardBody);
                 commentsDiv.appendChild(card);
@@ -187,5 +185,10 @@ class MapVue {
                 }
             });
         }
+    }
+
+    emptyCommentForm() {
+        const commentForm = document.getElementById('comment-form');
+        if(commentForm) commentForm.reset();
     }
 }

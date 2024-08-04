@@ -54,6 +54,7 @@ security:
         - { path: /get-average-score-by-town, roles: PUBLIC_ACCESS }
         - { path: /get-town-by-id, roles: PUBLIC_ACCESS }
         - { path: /submit-new-comment, roles: ROLE_USER }
+        - { path: /submit-updated-comment, roles: ROLE_USER }
         - { path: /delete-comment, roles: ROLE_USER }
 
 when@test:

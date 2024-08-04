@@ -54,6 +54,25 @@ class CommentService {
         });
         //const data = await result.json();
     } 
+
+    async updateComment(commentId, title, comment, score, townId, csrfToken) {
+        const result = await fetch('/submit-updated-comment', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                _comment_id: commentId,
+                _title: title,
+                _comment: comment,
+                _score: score,
+                //_town_id: townId,
+                _csrf_token: csrfToken
+            })
+        });
+        //const data = await result.json();
+    }
     
     async deleteComment(commentId) {
         const result = await fetch('/delete-comment', {
@@ -68,4 +87,5 @@ class CommentService {
         });
         //const data = await result.json();
     }
+
 }
