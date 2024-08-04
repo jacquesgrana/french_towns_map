@@ -30,7 +30,7 @@ class CommentUserController extends AbstractController
         $csrfToken = $data['_csrf_token'];
 
         // verifier le token CSRF
-        if (!$this->isCsrfTokenValid('new-comment-form', $csrfToken)) {
+        if (!$this->isCsrfTokenValid('comment-form', $csrfToken)) {
             dd('CSRF token invalid');
             return $this->redirectToRoute('app_home');
         }
@@ -68,6 +68,42 @@ class CommentUserController extends AbstractController
     }
 
 
+    #[Route('/submit-updated-comment', name: 'submit_updated_comment', methods: ['POST'])]
+    public function submitUpdatedComment(
+        CommentRepository $commentRepository,
+        EntityManagerInterface $em,
+        Request $request,
+        ): Response 
+    {
+        $data = json_decode($request->getContent(), true);
+        $commentId = $data['_comment_id'];
+        $title = $data['_title'];
+        $comment = $data['_comment'];
+        $score = $data['_score'];
+        $csrfToken = $data['_csrf_token'];
+
+        if (!$this->isCsrfTokenValid('comment-form', $csrfToken)) {
+            dd('CSRF token invalid');
+            return $this->redirectToRoute('app_home');
+        }
+
+        $updatedComment = $commentRepository->find($commentId);
+        if(!$updatedComment) {
+            dd('comment not found');
+            return $this->redirectToRoute('app_home');
+        }
+
+        $updatedComment->setTitle($title);
+        $updatedComment->setComment($comment);
+        $updatedComment->setScore($score);
+        $updatedComment->setModifiedAt(new \DateTimeImmutable());
+        //$em->persist($comment);
+        $em->flush();
+
+        return $this->redirectToRoute('app_home');
+    }
+
+
     #[Route('/delete-comment', name: 'delete_comment', methods: ['POST'])]
     public function deleteComment(
         CommentRepository $commentRepository,
@@ -75,7 +111,7 @@ class CommentUserController extends AbstractController
         Request $request
         ): Response
     {
-
+        /** @var \App\Entity\User $user **/
         $user = $this->getUser();
 
         if(!$user) {

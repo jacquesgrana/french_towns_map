@@ -9,6 +9,7 @@ class MapManager {
     favoriteService;
     commentService;
     securityService;
+    isNewComment;;
     //isLoggedIn;
     constructor() {
         this.mapVue = new MapVue();
@@ -21,6 +22,7 @@ class MapManager {
         this.favoriteService = FavoriteService.getInstance();
         this.commentService = CommentService.getInstance();
         this.securityService = SecurityService.getInstance();
+        this.isNewComment = true;
         //this.isLoggedIn = this.securityService.checkAuthStatus();
     }
 
@@ -114,12 +116,22 @@ class MapManager {
         const btnComment = document.getElementById('btn-comment');
         if(btnComment) btnComment.addEventListener('click', async () => {
             //console.log('click comment');
+            this.isNewComment = true;
+            // TODO changer titre modale en 'Ajouter un commentaire'
+            const modalTitle = document.getElementById('title-modal-comment');
+            if(modalTitle) modalTitle.textContent = 'Ajouter un commentaire';
+            this.mapVue.emptyCommentForm();
         });
 
         const formComment = document.getElementById('comment-form');
         if(formComment) formComment.addEventListener('submit', (event) => {
             event.preventDefault();
-            this.submitNewComment();
+            if(this.isNewComment) {
+                this.submitNewComment();
+            } else {
+                console.log('update comment');
+                this.submitUpdatedComment();
+            }
         });
 
     }
@@ -148,6 +160,26 @@ class MapManager {
         await this.commentService.submitNewComment(title, comment, score, townId, csrfToken);
 
         // fermer modale
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modal-comment'));
+        if(modal) modal.hide();
+        await this.displayTownDetails(this.selectedTown);
+        await this.updateComments(this.selectedTown);
+    }
+
+    async submitUpdatedComment() {
+        //console.log('submit updated comment');
+        const form = document.getElementById('comment-form');
+        if(!form) return;
+        const formData = new FormData(form);
+        const commentId = formData.get('_comment_id');
+        const title = formData.get('_title');
+        const comment = formData.get('_comment');
+        const score = formData.get('_score');
+        const csrfToken = formData.get('_csrf_token');
+        const townId = this.selectedTown.id;
+
+        await this.commentService.updateComment(commentId, title, comment, score, townId, csrfToken);
+
         const modal = bootstrap.Modal.getInstance(document.getElementById('modal-comment'));
         if(modal) modal.hide();
         await this.displayTownDetails(this.selectedTown);
@@ -393,8 +425,43 @@ class MapManager {
 
     async deleteComment(commentId) {
         //console.log('deleteComment : ', commentId);
-        await this.commentService.deleteComment(commentId);
-        await this.displayTownDetails(this.selectedTown);
-        await this.updateComments(this.selectedTown);
+        // afficher une confirmation avant de supprimer le commentaire
+        if(confirm('Voulez-vous supprimer ce commentaire ?')) {
+            await this.commentService.deleteComment(commentId);
+            await this.displayTownDetails(this.selectedTown);
+            await this.updateComments(this.selectedTown);
+        }        
+    }
+
+    editComment = async (comment) => {
+        console.log('editComment : ', comment);
+        // afficher le formulaire d'edition du commentaire
+
+        if(this.securityService.isLoggedIn && this.securityService.userDetails.pseudo === comment.userPseudo) {
+            this.isNewComment = false;
+            const modal = new bootstrap.Modal(document.getElementById('modal-comment'));
+            //console.log('modal : ', modal);
+            if(modal) modal.show();
+            // TODO changer titre modale en 'Modifier un commentaire'
+            const modalTitle = document.getElementById('title-modal-comment');
+            if(modalTitle) modalTitle.textContent = 'Modifier un commentaire';
+            // remplir le formulaire avec les infos du commentaire  
+            const form = document.getElementById('comment-form');
+            //console.log('form : ', form);
+            if(form) {
+                //form.reset();
+                form._comment_id.value = comment.id;
+                form._title.value = comment.title;
+                form._comment.value = comment.comment;
+                form._score.value = comment.score;
+                form._town_id.value = comment.townId;
+                //form._csrf_token.value = comment.csrfToken;
+                // set le slider en fonction du score
+                const scoreOutput = document.getElementById('comment-score-output');
+                if(scoreOutput) {
+                    scoreOutput.value = comment.score;
+                }
+            }
+        }
     }
 }
