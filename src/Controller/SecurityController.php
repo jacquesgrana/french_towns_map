@@ -50,6 +50,8 @@ class SecurityController extends AbstractController
 
     #[Route('/get-user-details', name: 'get_user_details' , methods: ['GET'])]
     public function getUserDetails(): JsonResponse    {
+
+        /** @var \App\Entity\User $user **/
         $user = $this->getUser();
         if($user === null) {
             return $this->json([

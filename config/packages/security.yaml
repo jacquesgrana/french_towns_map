@@ -36,6 +36,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/comment, roles: ROLE_ADMIN }
         - { path: /, roles: PUBLIC_ACCESS }
         - { path: /home, roles: PUBLIC_ACCESS }
         - { path: /login, roles: PUBLIC_ACCESS }
@@ -52,6 +53,8 @@ security:
         - { path: /get-comments-by-town, roles: PUBLIC_ACCESS }
         - { path: /get-average-score-by-town, roles: PUBLIC_ACCESS }
         - { path: /get-town-by-id, roles: PUBLIC_ACCESS }
+        - { path: /submit-new-comment, roles: ROLE_USER }
+        - { path: /delete-comment, roles: ROLE_USER }
 
 when@test:
     security:

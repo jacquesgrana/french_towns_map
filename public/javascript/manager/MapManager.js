@@ -35,6 +35,7 @@ class MapManager {
             this.initListeners();
             const mapContainer = document.getElementById('map');
             if(mapContainer) this.init();
+            //this.manageButtonsWithLoggedIn();
         });
     }
 
@@ -109,14 +110,48 @@ class MapManager {
         if(btnFavorite) btnFavorite.addEventListener('click', async () => {
             await this.toggleFavorite(this.selectedTown.id);
         });
+        // btn-comment
+        const btnComment = document.getElementById('btn-comment');
+        if(btnComment) btnComment.addEventListener('click', async () => {
+            //console.log('click comment');
+        });
+
+        const formComment = document.getElementById('comment-form');
+        if(formComment) formComment.addEventListener('submit', (event) => {
+            event.preventDefault();
+            this.submitNewComment();
+        });
+
     }
 
     manageButtonsWithLoggedIn() {
         const buttonFavorite = document.getElementById('btn-favorite');
-        //console.log('selectedTown : ', this.selectedTown);
-
         if(!this.securityService.isLoggedIn || !this.selectedTown) {buttonFavorite.classList.add('display-none');}
         else {buttonFavorite.classList.remove('display-none');}
+
+        const buttonComment = document.getElementById('btn-comment');
+        if(this.securityService.isLoggedIn && this.selectedTown) {buttonComment.classList.remove('display-none');}
+        else {buttonComment.classList.add('display-none');}
+    }
+
+    async submitNewComment() {
+        //console.log('submit new comment');
+        const form = document.getElementById('comment-form');
+        if(!form) return;
+        const formData = new FormData(form);
+        const title = formData.get('_title');
+        const comment = formData.get('_comment');
+        const score = formData.get('_score');
+        const csrfToken = formData.get('_csrf_token');
+        const townId = this.selectedTown.id;
+
+        await this.commentService.submitNewComment(title, comment, score, townId, csrfToken);
+
+        // fermer modale
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modal-comment'));
+        if(modal) modal.hide();
+        await this.displayTownDetails(this.selectedTown);
+        await this.updateComments(this.selectedTown);
     }
 
     updateMapFromBounds = async () => {
@@ -179,11 +214,11 @@ class MapManager {
         const altitude = infos.altitude;
         //console.log('infos : ', infos);
         const textElement = document.getElementById('result-text');
-        let html = "<p class='result-line'>" + town.townName + " • ";
+        let html = "<p class='result-line'>" + town.townName + " <span class='text-secondary'>•</span> ";
         html += town.townZipCode;
         html += starHtml + "</p>";
-        html += "<p class='result-line'>" + town.depName + " • " + town.regName + "</p>";
-        if(infos !== '') html += "<p class='result-line'>Population : " + population + " • Altitude : " + altitude + "</p>";
+        html += "<p class='result-line'>" + town.depName + " <span class='text-secondary'>•</span> " + town.regName + "</p>";
+        if(infos !== '') html += "<p class='result-line'>Population : " + population + " <span class='text-secondary'>•</span> Altitude : " + altitude + "</p>";
         //html += "<p class='result-line'>" + town.regName + "</p>";
         if(averageScore > 0) html += "<p class='result-line'>Score moyen : " + averageScore + "/5</p>";
         textElement.innerHTML = html;
@@ -333,7 +368,7 @@ class MapManager {
         const commentsData = await this.commentService.getTownComments(selectedTown);
         this.comments = commentsData.comments;
         //console.log('comments : ', this.comments);
-        this.mapVue.displayComments(this.comments);
+        this.mapVue.displayComments(this.comments, this);
     }
 
     updateFavorites = async () => {
@@ -355,17 +390,11 @@ class MapManager {
             this.centerMapOnSelectedTown();
         }
     }
+
+    async deleteComment(commentId) {
+        //console.log('deleteComment : ', commentId);
+        await this.commentService.deleteComment(commentId);
+        await this.displayTownDetails(this.selectedTown);
+        await this.updateComments(this.selectedTown);
+    }
 }
-
-
-
-/*
-<div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-*/

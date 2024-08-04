@@ -76,7 +76,7 @@ class MapVue {
 <button id="btn-favorite" class="btn btn-sm btn-primary-dark-small display-none">+</button>
     */
 
-    displayComments = (comments) => {
+    displayComments = (comments, that) => {
         // trier comments par date de création
         comments.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
 
@@ -119,10 +119,40 @@ class MapVue {
                 const commentScore = document.createElement('div');
                 commentScore.classList.add('comment-score');
                 commentScore.innerHTML = comment.score;
+
+                const isUserOwnsComment = comment.userPseudo === that.securityService.userDetails.pseudo;
+                const buttonsDiv = document.createElement('div');
+                buttonsDiv.classList.add('div-comment-buttons');
+                if(isUserOwnsComment) {
+                    const buttonDelete = document.createElement('button');
+                    buttonDelete.classList.add('btn');
+                    buttonDelete.classList.add('btn-sm');
+                    buttonDelete.classList.add('btn-secondary-very-small');
+                    buttonDelete.textContent = 'X';
+                    buttonDelete.onclick = async () => {
+                        await that.deleteComment(comment.id);
+                    }
+                    buttonsDiv.appendChild(buttonDelete);
+
+                    const buttonEdit = document.createElement('button');
+                    buttonEdit.classList.add('btn');
+                    buttonEdit.classList.add('btn-sm');
+                    buttonEdit.classList.add('btn-secondary-very-small');
+                    buttonEdit.classList.add('ms-2');
+                    buttonEdit.textContent = '✎';
+                    buttonEdit.onclick = async () => {
+                        //await that.editComment(comment.id);
+                    }
+                    buttonsDiv.appendChild(buttonEdit); 
+                }
+
+
         
                 cardBody.appendChild(cardTitle);
                 cardBody.appendChild(cardText);
                 cardBody.appendChild(commentScore);
+                if (isUserOwnsComment) cardBody.appendChild(buttonsDiv);
+
 
                 card.appendChild(cardBody);
                 commentsDiv.appendChild(card);

@@ -36,4 +36,36 @@ class CommentService {
         const data = await result.json();
         return data;
     }
+
+    async submitNewComment(title, comment, score, townId, csrfToken) {
+        const result = await fetch('/submit-new-comment', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                _title: title,
+                _comment: comment,
+                _score: score,
+                _town_id: townId,
+                _csrf_token: csrfToken
+            })
+        });
+        //const data = await result.json();
+    } 
+    
+    async deleteComment(commentId) {
+        const result = await fetch('/delete-comment', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                commentId: commentId
+            })
+        });
+        //const data = await result.json();
+    }
 }

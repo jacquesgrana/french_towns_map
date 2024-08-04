@@ -1,0 +1,13 @@
+@mixin bgcolor-rgba-color-from-rgb($color, $opacity) {
+    // Vérification que $opacity est entre 0 et 1
+    $opacity: if($opacity < 0, 0, if($opacity > 1, 1, $opacity));
+    
+    // Extraction des composantes R, G, et B
+    $red: red($color);
+    $green: green($color);
+    $blue: blue($color);
+    
+    // Création de la couleur RGBA
+    background-color: rgba($red, $green, $blue, $opacity);
+  }
+  

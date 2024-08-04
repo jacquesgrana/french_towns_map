@@ -151,6 +151,12 @@
     left: 10px;
 }
 
+#btn-comment {
+    position: absolute;
+    top: 55px;
+    left: 10px;
+}
+
 #map-accordion {
     min-width: 500px;
     width: 100%;
@@ -197,6 +203,12 @@
         position: relative;
         border: none;
         box-shadow: none;
+    }
+
+    .div-comment-buttons {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
     }
 
     .comment-pseudo {
