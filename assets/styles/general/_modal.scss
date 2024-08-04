@@ -1,0 +1,79 @@
+.modal {
+    color: $white;
+    @include bgcolor-rgba-color-from-rgb($primary-color, 0.38);
+
+    .modal-dialog {
+        
+
+        .modal-content {
+            background-color: $primary-color-dark;
+            border: 1px solid $white;
+
+            .modal-header {
+                .modal-title {
+                    font-weight: 700;
+                }
+
+                .btn-close {
+                    //background-color: $white;
+                    filter: invert(1) grayscale(100%) brightness(200%);
+                }
+            }
+
+            .modal-body {
+                p {
+                    font-weight: 300;
+                }
+
+                textarea,
+                input {
+                    font-weight: 300;
+                    color: $white;
+                    background-color: $primary-color-medium;
+                    border-color: $primary-color-medium;
+                }
+
+                input[type="range"].form-range {
+                    background-color: transparent;
+
+                    &::-webkit-slider-runnable-track {
+                        background-color: $primary-color-medium !important;
+                    }
+
+                    &::-moz-range-track {
+                        background-color: $primary-color-medium !important;
+                    }
+
+                    &::-ms-track {
+                        background-color: $primary-color-medium !important;
+                    }
+
+                    &::-webkit-slider-thumb {
+                        background-color: $primary-color !important;
+                    }
+
+                    &::-moz-range-thumb {
+                        background-color: $primary-color !important;
+                    }
+
+                    &::-ms-thumb {
+                        background-color: $primary-color !important;
+                    }
+
+                    // Pour la piste remplie à gauche de la poignée (uniquement pour WebKit)
+                    &::-webkit-slider-runnable-track {
+                        background-image: linear-gradient(to right, $primary-color, $primary-color 50%, $primary-color-medium 50%, $primary-color-medium 100%) !important;
+                        background-size: 200% 100%;
+                        background-position: right bottom;
+                    }
+                }
+            }
+
+            .modal-footer {
+                .btn {
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}

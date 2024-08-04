@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 //use App\Repository\TownRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\GeoApiService;
 use App\Service\MeteoCptApiService;
 
-class ApiController extends AbstractController
+class ApiJsonController extends AbstractController
 {
 
     #[Route('/get-town-infos-from-apis', name: 'get_towns_infos_apis', methods: ['POST'])]

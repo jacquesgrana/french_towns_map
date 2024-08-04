@@ -104,7 +104,6 @@
   content: attr(data-content);
   display: block;
   margin-top: -5px;
-  margin-left: -1px;
 }
 .btn-secondary-very-small:hover {
   background-color: rgb(85, 43, 0);
@@ -188,6 +187,60 @@ footer {
 
 .mt-20px {
   margin-top: 20px;
+}
+
+.modal {
+  color: rgb(236, 250, 255);
+  background-color: rgba(6, 89, 122, 0.38);
+}
+.modal .modal-dialog .modal-content {
+  background-color: rgb(2, 52, 71);
+  border: 1px solid rgb(236, 250, 255);
+}
+.modal .modal-dialog .modal-content .modal-header .modal-title {
+  font-weight: 700;
+}
+.modal .modal-dialog .modal-content .modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+.modal .modal-dialog .modal-content .modal-body p {
+  font-weight: 300;
+}
+.modal .modal-dialog .modal-content .modal-body textarea,
+.modal .modal-dialog .modal-content .modal-body input {
+  font-weight: 300;
+  color: rgb(236, 250, 255);
+  background-color: rgb(0, 69, 97);
+  border-color: rgb(0, 69, 97);
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range {
+  background-color: transparent;
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-webkit-slider-runnable-track {
+  background-color: rgb(0, 69, 97) !important;
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-moz-range-track {
+  background-color: rgb(0, 69, 97) !important;
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-ms-track {
+  background-color: rgb(0, 69, 97) !important;
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-webkit-slider-thumb {
+  background-color: rgb(6, 89, 122) !important;
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-moz-range-thumb {
+  background-color: rgb(6, 89, 122) !important;
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-ms-thumb {
+  background-color: rgb(6, 89, 122) !important;
+}
+.modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-webkit-slider-runnable-track {
+  background-image: linear-gradient(to right, rgb(6, 89, 122), rgb(6, 89, 122) 50%, rgb(0, 69, 97) 50%, rgb(0, 69, 97) 100%) !important;
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+.modal .modal-dialog .modal-content .modal-footer .btn {
+  font-weight: 700;
 }
 
 #map {
@@ -340,6 +393,12 @@ footer {
   left: 10px;
 }
 
+#btn-comment {
+  position: absolute;
+  top: 55px;
+  left: 10px;
+}
+
 #map-accordion {
   min-width: 500px;
   width: 100%;
@@ -380,6 +439,11 @@ footer {
   position: relative;
   border: none;
   box-shadow: none;
+}
+#map-accordion .div-comment-buttons {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 #map-accordion .comment-pseudo {
   color: rgb(241, 119, 53);
