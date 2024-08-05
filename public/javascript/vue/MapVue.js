@@ -120,7 +120,10 @@ class MapVue {
                 commentScore.classList.add('comment-score');
                 commentScore.innerHTML = comment.score;
 
-                const isUserOwnsComment = comment.userPseudo === that.securityService.userDetails.pseudo;
+                let isUserOwnsComment = false;
+                if(that.securityService.userDetails) {
+                    isUserOwnsComment = comment.userPseudo === that.securityService.userDetails.pseudo;
+                }
                 const buttonsDiv = document.createElement('div');
                 buttonsDiv.classList.add('div-comment-buttons');
                 if(isUserOwnsComment) {
