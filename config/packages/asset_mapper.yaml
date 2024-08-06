@@ -1,5 +1,5 @@
 framework:
     asset_mapper:
+        # The paths to make available to the asset mapper.
         paths:
-            - '%kernel.project_dir%/assets'
-            - '%kernel.project_dir%/public'
+            - assets/
