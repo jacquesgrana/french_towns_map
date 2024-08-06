@@ -2,15 +2,9 @@
 
 {% block title %}Page Home{% endblock %}
 
-{% block body %}
-<div class="main">
-    <div id="map"></div>
-    {{ include('./home/div_buttons.html.twig') }}
-    {{ include('./home/div_infos.html.twig') }}
-    {{ include('./home/div_modal_comment.html.twig') }}
-</div>
-{% endblock %}
+
 {% block js %}
+
 <script src="{{ asset('javascript/vue/MapVue.js') }}"></script>
 <script src="{{ asset('javascript/manager/MapManager.js') }}"></script>
 <script src="{{ asset('javascript/service/TownService.js') }}"></script>
@@ -21,4 +15,13 @@
     var mapManager = new MapManager();
     mapManager.run();
 </script>
+{% endblock %}
+
+{% block body %}
+<div class="main">
+    <div id="map"></div>
+    {{ include('./home/div_buttons.html.twig') }}
+    {{ include('./home/div_infos.html.twig') }}
+    {{ include('./home/div_modal_comment.html.twig') }}
+</div>
 {% endblock %}
