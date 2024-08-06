@@ -18,12 +18,9 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Add server's SSH key to known_hosts
-      run: ssh-keyscan -H ${{ secrets.HOSTINGER_SERVER }} >> ~/.ssh/known_hosts
-
     - name: Deploy to Hostinger
       env:
         HOSTINGER_SERVER: ${{ secrets.HOSTINGER_SERVER }}
         HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
       run: |
-        ssh -o StrictHostKeyChecking=no $HOSTINGER_USER@$HOSTINGER_SERVER 'cd public_html/french_towns_map/ && git pull origin main && ../composer.phar install --no-dev --optimize-autoloader && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php bin/console assets:install --env=prod'
+        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $HOSTINGER_USER@$HOSTINGER_SERVER 'cd public_html/french_towns_map/ && git pull origin main && ../composer.phar install --no-dev --optimize-autoloader && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php bin/console assets:install --env=prod'
