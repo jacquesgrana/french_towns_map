@@ -9,6 +9,9 @@ framework:
     #esi: true
     #fragments: true
 
+    # assets:
+    #     base_urls: ['https://lightgreen-wallaby-205481.hostingersite.com/french_towns_map/public']
+
 when@test:
     framework:
         test: true

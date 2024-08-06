@@ -26,4 +26,4 @@ jobs:
         HOSTINGER_SERVER: ${{ secrets.HOSTINGER_SERVER }}
         HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
       run: |
-        ssh -o StrictHostKeyChecking=no $HOSTINGER_USER@$HOSTINGER_SERVER 'cd /chemin/vers/votre-app && git pull origin build && composer install --no-dev --optimize-autoloader && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php bin/console assets:install --env=prod'
+        ssh -o StrictHostKeyChecking=no $HOSTINGER_USER@$HOSTINGER_SERVER 'cd public_html/french_towns_map/ && git pull origin build && ../composer.phar install --no-dev --optimize-autoloader && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php bin/console assets:install --env=prod'

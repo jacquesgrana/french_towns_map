@@ -1,5 +1,3 @@
-# public/.htaccess
-
 <IfModule mod_rewrite.c>
     Options -MultiViews
     RewriteEngine On
@@ -12,3 +10,8 @@
         RedirectMatch 302 ^/$ /index.php/
     </IfModule>
 </IfModule>
+
+# Serve static files directly
+<FilesMatch "\.(css|js|scss|png|jpg|jpeg|gif|ico)$">
+    RewriteEngine Off
+</FilesMatch>

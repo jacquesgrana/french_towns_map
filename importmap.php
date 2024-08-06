@@ -25,4 +25,28 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'map_vue' => [
+        'path' => './assets/javascript/vue/MapVue.js',
+        'entrypoint' => true,
+    ],
+    'map_manager' => [
+        'path' => './assets/javascript/manager/MapManager.js',
+        'entrypoint' => true,
+    ],
+    'town_service' => [
+        'path' => './assets/javascript/service/TownService.js',
+        'entrypoint' => true,
+    ],
+    'favorite_service' => [
+        'path' => './assets/javascript/service/FavoriteService.js',
+        'entrypoint' => true,
+    ],
+    'comment_service' => [
+        'path' => './assets/javascript/service/CommentService.js',
+        'entrypoint' => true,
+    ],
+    'security_service' => [
+        'path' => './assets/javascript/service/SecurityService.js',
+        'entrypoint' => true,
+    ],
 ];
