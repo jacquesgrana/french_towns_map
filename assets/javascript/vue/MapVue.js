@@ -112,7 +112,6 @@ class MapVue {
                 const titleComment = comment.title + '&nbsp;<span class="comment-pseudo">[' + comment.userPseudo + ']</span>';
                 cardTitle.innerHTML = titleComment;
 
-
                 const cardText = document.createElement('p');
                 cardText.classList.add('card-text');
                 let textComment  = '<span class="comment-date ">Créé le :' + comment.createdAt + ' • Modifié le :' + comment.modifiedAt + '</span></br>';
