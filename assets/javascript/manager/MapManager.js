@@ -99,7 +99,7 @@ class MapManager {
         });
         const btnSearch = document.getElementById('btn-search');
         if(btnSearch) btnSearch.addEventListener('click', () => {
-            console.log('click search');
+            //console.log('click search');
             this.toggleSearchDiv();
         });
 
@@ -129,7 +129,7 @@ class MapManager {
             if(this.isNewComment) {
                 this.submitNewComment();
             } else {
-                console.log('update comment');
+                //console.log('update comment');
                 this.submitUpdatedComment();
             }
         });
@@ -434,7 +434,7 @@ class MapManager {
     }
 
     editComment = async (comment) => {
-        console.log('editComment : ', comment);
+        //.log('editComment : ', comment);
         // afficher le formulaire d'edition du commentaire
 
         if(this.securityService.isLoggedIn && this.securityService.userDetails.pseudo === comment.userPseudo) {
