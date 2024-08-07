@@ -46,6 +46,8 @@ class MapVue {
                 buttonCenterFavorite.classList.add('btn-secondary-very-small');
                 buttonCenterFavorite.classList.add('decal-down');
                 buttonCenterFavorite.textContent = '◎';
+                buttonCenterFavorite.setAttribute("title", "Aller à cette commune.");
+
                 buttonCenterFavorite.onclick = async () => {
                     await that.manageClickFavoriteTown(town);
                 }
@@ -57,6 +59,7 @@ class MapVue {
                 buttonDeleteFavorite.classList.add('btn-secondary-very-small');
                 buttonDeleteFavorite.classList.add('ms-2');
                 buttonDeleteFavorite.textContent = '-';
+                buttonDeleteFavorite.setAttribute("title", "Supprimer cette commune de vos favoris.");
                 buttonDeleteFavorite.onclick = async () => {
                     await that.toggleFavorite(town.id);
                 }
@@ -132,6 +135,7 @@ class MapVue {
                     buttonDelete.classList.add('btn-sm');
                     buttonDelete.classList.add('btn-secondary-very-small');
                     buttonDelete.textContent = 'X';
+                    buttonDelete.setAttribute("title", "Supprimer ce commentaire.");
                     buttonDelete.onclick = async () => {
                         await that.deleteComment(comment.id);
                     }
@@ -143,6 +147,7 @@ class MapVue {
                     buttonEdit.classList.add('btn-secondary-very-small');
                     buttonEdit.classList.add('ms-2');
                     buttonEdit.textContent = '✎';
+                    buttonEdit.setAttribute("title", "Modifier ce commentaire.");
                     buttonEdit.onclick = async () => {
                         //await that.editComment(comment.id);
                         that.editComment(comment);
