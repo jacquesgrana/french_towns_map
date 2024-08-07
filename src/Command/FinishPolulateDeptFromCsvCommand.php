@@ -11,9 +11,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\DepartementRepository;
 use App\Repository\TownRepository;
-use App\Entity\Departement;
-use App\Entity\Town;
 
+/**
+ * Commande pour finir de peupler la table departement pour définir les capitales
+ * utiliser le fichier csv : src/Command/csv/v_departement_2023.csv
+ * pour lancer la commande : php bin/console app:finish-populate-table-dept v_departement_2023.csv
+ */
 #[AsCommand(
     name: 'app:finish-populate-table-dept',
     description: 'Finish to populate Departement table from CSV file : add capital_town_id',
