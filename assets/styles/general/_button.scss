@@ -72,3 +72,17 @@
         color: $secondary-color;
     }
 }
+
+.btn-see-password {
+    background-color: $primary-color-dark;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: small;
+    border: 1px solid $primary-color-dark;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+}

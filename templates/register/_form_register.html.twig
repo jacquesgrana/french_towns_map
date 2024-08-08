@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+{{ form_label(form.email, null, {'label_attr': {'class': 'text-orange'}}) }}
+{{ form_widget(form.email) }}
+
+{{ form_label(form.password, null, {'label_attr': {'class': 'text-orange'}}) }}
+<div class="form-group-password">
+    {{ form_widget(form.password) }}
+    <a id="btn-see-password" class="btn-see-password">👁</a>
+</div>
+
+{{ form_label(form.firstName, null, {'label_attr': {'class': 'text-orange'}}) }}
+{{ form_widget(form.firstName) }}
+
+{{ form_label(form.lastName, null, {'label_attr': {'class': 'text-orange'}}) }}
+{{ form_widget(form.lastName) }}
+
+{{ form_label(form.pseudo, null, {'label_attr': {'class': 'text-orange'}}) }}
+{{ form_widget(form.pseudo) }}
+
+
+<div class="text-centered">
+    <button class="mt-3 btn btn-sm btn-primary">{{ button_label|default('Enregistrer') }}</button>
+</div>
+{{ form_end(form) }}
