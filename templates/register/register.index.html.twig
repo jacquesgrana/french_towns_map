@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+
+{% block body %}
+<div class="main">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <h4>Vous êtes déjà inscrit.</h4>
+    {% else %}
+        <h3>S'inscrire</h3>
+        {{ include('register/_form_register.html.twig') }}
+    {% endif %}
+    <a href="{{ path('app_home') }}" class="link-02 mt-2">Retour à l'accueil</a>
+</div>
+
+    <script>
+        document.addEventListener('turbo:load', (e) => {
+            //console.log('load ok');
+            e.preventDefault();
+            const btnSeePwd = document.getElementById('btn-see-password');
+            if (btnSeePwd) {
+                //console.log('btn ok');
+                btnSeePwd.addEventListener('click', (event) => {
+                    //console.log('click');
+                    const input = document.getElementById('user_register_password');
+                    //console.log('input :', input);
+                    if (input) {
+                        //console.log('input :', input);
+
+                        //console.log('2e if');
+                        input.type = input.type === "password" ? "text" : "password";
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
+

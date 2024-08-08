@@ -1,0 +1,24 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group-password {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.text-input,
+.password-input {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: $primary-color-dark;
+    color: white;
+    border: 1px solid $primary-color-dark;
+    height: 30px;
+}

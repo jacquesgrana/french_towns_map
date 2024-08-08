@@ -26,6 +26,10 @@
   color: rgb(241, 119, 53) !important;
 }
 
+.text-centered {
+  text-align: center;
+}
+
 .link-01 {
   text-decoration: none;
   font-weight: 700;
@@ -35,10 +39,13 @@
 }
 
 .link-02 {
+  transition: 0.3s;
+  color: rgb(241, 119, 53);
   text-decoration: none;
   font-weight: 700;
 }
 .link-02:hover {
+  transition: 0.3s;
   color: rgb(2, 52, 71);
 }
 
@@ -109,6 +116,20 @@
   background-color: rgb(85, 43, 0);
   border-color: rgb(85, 43, 0);
   color: rgb(241, 119, 53);
+}
+
+.btn-see-password {
+  background-color: rgb(2, 52, 71);
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: small;
+  border: 1px solid rgb(2, 52, 71);
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 0.8em;
+  cursor: pointer;
 }
 
 * {
@@ -241,6 +262,31 @@ footer {
 }
 .modal .modal-dialog .modal-content .modal-footer .btn {
   font-weight: 700;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group-password {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.text-input,
+.password-input {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: rgb(2, 52, 71);
+  color: white;
+  border: 1px solid rgb(2, 52, 71);
+  height: 30px;
 }
 
 #map {

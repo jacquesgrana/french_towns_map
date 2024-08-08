@@ -22,7 +22,14 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
+        <script type="text/javascript" src="{{ asset('javascript/vue/MapVue.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/manager/MapManager.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/service/TownService.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/service/FavoriteService.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/service/CommentService.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/service/SecurityService.js') }}"></script>
         {% block js %}
+        
         {% endblock %}
     </head>
     <body>
