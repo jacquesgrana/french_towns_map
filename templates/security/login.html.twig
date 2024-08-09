@@ -16,19 +16,19 @@
 
             {% else %}
             <h3 class="h4 mt-3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
-            <form method="post" class="d-flex flex-column align-items-center">
+            <form method="POST" class="d-flex flex-column align-items-center">
             
             
             <div class="w-100">
                 <label for="username" class="text-orange">Email</label>
-                <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control text-input" autocomplete="email" required>
+                <input type="email" value="{{ last_username }}" name="_username" id="username" class="text-input" required>
             </div>
              <div class="w-100">
                 <label for="password" class="mt-2 text-orange">Mot de passe</label>
                 <div class="form-group-password-2">
                     
                         
-                        <input type="password" name="_password" id="password" class="form-control password-input" autocomplete="current-password" required>
+                        <input type="password" name="_password" id="password" class="password-input" required>
                     
                     <a id="btn-see-password-login" class="btn-see-password">👁</a>
                 </div>
@@ -58,25 +58,20 @@
 
         
     </div>
-    <script>
-        document.addEventListener('turbo:load', (e) => {
-            //console.log('load ok');
-            e.preventDefault();
-            const btnSeePwd = document.getElementById('btn-see-password-login');
-            if (btnSeePwd) {
-                //console.log('btn ok');
-                btnSeePwd.addEventListener('click', (event) => {
-                    //console.log('click');
-                    const input = document.getElementById('password');
-                    //console.log('input :', input);
-                    if (input) {
-                        //console.log('input :', input);
+    <script type="text/javascript">
+        //document.addEventListener('turbo:load', (e) => {
+            //console.log('login');
 
-                        //console.log('2e if');
+            //e.preventDefault();
+            var btnSeePwd = document.getElementById('btn-see-password-login');
+            if (btnSeePwd) {
+                btnSeePwd.addEventListener('click', (event) => {
+                    var input = document.getElementById('password');
+                    if (input) {
                         input.type = input.type === "password" ? "text" : "password";
                     }
                 });
             }
-        });
+        //});
     </script>
 {% endblock %}

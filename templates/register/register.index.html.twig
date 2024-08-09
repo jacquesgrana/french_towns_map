@@ -18,25 +18,19 @@
 </div>
 
     <script>
-        document.addEventListener('turbo:load', (e) => {
-            //console.log('load ok');
-            e.preventDefault();
-            const btnSeePwd = document.getElementById('btn-see-password');
+        //document.addEventListener('turbo:load', (e) => {
+            //console.log('register');
+            //e.preventDefault();
+            var btnSeePwd = document.getElementById('btn-see-password');
             if (btnSeePwd) {
-                //console.log('btn ok');
                 btnSeePwd.addEventListener('click', (event) => {
-                    //console.log('click');
-                    const input = document.getElementById('user_register_password');
-                    //console.log('input :', input);
+                    var input = document.getElementById('user_register_password');
                     if (input) {
-                        //console.log('input :', input);
-
-                        //console.log('2e if');
                         input.type = input.type === "password" ? "text" : "password";
                     }
                 });
             }
-        });
+        //});
     </script>
 {% endblock %}
 

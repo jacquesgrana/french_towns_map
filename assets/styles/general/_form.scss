@@ -39,18 +39,32 @@
         box-shadow: none;
     }
 
-    &.input:-internal-autofill-selected {
+    /*
+    input:-internal-autofill-selected {
         appearance: menulist-button;
         background-image: none !important;
         background-color: $primary-color-dark !important;
-        color: fieldtext !important;
+        color: $white !important;
     }
+    */
+
+    
 }
 
-input:-internal-autofill-selected {
-
+.text-input:-webkit-autofill,
+.text-input:-webkit-autofill:hover,
+.text-input:-webkit-autofill:focus,
+.text-input:-webkit-autofill:active
+input[type="email"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill:hover,
+input[type="email"]:-webkit-autofill:focus,
+input[type="email"]:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px $primary-color-dark inset !important; /* Changez #f0f0f0 par la couleur de fond souhaitée */
+    -webkit-text-fill-color:$white !important; /* Changez #333 par la couleur de texte souhaitée */
 }
 
+/*
 #btn-see-password-login {
-    //margin-top: 20px;
+    margin-top: 0px;
 }
+*/
