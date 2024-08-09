@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .text-orange {
   color: rgb(255, 140, 0);
 }
@@ -300,6 +301,14 @@ footer {
   border: 1px solid rgb(2, 52, 71);
   height: 30px;
   width: 100%;
+  /*
+  input:-internal-autofill-selected {
+      appearance: menulist-button;
+      background-image: none !important;
+      background-color: $primary-color-dark !important;
+      color: $white !important;
+  }
+  */
 }
 .text-input:focus,
 .password-input:focus {
@@ -309,14 +318,23 @@ footer {
   color: rgb(241, 119, 53);
   box-shadow: none;
 }
-.text-input.input:-internal-autofill-selected,
-.password-input.input:-internal-autofill-selected {
-  appearance: menulist-button;
-  background-image: none !important;
-  background-color: rgb(2, 52, 71) !important;
-  color: fieldtext !important;
+
+.text-input:-webkit-autofill,
+.text-input:-webkit-autofill:hover,
+.text-input:-webkit-autofill:focus,
+.text-input:-webkit-autofill:active input[type=email]:-webkit-autofill,
+input[type=email]:-webkit-autofill:hover,
+input[type=email]:-webkit-autofill:focus,
+input[type=email]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgb(2, 52, 71) inset !important; /* Changez #f0f0f0 par la couleur de fond souhaitée */
+  -webkit-text-fill-color: rgb(236, 250, 255) !important; /* Changez #333 par la couleur de texte souhaitée */
 }
 
+/*
+#btn-see-password-login {
+    margin-top: 0px;
+}
+*/
 #map {
   height: 600px;
   min-width: 500px;
