@@ -30,6 +30,10 @@
   text-align: center;
 }
 
+.text-start {
+  text-align: start;
+}
+
 .link-01 {
   text-decoration: none;
   font-weight: 700;
@@ -278,15 +282,39 @@ footer {
   width: 100%;
 }
 
+.form-group-password-2 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
 .text-input,
 .password-input {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-radius: 5px;
   padding: 5px;
   background-color: rgb(2, 52, 71);
   color: white;
   border: 1px solid rgb(2, 52, 71);
   height: 30px;
+  width: 100%;
+}
+.text-input:focus,
+.password-input:focus {
+  border: 1px solid rgb(241, 119, 53);
+  outline: rgb(241, 119, 53) 1px solid;
+  background-color: rgb(0, 69, 97);
+  color: rgb(241, 119, 53);
+  box-shadow: none;
+}
+.text-input.input:-internal-autofill-selected,
+.password-input.input:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: rgb(2, 52, 71) !important;
+  color: fieldtext !important;
 }
 
 #map {
