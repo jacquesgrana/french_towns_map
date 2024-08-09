@@ -9,12 +9,12 @@
 {% block body %}
 <div class="main">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <h4>Vous êtes déjà inscrit.</h4>
+        <h4 class="mt-3">Vous êtes déjà inscrit.</h4>
     {% else %}
-        <h3>S'inscrire</h3>
+        <h3 class="mt-3">S'inscrire</h3>
         {{ include('register/_form_register.html.twig') }}
     {% endif %}
-    <a href="{{ path('app_home') }}" class="link-02 mt-2">Retour à l'accueil</a>
+    <a href="{{ path('app_home') }}" class="link-02 mt-3">Retour à l'accueil</a>
 </div>
 
     <script>
