@@ -57,6 +57,10 @@ security:
         - { path: /submit-new-comment, roles: ROLE_USER }
         - { path: /submit-updated-comment, roles: ROLE_USER }
         - { path: /delete-comment, roles: ROLE_USER }
+        - { path: /register, roles: PUBLIC_ACCESS }
+        - { path: /register/confirm, roles: PUBLIC_ACCESS }
+
+
 
 when@test:
     security:

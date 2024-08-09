@@ -34,7 +34,19 @@
     </head>
     <body>
         {{ include('./body_templates/header.html.twig') }}
-        {% block body %}{% endblock %}
+        <div class="main">
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+       </div>
         {{ include('./body_templates/footer.html.twig') }}
     </body>
 </html>

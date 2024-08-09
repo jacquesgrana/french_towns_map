@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de mes Animaux • Confirmation{% endblock %}
+
+{% block body %}
+
+    {% if isActivated %}
+        <h2 class="home-title-top text-white">Confirmation</h2>
+        <p>Bonjour {{ pseudo }}<br/>Votre compte est activé, vous pouvez vous connecter</p>
+        <a class="btn-form" href="{{ path('app_login') }}">Connexion</a>
+    {% else %}
+        <h2 class="home-title-top text-white">Erreur</h2>
+        <p>Une erreur est survenue : {{ errorText }}<br />Connectez-vous, un email de confirmation vous sera envoyé.</p>
+        <a class="btn-form" href="{{ path('app_login') }}">Connexion</a>
+    {% endif %}
+    
+{% endblock %}
