@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="wrapper">
-    <h3 class="mt-3">Gérer mon compte</h3>
+    <h3 class="mt-3 mb-2">Gérer mon compte</h3>
     <table class="table-small">
         <tbody>
             <tr>
@@ -39,7 +39,8 @@
         </tbody>
     </table>
 
-    <a class="link-02" href="{{ path('app_home') }}">Retour à l'accueil</a>
+    <a class="link-02 mt-1" href="{{ path('app_user_account_edit') }}">Modifier le compte</a>
+    <a class="link-02 mt-3" href="{{ path('app_home') }}">Retour à l'accueil</a>
 </div>
 {% endblock %}
 
