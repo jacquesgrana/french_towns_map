@@ -63,8 +63,8 @@
 }
 
 .btn-primary {
-  background-color: rgb(0, 69, 97);
-  border-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
+  border-color: rgb(3, 76, 105);
   color: rgb(236, 250, 255);
   min-width: 160px;
 }
@@ -252,20 +252,20 @@ footer {
 .modal .modal-dialog .modal-content .modal-body input {
   font-weight: 300;
   color: rgb(236, 250, 255);
-  background-color: rgb(0, 69, 97);
-  border-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
+  border-color: rgb(3, 76, 105);
 }
 .modal .modal-dialog .modal-content .modal-body input[type=range].form-range {
   background-color: transparent;
 }
 .modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-webkit-slider-runnable-track {
-  background-color: rgb(0, 69, 97) !important;
+  background-color: rgb(3, 76, 105) !important;
 }
 .modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-moz-range-track {
-  background-color: rgb(0, 69, 97) !important;
+  background-color: rgb(3, 76, 105) !important;
 }
 .modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-ms-track {
-  background-color: rgb(0, 69, 97) !important;
+  background-color: rgb(3, 76, 105) !important;
 }
 .modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-webkit-slider-thumb {
   background-color: rgb(6, 89, 122) !important;
@@ -277,7 +277,7 @@ footer {
   background-color: rgb(6, 89, 122) !important;
 }
 .modal .modal-dialog .modal-content .modal-body input[type=range].form-range::-webkit-slider-runnable-track {
-  background-image: linear-gradient(to right, rgb(6, 89, 122), rgb(6, 89, 122) 50%, rgb(0, 69, 97) 50%, rgb(0, 69, 97) 100%) !important;
+  background-image: linear-gradient(to right, rgb(6, 89, 122), rgb(6, 89, 122) 50%, rgb(3, 76, 105) 50%, rgb(3, 76, 105) 100%) !important;
   background-size: 200% 100%;
   background-position: right bottom;
 }
@@ -330,7 +330,7 @@ footer {
 .password-input:focus {
   border: 1px solid rgb(241, 119, 53);
   outline: rgb(241, 119, 53) 1px solid;
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
   color: rgb(241, 119, 53);
   box-shadow: none;
 }
@@ -354,20 +354,22 @@ input[type=email]:-webkit-autofill:active {
 .table-small {
   width: 400px;
   margin: 20px auto;
-  border-collapse: collapse;
   color: rgb(189, 202, 236);
+  border-collapse: separate; /* Important: use separate to allow border-radius */
+  border-spacing: 0; /* Remove space between borders */
+  border-radius: 10px; /* Apply rounded corners */
+  overflow: hidden;
 }
 .table-small th, .table-small td {
   padding: 10px;
   text-align: left;
   font-size: 1em;
-  border-bottom: 1px solid rgb(50, 135, 168);
 }
 .table-small tr:nth-child(even) {
-  background-color: rgb(7, 96, 131);
+  background-color: rgb(3, 76, 105);
 }
 .table-small tr:nth-child(odd) {
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(5, 64, 87);
 }
 
 #map {
@@ -406,7 +408,7 @@ input[type=email]:-webkit-autofill:active {
   width: 100%;
   padding: 10px;
   padding-bottom: 0px;
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
 }
 
 #result-text {
@@ -471,7 +473,7 @@ input[type=email]:-webkit-autofill:active {
   height: 30px;
   border-radius: 5px;
   border: 1px solid rgb(50, 135, 168);
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
   color: rgb(240, 145, 93);
   padding-right: 10px;
   padding-left: 10px;
@@ -486,7 +488,7 @@ input[type=email]:-webkit-autofill:active {
   height: 30px;
   border-radius: 5px;
   border: 1px solid rgb(50, 135, 168);
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
   color: rgb(240, 145, 93);
   padding: 10px;
 }
@@ -539,14 +541,14 @@ input[type=email]:-webkit-autofill:active {
 #map-accordion .accordion-item {
   border-radius: 10px;
   border: 1px solid rgb(2, 52, 71);
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
   color: rgb(2, 52, 71);
 }
 #map-accordion .accordion-header {
   background-color: rgb(2, 52, 71);
 }
 #map-accordion .accordion-body {
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
   color: rgb(2, 52, 71);
   border-radius: 0 0 10px 10px;
 }
@@ -612,7 +614,7 @@ input[type=email]:-webkit-autofill:active {
 }
 #map-accordion .list-group-item-custom {
   background-color: rgb(2, 52, 71);
-  border: 1px solid rgb(0, 69, 97);
+  border: 1px solid rgb(3, 76, 105);
   color: rgb(236, 250, 255);
   /*
   &:hover {
@@ -627,7 +629,7 @@ input[type=email]:-webkit-autofill:active {
   flex-direction: row;
 }
 #map-accordion .accordion-button {
-  background-color: rgb(0, 69, 97);
+  background-color: rgb(3, 76, 105);
   color: rgb(236, 250, 255);
   border-radius: 10px 10px 0 0;
 }
