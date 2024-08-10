@@ -24,7 +24,18 @@
                 <th>Pseudo</th>
                 <td class="text-secondary-light">{{ user.pseudo }}</td>
             </tr>
-            
+            <tr>
+                <th>Date de naissance</th>
+                <td class="text-secondary-light">{{ user.birth ? user.birth|date('Y-m-d') : '' }}</td>
+            </tr> 
+            <tr>
+                <th>Date de création du compte</th>
+                <td class="text-secondary-light">{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr> 
+            <tr>
+                <th>Date de modification du compte</th>
+                <td class="text-secondary-light">{{ user.modifiedAt ? user.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr> 
         </tbody>
     </table>
 

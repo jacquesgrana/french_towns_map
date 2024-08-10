@@ -8,15 +8,17 @@
     <a id="btn-see-password" class="btn-see-password">👁</a>
 </div>
 
-{{ form_label(form.firstName, null, {'label_attr': {'class': 'text-orange'}}) }}
+{{ form_label(form.firstName, null, {'label_attr': {'class': 'text-secondary'}}) }}
 {{ form_widget(form.firstName) }}
 
-{{ form_label(form.lastName, null, {'label_attr': {'class': 'text-orange'}}) }}
+{{ form_label(form.lastName, null, {'label_attr': {'class': 'text-secondary'}}) }}
 {{ form_widget(form.lastName) }}
 
-{{ form_label(form.pseudo, null, {'label_attr': {'class': 'text-orange'}}) }}
+{{ form_label(form.pseudo, null, {'label_attr': {'class': 'text-secondary'}}) }}
 {{ form_widget(form.pseudo) }}
 
+{{ form_label(form.birth, null, {'label_attr': {'class': 'text-secondary'}}) }}
+{{ form_widget(form.birth) }}
 
 <div class="text-centered">
     <button class="mt-3 btn btn-sm btn-primary">{{ button_label|default('Enregistrer') }}</button>
