@@ -1,0 +1,22 @@
+.table-small {
+    width: 400px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    color: rgb(189, 202, 236);
+    
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        font-size: 1em;
+        border-bottom: 1px solid $primary-color-light;
+     }
+     
+     tr:nth-child(even) {
+        background-color: $primary-color-medium-light;
+     }
+     
+     tr:nth-child(odd) {
+        background-color: $primary-color-medium;
+     }    
+ }
