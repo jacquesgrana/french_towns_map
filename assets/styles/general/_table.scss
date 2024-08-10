@@ -1,22 +1,25 @@
 .table-small {
     width: 400px;
     margin: 20px auto;
-    border-collapse: collapse;
     color: rgb(189, 202, 236);
-    
+    border-collapse: separate; /* Important: use separate to allow border-radius */
+    border-spacing: 0; /* Remove space between borders */
+    //width: 100%;
+    border-radius: 10px; /* Apply rounded corners */
+    overflow: hidden;
 
     th, td {
         padding: 10px;
         text-align: left;
         font-size: 1em;
-        border-bottom: 1px solid $primary-color-light;
+        //border-bottom: 1px solid $primary-color-light;
      }
      
      tr:nth-child(even) {
-        background-color: $primary-color-medium-light;
+        background-color: $primary-color-medium;
      }
      
      tr:nth-child(odd) {
-        background-color: $primary-color-medium;
+        background-color: $primary-color-medium-dark;
      }    
  }
