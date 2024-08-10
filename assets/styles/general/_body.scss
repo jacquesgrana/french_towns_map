@@ -57,3 +57,11 @@ footer {
     width: 100vw;
     max-width:100%;
 }
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
