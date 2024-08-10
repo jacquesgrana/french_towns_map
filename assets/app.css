@@ -352,7 +352,7 @@ input[type=email]:-webkit-autofill:active {
 }
 */
 .table-small {
-  width: 400px;
+  width: 580px;
   margin: 20px auto;
   color: rgb(189, 202, 236);
   border-collapse: separate; /* Important: use separate to allow border-radius */

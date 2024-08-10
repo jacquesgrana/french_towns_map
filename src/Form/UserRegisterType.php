@@ -49,13 +49,12 @@ class UserRegisterType extends AbstractType
                 'label' => 'Pseudo',
                 'required' => true
             ])
-            /*
             ->add('birth', null, [
-                'attr' => ['class' => 'form-control'],
+                'attr' => ['class' => 'form-control text-input'],
                 'label' => 'Naissance',
                 'required' => true
             ])
-            */
+            
         ;
     }
 

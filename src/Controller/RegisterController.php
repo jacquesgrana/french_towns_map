@@ -67,6 +67,13 @@ class RegisterController extends AbstractController
 
                 $user->setRoles(['ROLE_USER']);
                 $user->setActive(false);
+
+                $createdAt = new \DateTimeImmutable();
+                $modifiedAt = new \DateTimeImmutable();
+
+                $user->setCreatedAt($createdAt);
+                $user->setModifiedAt($modifiedAt);
+
                 $entityManager->persist($user);
                 $entityManager->flush();
 
