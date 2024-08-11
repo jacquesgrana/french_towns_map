@@ -56,6 +56,8 @@
   color: rgb(241, 119, 53);
   text-decoration: none;
   font-weight: 700;
+  border: none;
+  background-color: transparent;
 }
 .link-02:hover {
   transition: 0.3s;

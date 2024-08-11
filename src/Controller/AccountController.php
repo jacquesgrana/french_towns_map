@@ -18,11 +18,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 #[Route('/user/account')]
 class AccountController extends AbstractController
 {
-    //private $tokenStorage;
+    private $tokenStorage;
 
-    public function __construct()  // TokenStorageInterface $tokenStorage
+    public function __construct(TokenStorageInterface $tokenStorage)  
     {
-        //$this->tokenStorage = $tokenStorage;
+        $this->tokenStorage = $tokenStorage;
     }
 
     #[Route('/', name: 'app_user_account')]
@@ -190,5 +190,46 @@ class AccountController extends AbstractController
             $this->addFlash('success', 'Mot de passe mis à jour');
             return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
         }
+    }
+
+    #[Route('/delete', name: 'app_user_account_delete', methods: ['POST'])]
+    public function deleteAccount(
+        Request $request, 
+        EntityManagerInterface $entityManager
+        ): Response
+    {
+        /** @var \App\Entity\User $user **/
+        $user = $this->getUser(); 
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+
+            if($user->getComments() !== null) {
+                foreach ($user->getComments() as $comment) {
+                    $user->removeComment($comment);
+                    $entityManager->remove($comment);
+                }
+            }
+            if($user->getFavoriteTowns() !== null) {
+                foreach ($user->getFavoriteTowns() as $town) {
+                    $user->removeFavoriteTown($town);
+                    $town->removeFavoriteOfUser($user);
+                }
+            }
+
+            if($user->getTokens() !== null) {
+                foreach ($user->getTokens() as $token) {
+                    $user->removeToken($token);
+                    $entityManager->remove($token);
+                }
+            }
+
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            // Disconnect user after deletion
+            $this->tokenStorage->setToken(null);
+            $request->getSession()->invalidate();
+        }
+
+        return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
     }
 }
