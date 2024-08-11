@@ -76,7 +76,7 @@ class AccountController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/email', name: 'app_user_account_edit_email', methods: ['GET', 'POST'])]
+    #[Route('/edit/email', name: 'app_user_account_edit_email', methods: ['GET'])]
     public function modifyEmail (
         ): Response
     {
@@ -125,9 +125,10 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_user_account_edit_email', [], Response::HTTP_SEE_OTHER);
         }
         else {
-            // TODO : améliorer : tenir compte du cas ou le nouvel email est fonctionnel ?
+            // TODO : améliorer : tenir compte du cas où le nouvel email n'est pas fonctionnel ?
             $user->setEmail($email);
             $user->setActive(false);
+            $user->setModifiedAt(new \DateTimeImmutable());
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -139,6 +140,54 @@ class AccountController extends AbstractController
             else {
                 $this->addFlash('error', $result);
             }
+            return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
+        }
+    }
+
+    #[Route('/edit/password', name: 'app_user_account_edit_password', methods: ['GET'])]
+    public function modifyPassword (
+        //Request $request, 
+        //EntityManagerInterface $entityManager
+        ): Response
+    {
+        return $this->render('account/account.edit.password.html.twig');
+    }
+
+    #[Route('/update/password', name: 'app_user_account_update_password', methods: ['GET', 'POST'])]
+    public function setPassword (
+        Request $request, 
+        EntityManagerInterface $entityManager
+        ): Response
+    {
+        /** @var \App\Entity\User $user **/
+        $user = $this->getUser();        
+        $oldPassword = $request->request->get('old-password');
+        $newPassword1 = $request->request->get('new-password-1');
+        $newPassword2 = $request->request->get('new-password-2');
+        $csrf_token = $request->request->get('_csrf_token');
+        $isTokenValid = $this->isCsrfTokenValid('change-password', $csrf_token);
+        $isOldPasswordVerified = password_verify($oldPassword, $user->getPassword());
+        $isNewPasswordsTheSame = $newPassword1 == $newPassword2;
+
+        if (!$isTokenValid || !$isOldPasswordVerified || !$isNewPasswordsTheSame) {
+            if(!$isTokenValid) {
+                $this->addFlash('error', 'Token invalide');
+            }
+            if(!$isOldPasswordVerified) {
+                $this->addFlash('error', 'Ancien mot de passe incorrect');
+            }
+            if(!$isNewPasswordsTheSame) {
+                $this->addFlash('error', 'Nouveaux mots de passe différents');
+            }
+            return $this->redirectToRoute('app_user_account_edit_password', [], Response::HTTP_SEE_OTHER);
+        }
+        else {
+            $passwortHashed = password_hash($newPassword1, PASSWORD_BCRYPT);
+            $user->setPassword($passwortHashed);
+            $user->setModifiedAt(new \DateTimeImmutable());
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Mot de passe mis à jour');
             return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
         }
     }
