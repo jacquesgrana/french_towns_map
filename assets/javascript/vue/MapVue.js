@@ -198,4 +198,125 @@ class MapVue {
         const commentForm = document.getElementById('comment-form');
         if(commentForm) commentForm.reset();
     }
+
+    displayForecast(forecastInfos) {
+        //map-accordion-body-forecast
+        const forecastDiv = document.getElementById('map-accordion-body-forecast');
+        //console.log('forecastInfos : ', forecastInfos.forecast);
+        if(forecastInfos && forecastDiv) {
+            forecastDiv.innerHTML = '';
+            const dateTime = forecastInfos.forecast.datetime;
+
+            const wind10m = forecastInfos.forecast.wind10m;
+            const gust10m = forecastInfos.forecast.gust10m;
+            const dirWind10m = forecastInfos.forecast.dirwind10m;
+
+            const tMin = forecastInfos.forecast.tmin;
+            const tMax = forecastInfos.forecast.tmax;
+            const sunHours = forecastInfos.forecast.sun_hours;
+            const weatherCode = forecastInfos.forecast.weather;
+
+            const probaRain = forecastInfos.forecast.probarain;
+            const probaFrost = forecastInfos.forecast.probafrost;
+            const probaFog = forecastInfos.forecast.probafog;
+            const probaWind70 = forecastInfos.forecast.probawind70;
+            const probaWind100 = forecastInfos.forecast.probawind100;
+
+
+            const card = document.createElement('card');
+
+            const paragWeatherIcon = document.createElement('p');
+            paragWeatherIcon.classList.add('text-white');
+            paragWeatherIcon.innerHTML = 'Icone : <span class="text-secondary">' + weatherCode + '</span>';
+            card.appendChild(paragWeatherIcon);
+
+            const paragTemps = document.createElement('p');
+            paragTemps.classList.add('text-white');
+            paragTemps.innerHTML = 'Températures : <span class="text-secondary">min : ' + tMin + ' °C </span>•<span class="text-secondary"> max : ' + tMax + ' °C</span>';
+            card.appendChild(paragTemps);
+
+            const paragwind = document.createElement('p');
+            paragwind.classList.add('text-white');
+            paragwind.innerHTML = 'Vent : <span class="text-secondary">10m : ' + wind10m + ' km/h </span>•<span class="text-secondary"> Rafale : ' + gust10m + ' km/h</span>';
+            card.appendChild(paragwind);
+
+            const paragWindDir = document.createElement('p');
+            paragWindDir.classList.add('text-white');
+            paragWindDir.innerHTML = 'Direction du vent : <span class="text-secondary">' + dirWind10m + '°</span>';
+            card.appendChild(paragWindDir);
+
+            const paragSunHours = document.createElement('p');
+            paragSunHours.classList.add('text-white');
+            paragSunHours.innerHTML = 'Heures d\'eclairage : <span class="text-secondary">' + sunHours + 'h</span>';
+            card.appendChild(paragSunHours);
+
+            const paragRain = document.createElement('p');
+            paragRain.classList.add('text-white');
+            paragRain.innerHTML = 'Probabilité de pluie : <span class="text-secondary">' + probaRain + '%</span>';
+            card.appendChild(paragRain);
+
+            const paragFrost = document.createElement('p');
+            paragFrost.classList.add('text-white');
+            paragFrost.innerHTML = 'Probabilité de gel : <span class="text-secondary">' + probaFrost + '%</span>';
+            card.appendChild(paragFrost);
+
+            const paragFog = document.createElement('p');
+            paragFog.classList.add('text-white');
+            paragFog.innerHTML = 'Probabilité de brouillard : <span class="text-secondary">' + probaFog + '%</span>';
+            card.appendChild(paragFog);
+
+            const paragWind70 = document.createElement('p');
+            paragWind70.classList.add('text-white');
+            paragWind70.innerHTML = 'Probabilité de vent 70 km/h : <span class="text-secondary">' + probaWind70 + '%</span>';
+            card.appendChild(paragWind70);
+
+            const paragWind100 = document.createElement('p');
+            paragWind100.classList.add('text-white');
+            paragWind100.innerHTML = 'Probabilité de vent 100 km/h : <span class="text-secondary">' + probaWind100 + '%</span>';
+            card.appendChild(paragWind100);
+
+            forecastDiv.appendChild(card);
+
+        }
+        
+    }
 }
+
+/**
+
+{
+    "city": {
+        "insee": "35238",
+        "cp": 35000,
+        "name": "Rennes",
+        "latitude": 48.112,
+        "longitude": -1.6819,
+        "altitude": 38
+    },
+    "update": "2020-10-29T12:40:08+0100",
+    "forecast": {
+        "insee": "35238",
+        "cp": 35000,
+        "latitude": 48.112,
+        "longitude": -1.6819,
+        "day": 0,
+        "datetime": "2020-10-29T01:00:00+0100",
+        "wind10m": 15, //Vent moyen à 10 mètres en km/h
+        "gust10m": 49, //Rafales de vent à 10 mètres en km/h
+        "dirwind10m": 230, //Direction du vent en degrés (0 à 360°)
+        "rr10": 0.2,
+        "rr1": 0.3,
+        "probarain": 40,
+        "weather": 4,
+        "tmin": 11,
+        "tmax": 17,
+        "sun_hours": 1,
+        "etp": 1,
+        "probafrost": 0,
+        "probafog": 0,
+        "probawind70": 0,
+        "probawind100": 0,
+        "gustx": 49
+    }
+}
+   */

@@ -14,7 +14,7 @@ class ApiJsonController extends AbstractController
 {
 
     #[Route('/get-town-infos-from-apis', name: 'get_towns_infos_apis', methods: ['POST'])]
-    public function getTownsByBounds(
+    public function getTownsInfosFromApis(
         //TownRepository $townRepository,
         Request $request,
         GeoApiService $geoApiService,
@@ -32,7 +32,7 @@ class ApiJsonController extends AbstractController
             $population = $totalData['population'];
         }
 
-        $resultMeteoCpt = $meteoCptApiService->callMeteoCptApi($townCode);
+        $resultMeteoCpt = $meteoCptApiService->callEphemerideMeteoCptApi($townCode);
         $dataMeteoCpt = json_decode($resultMeteoCpt, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
@@ -46,7 +46,19 @@ class ApiJsonController extends AbstractController
             'altitude' => $altitude
         ];
         return new JsonResponse($toReturn); 
-        // améliorer : renvoyer un objet
+        // améliorer : renvoyer un objet typé
     }
 
+    #[Route('/get-town-forecast-from-apis', name: 'get_towns_forecast_apis', methods: ['POST'])]
+    public function getTownsForecastFromApis(
+        //TownRepository $townRepository,
+        Request $request,
+        MeteoCptApiService $meteoCptApiService
+    ) {
+        $requestData = json_decode($request->getContent(), true);
+        $townCode = $requestData['townCode'];
+        $result = $meteoCptApiService->callForecastMeteoCptApi($townCode);
+        $data = json_decode($result, true);
+        return new JsonResponse($data); 
+    }
 }

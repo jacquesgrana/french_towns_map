@@ -27,6 +27,22 @@ class TownService {
         return await result.json();
     }
 
+    async getForecastFromApis(code) {
+        //console.log('code : ', code);
+        const result = await fetch('/get-town-forecast-from-apis', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                townCode: code
+            })
+        });
+        //console.log('result : ', data);
+        return await result.json();
+    }
+
     async getTownsFromSearch(searchRequest) {
         //console.log('code : ', code);
         const result = await fetch('/get-towns-by-name', {
