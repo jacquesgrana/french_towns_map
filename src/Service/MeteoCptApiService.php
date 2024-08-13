@@ -12,11 +12,10 @@ class MeteoCptApiService
         $this->meteoCptToken = "06a3e3f2f54d0caa80e3915bca02c559b6d425804cd52155164e57c6d48bd43e";
     }
 
-    public function callMeteoCptApi($code)
+    public function callEphemerideMeteoCptApi($code)
     {
         $url = $this->meteoCptUrl . "/api/ephemeride/1?token=" . $this->meteoCptToken . "&insee=" . $code;
         $curl = curl_init();
-        //${Config.METEO_CPT_URL}/api/ephemeride/1?token=${Config.METEO_CPT_TOKEN}&insee=${code_commune}
 
         /*
         // Si des données sont fournies, ajoutez-les à l'URL en tant que paramètres de requête
@@ -24,6 +23,33 @@ class MeteoCptApiService
             $url = sprintf("%s?%s", $url, http_build_query($data));
         }
         */
+
+        // OPTIONS:
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        // EXECUTE:
+        $result = curl_exec($curl);
+
+        // Check for errors
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+        }
+
+        curl_close($curl);
+
+        if (isset($error_msg)) {
+            // Handle cURL error
+            return ['error' => $error_msg];
+        }
+
+        return $result;
+    }
+
+    public function callForecastMeteoCptApi($code)
+    {
+        $url = $this->meteoCptUrl . "/api/forecast/daily/0?token=" . $this->meteoCptToken . "&insee=" . $code;
+        $curl = curl_init();
 
         // OPTIONS:
         curl_setopt($curl, CURLOPT_URL, $url);

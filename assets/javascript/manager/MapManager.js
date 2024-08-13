@@ -80,6 +80,7 @@ class MapManager {
         
         if(this.selectedTown) {
             await this.displayTownDetails(this.selectedTown);
+            await this.displayForecast(this.selectedTown);
             await this.updateComments(this.selectedTown);
         }
         this.updateMapFromBounds();
@@ -163,6 +164,7 @@ class MapManager {
         const modal = bootstrap.Modal.getInstance(document.getElementById('modal-comment'));
         if(modal) modal.hide();
         await this.displayTownDetails(this.selectedTown);
+        await this.displayForecast(this.selectedTown);
         await this.updateComments(this.selectedTown);
     }
 
@@ -183,6 +185,7 @@ class MapManager {
         const modal = bootstrap.Modal.getInstance(document.getElementById('modal-comment'));
         if(modal) modal.hide();
         await this.displayTownDetails(this.selectedTown);
+        await this.displayForecast(this.selectedTown);
         await this.updateComments(this.selectedTown);
     }
 
@@ -221,6 +224,13 @@ class MapManager {
         });
     }
 
+    async displayForecast(town) {
+        const forecastInfos = await this.townService.getForecastFromApis(town.townCode);
+        //console.log('forecastInfos : ', forecastInfos);
+        // appeler méthode de la vue
+        this.mapVue.displayForecast(forecastInfos);
+    }
+
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // TODO créer des méthodes et en mettre dans la vue
     async displayTownDetails(town) {
@@ -244,6 +254,7 @@ class MapManager {
         const infos = await this.townService.getInfosFromApis(town.townCode);
         const population = infos.population;
         const altitude = infos.altitude;
+
         //console.log('infos : ', infos);
         const textElement = document.getElementById('result-text');
         let html = "<p class='result-line'>" + town.townName + " <span class='text-secondary'>•</span> ";
@@ -261,6 +272,7 @@ class MapManager {
         //console.log('town objet: ', town);
         this.selectedTown = town;
         await this.displayTownDetails(this.selectedTown);
+        await this.displayForecast(this.selectedTown);
         await this.updateComments(this.selectedTown);
         this.refreshMap(this.map, this.townsData);
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
