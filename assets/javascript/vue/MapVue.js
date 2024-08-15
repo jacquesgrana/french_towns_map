@@ -222,15 +222,24 @@ class MapVue {
             const probaWind70 = forecastInfos.forecast.probawind70;
             const probaWind100 = forecastInfos.forecast.probawind100;
 
+
+            const rr10 = forecastInfos.forecast.rr10;
+            const rr1 = forecastInfos.forecast.rr1;
+            const gustx = forecastInfos.forecast.gustx;
+            const etp = forecastInfos.forecast.etp;
+            const day = forecastInfos.forecast.day;
+
             //console.log('weatherIcon class : ', WeatherLibrary.getWeatherIconClassByCode(weatherCode));
 
             const cardContainer = document.createElement('div');
-            cardContainer.classList.add('d-flex');
-            cardContainer.classList.add('justify-content-center');
-            cardContainer.classList.add('col-12');
-            cardContainer.classList.add('row');
-            cardContainer.classList.add('gap-3');
-            cardContainer.classList.add('text-center');
+            cardContainer.classList.add('card-forecast-container');
+            //cardContainer.classList.add('d-flex');
+            //cardContainer.classList.add('justify-content-between');
+            
+            //cardContainer.classList.add('flex-wrap');
+            //cardContainer.classList.add('row');
+            //cardContainer.classList.add('gap-3');
+            //cardContainer.classList.add('text-center');
 
             const cardWeather = document.createElement('div');
             cardWeather.classList.add('card-forecast');
@@ -285,14 +294,55 @@ class MapVue {
             tempIcon.classList.add('wi-thermometer');
             tempIcon.classList.add('icon-temp');
             cardTemp.appendChild(tempIcon);
-
             const paragTemp = document.createElement('p');
             paragTemp.classList.add('text-small');
             paragTemp.classList.add('text-small-interligne');
             paragTemp.innerHTML = `<span class="text-white">min : <span class="${classTempMin} text-big">${tMin}</span> °C</span></br><span class="text-white">max : <span class="${classTempMax} text-big">${tMax}</span> °C</span>`;
             cardTemp.appendChild(paragTemp);
-
             cardContainer.appendChild(cardTemp);
+
+            const cardSunHours = document.createElement('div');
+            cardSunHours.classList.add('card-forecast');
+            //wi-day-sunny
+            const sunHoursIcon = document.createElement('i');
+            sunHoursIcon.classList.add('wi');
+            sunHoursIcon.classList.add('wi-day-sunny');
+            sunHoursIcon.classList.add('icon-sun-hours');
+            cardSunHours.appendChild(sunHoursIcon);
+            const paragSunHours = document.createElement('p');
+            paragSunHours.classList.add('text-white');
+            paragSunHours.classList.add('text-small');
+            paragSunHours.innerHTML = 'Ensoleillement : <span class="text-secondary text-big">' + sunHours + 'h</span>';
+            cardSunHours.appendChild(paragSunHours);
+            cardContainer.appendChild(cardSunHours);
+
+            /** */
+
+            const cardRainCumul = document.createElement('div');
+            cardRainCumul.classList.add('card-forecast');
+            const rainCumulIcon = document.createElement('i');
+            rainCumulIcon.classList.add('wi');
+            rainCumulIcon.classList.add('wi-raindrop');
+            rainCumulIcon.classList.add('icon-rain-cumul');
+            cardRainCumul.appendChild(rainCumulIcon);
+            const paragRainCumul = document.createElement('p');
+            paragRainCumul.classList.add('text-small');
+            paragRainCumul.innerHTML = '<span class="text-white"> Pluie :</br><span class="text-secondary text-big">' + rr10 + ' mm</span></span>';
+            cardRainCumul.appendChild(paragRainCumul);
+            cardContainer.appendChild(cardRainCumul);
+
+            const cardRainCumulMax = document.createElement('div');
+            cardRainCumulMax.classList.add('card-forecast');
+            const rainCumulMaxIcon = document.createElement('i');
+            rainCumulMaxIcon.classList.add('wi');
+            rainCumulMaxIcon.classList.add('wi-raindrop');
+            rainCumulMaxIcon.classList.add('icon-rain-cumul');
+            cardRainCumulMax.appendChild(rainCumulMaxIcon);
+            const paragRainCumulMax = document.createElement('p');
+            paragRainCumulMax.classList.add('text-small');
+            paragRainCumulMax.innerHTML = '<span class="text-white"> Pluie max. :</br><span class="text-secondary text-big">' + rr1 + ' mm</span></span>';
+            cardRainCumulMax.appendChild(paragRainCumulMax);
+            cardContainer.appendChild(cardRainCumulMax);
 
             const cardProbaRain = document.createElement('div');
             cardProbaRain.classList.add('card-forecast');
@@ -359,21 +409,24 @@ class MapVue {
             cardProbaWind100.appendChild(paragProbaWind100);
             cardContainer.appendChild(cardProbaWind100);
 
-            const cardSunHours = document.createElement('div');
-            cardSunHours.classList.add('card-forecast');
-            //wi-day-sunny
-            const sunHoursIcon = document.createElement('i');
-            sunHoursIcon.classList.add('wi');
-            sunHoursIcon.classList.add('wi-day-sunny');
-            sunHoursIcon.classList.add('icon-sun-hours');
-            cardSunHours.appendChild(sunHoursIcon);
-            const paragSunHours = document.createElement('p');
-            paragSunHours.classList.add('text-white');
-            paragSunHours.classList.add('text-small');
-            paragSunHours.innerHTML = 'Temps de soleil : <span class="text-secondary text-big">' + sunHours + 'h</span>';
-            cardSunHours.appendChild(paragSunHours);
-            cardContainer.appendChild(cardSunHours);
+            const cardWindTempest = document.createElement('div');
+            cardWindTempest.classList.add('card-forecast');
+            const windTempestIcon = document.createElement('i');
+            windTempestIcon.classList.add('wi');
+            windTempestIcon.classList.add('wi-hurricane');
+            windTempestIcon.classList.add('icon-wind-tempest');
+            cardWindTempest.appendChild(windTempestIcon);
+            const paragWindTempest = document.createElement('p');
+            paragWindTempest.classList.add('text-small');
+            paragWindTempest.innerHTML = '<span class="text-white">Tempête :</br><span class="text-secondary text-big">' + gustx + ' km/h</span></span>';
+            cardWindTempest.appendChild(paragWindTempest);
+            cardContainer.appendChild(cardWindTempest);
 
+            /*
+            const growDiv = document.createElement('div');
+            growDiv.classList.add('flex-grow-1');
+            cardContainer.appendChild(growDiv);
+            */
             forecastDiv.appendChild(cardContainer);
 
             /*
@@ -452,24 +505,24 @@ class MapVue {
         "cp": 35000,
         "latitude": 48.112,
         "longitude": -1.6819,
-        "day": 0,
+        "day": 0, //Jour entre 0 et 13 (Pour le jour même : 0, pour le lendemain : 1, etc.)
         "datetime": "2020-10-29T01:00:00+0100",
         "wind10m": 15, //Vent moyen à 10 mètres en km/h
         "gust10m": 49, //Rafales de vent à 10 mètres en km/h
         "dirwind10m": 230, //Direction du vent en degrés (0 à 360°)
-        "rr10": 0.2,
-        "rr1": 0.3,
+        "rr10": 0.2, //Cumul de pluie sur la journée en mm
+        "rr1": 0.3, //Cumul de pluie maximal sur la journée en mm
         "probarain": 40,
         "weather": 4,
         "tmin": 11,
         "tmax": 17,
-        "sun_hours": 1,
-        "etp": 1,
+        "sun_hours": 1, //Ensoleillement en heures
+        "etp": 1, //Cumul d'évapotranspiration en mm
         "probafrost": 0,
         "probafog": 0,
         "probawind70": 0,
         "probawind100": 0,
-        "gustx": 49
+        "gustx": 49 //Rafale de vent potentielle sous orage ou grain en km/h
     }
 }
    */
