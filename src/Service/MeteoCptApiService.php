@@ -46,9 +46,9 @@ class MeteoCptApiService
         return $result;
     }
 
-    public function callForecastMeteoCptApi($code)
+    public function callForecastMeteoCptApi($code, $day = 0)
     {
-        $url = $this->meteoCptUrl . "/api/forecast/daily/0?token=" . $this->meteoCptToken . "&insee=" . $code;
+        $url = $this->meteoCptUrl . "/api/forecast/daily/" . $day . "?token=" . $this->meteoCptToken . "&insee=" . $code;
         $curl = curl_init();
 
         // OPTIONS:

@@ -27,7 +27,7 @@ class TownService {
         return await result.json();
     }
 
-    async getForecastFromApis(code) {
+    async getForecastFromApis(code, day) {
         //console.log('code : ', code);
         const result = await fetch('/get-town-forecast-from-apis', {
             credentials: 'include',
@@ -36,7 +36,8 @@ class TownService {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                townCode: code
+                townCode: code,
+                day: day
             })
         });
         //console.log('result : ', data);

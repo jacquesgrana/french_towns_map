@@ -57,7 +57,8 @@ class ApiJsonController extends AbstractController
     ) {
         $requestData = json_decode($request->getContent(), true);
         $townCode = $requestData['townCode'];
-        $result = $meteoCptApiService->callForecastMeteoCptApi($townCode);
+        $day = $requestData['day'];
+        $result = $meteoCptApiService->callForecastMeteoCptApi($townCode, $day);
         $data = json_decode($result, true);
         return new JsonResponse($data); 
     }

@@ -1,0 +1,19 @@
+#day0-tab.nav-link,
+#day1-tab.nav-link,
+#day2-tab.nav-link,
+#day3-tab.nav-link,
+#day7-tab.nav-link {
+    color: $white;
+    //background-color: $primary-color;
+    background-color: $primary-color-medium-light;
+    &:hover {
+        color: $secondary-color-light;
+        background-color: $primary-color-medium-dark;
+
+    }
+
+    &.active {
+        color: $secondary-color;
+        background-color: $primary-color-dark;
+    }
+}

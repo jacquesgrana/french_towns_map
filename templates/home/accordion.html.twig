@@ -33,7 +33,51 @@
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#map-accordion">
             <div class="accordion-body" id="map-accordion-body-forecast">
-                <p class="text-white">Rien à afficher.</p>
+            <ul class="nav nav-pills gap-3" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="day0-tab" data-bs-toggle="tab" data-bs-target="#day0-tab-pane" type="button" role="tab" aria-controls="day0-tab-pane" aria-selected="true">Jour</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="day1-tab" data-bs-toggle="tab" data-bs-target="#day1-tab-pane" type="button" role="tab" aria-controls="day1-tab-pane" aria-selected="false">Jour +1</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="day2-tab" data-bs-toggle="tab" data-bs-target="#day2-tab-pane" type="button" role="tab" aria-controls="day2-tab-pane" aria-selected="false">Jour +2</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="day3-tab" data-bs-toggle="tab" data-bs-target="#day3-tab-pane" type="button" role="tab" aria-controls="day3-tab-pane" aria-selected="false">Jour +3</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="day7-tab" data-bs-toggle="tab" data-bs-target="#day7-tab-pane" type="button" role="tab" aria-controls="day7-tab-pane" aria-selected="false">Jour +7</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="day0-tab-pane" role="tabpanel" aria-labelledby="day0-tab" tabindex="0">
+                    <div id="forecast-div-0">
+                        <p class="text-white mt-3">Rien à afficher.</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="day1-tab-pane" role="tabpanel" aria-labelledby="day1-tab" tabindex="1">
+                    <div id="forecast-div-1">
+                        <p class="text-white mt-3">Rien à afficher.</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="day2-tab-pane" role="tabpanel" aria-labelledby="day2-tab" tabindex="2">
+                    <div id="forecast-div-2">
+                        <p class="text-white mt-3">Rien à afficher.</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="day3-tab-pane" role="tabpanel" aria-labelledby="day3-tab" tabindex="3">
+                    <div id="forecast-div-3">
+                        <p class="text-white mt-3">Rien à afficher.</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="day7-tab-pane" role="tabpanel" aria-labelledby="day7-tab" tabindex="7">
+                    <div id="forecast-div-7">
+                        <p class="text-white mt-3">Rien à afficher.</p>
+                    </div>
+                </div>
+            </div>
+                
             </div>
         </div>
     </div>
