@@ -9,7 +9,7 @@ class MapManager {
     favoriteService;
     commentService;
     securityService;
-    isNewComment;;
+    isNewComment;
     //isLoggedIn;
     constructor() {
         this.mapVue = new MapVue();
