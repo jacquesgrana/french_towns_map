@@ -222,61 +222,214 @@ class MapVue {
             const probaWind70 = forecastInfos.forecast.probawind70;
             const probaWind100 = forecastInfos.forecast.probawind100;
 
+            //console.log('weatherIcon class : ', WeatherLibrary.getWeatherIconClassByCode(weatherCode));
 
-            const card = document.createElement('card');
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('d-flex');
+            cardContainer.classList.add('justify-content-center');
+            cardContainer.classList.add('col-12');
+            cardContainer.classList.add('row');
+            cardContainer.classList.add('gap-3');
+            cardContainer.classList.add('text-center');
 
-            const paragWeatherIcon = document.createElement('p');
-            paragWeatherIcon.classList.add('text-white');
-            paragWeatherIcon.innerHTML = 'Icone : <span class="text-secondary">' + weatherCode + '</span>';
-            card.appendChild(paragWeatherIcon);
+            const cardWeather = document.createElement('div');
+            cardWeather.classList.add('card-forecast');
+            
+            const weatherIcon = document.createElement('i');
+            weatherIcon.classList.add('wi');
+            weatherIcon.classList.add('icon-weather');
+            weatherIcon.classList.add(WeatherLibrary.getWeatherIconClassByCode(weatherCode));
+            cardWeather.appendChild(weatherIcon);
 
+            const paragWeatherCategory = document.createElement('p');
+            paragWeatherCategory.classList.add('text-white');
+            paragWeatherCategory.classList.add('text-small');
+            paragWeatherCategory.innerHTML = '<span class="text-secondary">' + WeatherLibrary.getWeatherNameByCode(weatherCode) + '</span>';
+            cardWeather.appendChild(paragWeatherCategory);
+
+            cardContainer.appendChild(cardWeather);
+
+            const cardWind = document.createElement('div');
+            cardWind.classList.add('card-forecast');
+
+            const windIcon = document.createElement('i');
+            windIcon.classList.add('wi');
+            windIcon.classList.add('wi-wind');
+            windIcon.classList.add('icon-wind');
+            windIcon.classList.add(WeatherLibrary.getWindDirectionClassByDir(dirWind10m));
+            cardWind.appendChild(windIcon);
+
+            const paragWind = document.createElement('p');
+            paragWind.classList.add('text-small');
+            paragWind.classList.add('text-white');
+            paragWind.innerHTML = '10m : <span class="text-secondary">' + wind10m + ' km/h </span><br />Rafale : <span class="text-secondary">' + gust10m + ' km/h</span>';
+            cardWind.appendChild(paragWind);
+
+            cardContainer.appendChild(cardWind);
+
+            /*
+            const iconWind = createMarkup("i", "", titleMeteo, [{class:"wi wi-wind text-white ms-2"}, {id: "icon-wind-dir"}]);
+            iconWind.classList.add(WeatherLib.getWindDirectionClassByDir(meteoDatas.forecast.dirwind10m));
+            */
+            
+            
+            const classTempMin = WeatherLibrary.getColorClassByTemp(tMin);
+            const classTempMax = WeatherLibrary.getColorClassByTemp(tMax);
+
+            const cardTemp = document.createElement('div');
+            cardTemp.classList.add('card-forecast');
+
+            //wi-thermometer
+            const tempIcon = document.createElement('i');
+            tempIcon.classList.add('wi');
+            tempIcon.classList.add('wi-thermometer');
+            tempIcon.classList.add('icon-temp');
+            cardTemp.appendChild(tempIcon);
+
+            const paragTemp = document.createElement('p');
+            paragTemp.classList.add('text-small');
+            paragTemp.classList.add('text-small-interligne');
+            paragTemp.innerHTML = `<span class="text-white">min : <span class="${classTempMin} text-big">${tMin}</span> °C</span></br><span class="text-white">max : <span class="${classTempMax} text-big">${tMax}</span> °C</span>`;
+            cardTemp.appendChild(paragTemp);
+
+            cardContainer.appendChild(cardTemp);
+
+            const cardProbaRain = document.createElement('div');
+            cardProbaRain.classList.add('card-forecast');
+            const probaRainIcon = document.createElement('i');
+            probaRainIcon.classList.add('wi');
+            probaRainIcon.classList.add('wi-raindrops');
+            probaRainIcon.classList.add('icon-proba-rain');
+            cardProbaRain.appendChild(probaRainIcon);
+            const paragProbaRain = document.createElement('p');
+            paragProbaRain.classList.add('text-small');
+            paragProbaRain.innerHTML = '<span class="text-white"> Proba. Pluie :</br><span class="text-secondary text-big">' + probaRain + '%</span></span>';
+            cardProbaRain.appendChild(paragProbaRain);
+            cardContainer.appendChild(cardProbaRain);
+
+            const cardProbaFrost = document.createElement('div');
+            cardProbaFrost.classList.add('card-forecast');
+            const probaFrostIcon = document.createElement('i');
+            probaFrostIcon.classList.add('wi');
+            probaFrostIcon.classList.add('wi-snowflake-cold');
+            probaFrostIcon.classList.add('icon-proba-frost');
+            cardProbaFrost.appendChild(probaFrostIcon);
+            const paragProbaFrost = document.createElement('p');
+            paragProbaFrost.classList.add('text-small');
+            paragProbaFrost.innerHTML = '<span class="text-white"> Proba. Gel :</br><span class="text-secondary text-big">' + probaFrost + '%</span></span>';
+            cardProbaFrost.appendChild(paragProbaFrost);
+            cardContainer.appendChild(cardProbaFrost);
+
+            const cardProbaFog = document.createElement('div');
+            cardProbaFog.classList.add('card-forecast');
+            const probaFogIcon = document.createElement('i');
+            probaFogIcon.classList.add('wi');
+            probaFogIcon.classList.add('wi-fog');
+            probaFogIcon.classList.add('icon-proba-fog');
+            cardProbaFog.appendChild(probaFogIcon);
+            const paragProbaFog = document.createElement('p');
+            paragProbaFog.classList.add('text-small');
+            paragProbaFog.innerHTML = '<span class="text-white"> Proba. Brume :</br><span class="text-secondary text-big">' + probaFog + '%</span></span>';
+            cardProbaFog.appendChild(paragProbaFog);
+            cardContainer.appendChild(cardProbaFog);
+
+            const cardProbaWind70 = document.createElement('div');
+            cardProbaWind70.classList.add('card-forecast');
+            const probaWind70Icon = document.createElement('i');
+            probaWind70Icon.classList.add('wi');
+            probaWind70Icon.classList.add('wi-strong-wind');
+            probaWind70Icon.classList.add('icon-proba-wind70');
+            cardProbaWind70.appendChild(probaWind70Icon);   
+            const paragProbaWind70 = document.createElement('p');
+            paragProbaWind70.classList.add('text-small');
+            paragProbaWind70.innerHTML = '<span class="text-white"> Proba. Vent >= 70 km/h :</br><span class="text-secondary text-big">' + probaWind70 + '%</span></span>';
+            cardProbaWind70.appendChild(paragProbaWind70);
+            cardContainer.appendChild(cardProbaWind70);
+
+            const cardProbaWind100 = document.createElement('div');
+            cardProbaWind100.classList.add('card-forecast');
+            const probaWind100Icon = document.createElement('i');
+            probaWind100Icon.classList.add('wi');
+            probaWind100Icon.classList.add('wi-strong-wind');
+            probaWind100Icon.classList.add('icon-proba-wind100');
+            cardProbaWind100.appendChild(probaWind100Icon);
+            const paragProbaWind100 = document.createElement('p');
+            paragProbaWind100.classList.add('text-small');
+            paragProbaWind100.innerHTML = '<span class="text-white"> Proba. Vent >= 100 km/h :</br><span class="text-secondary text-big">' + probaWind100 + '%</span></span>';
+            cardProbaWind100.appendChild(paragProbaWind100);
+            cardContainer.appendChild(cardProbaWind100);
+
+            const cardSunHours = document.createElement('div');
+            cardSunHours.classList.add('card-forecast');
+            //wi-day-sunny
+            const sunHoursIcon = document.createElement('i');
+            sunHoursIcon.classList.add('wi');
+            sunHoursIcon.classList.add('wi-day-sunny');
+            sunHoursIcon.classList.add('icon-sun-hours');
+            cardSunHours.appendChild(sunHoursIcon);
+            const paragSunHours = document.createElement('p');
+            paragSunHours.classList.add('text-white');
+            paragSunHours.classList.add('text-small');
+            paragSunHours.innerHTML = 'Temps de soleil : <span class="text-secondary text-big">' + sunHours + 'h</span>';
+            cardSunHours.appendChild(paragSunHours);
+            cardContainer.appendChild(cardSunHours);
+
+            forecastDiv.appendChild(cardContainer);
+
+            /*
             const paragTemps = document.createElement('p');
             paragTemps.classList.add('text-white');
-            paragTemps.innerHTML = 'Températures : <span class="text-secondary">min : ' + tMin + ' °C </span>•<span class="text-secondary"> max : ' + tMax + ' °C</span>';
-            card.appendChild(paragTemps);
+            paragTemps.innerHTML = `Températures : <span class="text-secondary">min : <span class="${classTempMin}">${tMin}</span> °C </span>•<span class="text-secondary"> max : <span class="${classTempMax}">${tMax}</span> °C</span>`;
+            cardContainer.appendChild(paragTemps);
+            */
 
+            /*
             const paragwind = document.createElement('p');
             paragwind.classList.add('text-white');
             paragwind.innerHTML = 'Vent : <span class="text-secondary">10m : ' + wind10m + ' km/h </span>•<span class="text-secondary"> Rafale : ' + gust10m + ' km/h</span>';
-            card.appendChild(paragwind);
-
+            cardContainer.appendChild(paragwind);
+            */
+           /*
             const paragWindDir = document.createElement('p');
             paragWindDir.classList.add('text-white');
             paragWindDir.innerHTML = 'Direction du vent : <span class="text-secondary">' + dirWind10m + '°</span>';
-            card.appendChild(paragWindDir);
+            cardContainer.appendChild(paragWindDir);
+            */
 
+            /*
             const paragSunHours = document.createElement('p');
             paragSunHours.classList.add('text-white');
             paragSunHours.innerHTML = 'Heures d\'eclairage : <span class="text-secondary">' + sunHours + 'h</span>';
-            card.appendChild(paragSunHours);
+            cardContainer.appendChild(paragSunHours);
+            */
 
+            /*
             const paragRain = document.createElement('p');
             paragRain.classList.add('text-white');
             paragRain.innerHTML = 'Probabilité de pluie : <span class="text-secondary">' + probaRain + '%</span>';
-            card.appendChild(paragRain);
+            cardContainer.appendChild(paragRain);
 
             const paragFrost = document.createElement('p');
             paragFrost.classList.add('text-white');
             paragFrost.innerHTML = 'Probabilité de gel : <span class="text-secondary">' + probaFrost + '%</span>';
-            card.appendChild(paragFrost);
+            cardContainer.appendChild(paragFrost);
 
             const paragFog = document.createElement('p');
             paragFog.classList.add('text-white');
             paragFog.innerHTML = 'Probabilité de brouillard : <span class="text-secondary">' + probaFog + '%</span>';
-            card.appendChild(paragFog);
-
+            cardContainer.appendChild(paragFog);
+            */
+            /*
             const paragWind70 = document.createElement('p');
             paragWind70.classList.add('text-white');
             paragWind70.innerHTML = 'Probabilité de vent 70 km/h : <span class="text-secondary">' + probaWind70 + '%</span>';
-            card.appendChild(paragWind70);
+            cardContainer.appendChild(paragWind70);
 
             const paragWind100 = document.createElement('p');
             paragWind100.classList.add('text-white');
             paragWind100.innerHTML = 'Probabilité de vent 100 km/h : <span class="text-secondary">' + probaWind100 + '%</span>';
-            card.appendChild(paragWind100);
-
-            forecastDiv.appendChild(card);
-
+            cardContainer.appendChild(paragWind100);
+            */
         }
         
     }

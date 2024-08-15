@@ -5,6 +5,8 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" type="image/png" href="{{ asset('image/favicon.ico') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/weather-icons.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/weather-icons-wind.min.css') }}">
         <link rel="stylesheet" href="{{ asset('app.css') }}">
          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -22,12 +24,14 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-        <script type="text/javascript" src="{{ asset('javascript/vue/MapVue.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('javascript/manager/MapManager.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/library/WeatherLibrary.js') }}"></script>
         <script type="text/javascript" src="{{ asset('javascript/service/TownService.js') }}"></script>
         <script type="text/javascript" src="{{ asset('javascript/service/FavoriteService.js') }}"></script>
         <script type="text/javascript" src="{{ asset('javascript/service/CommentService.js') }}"></script>
         <script type="text/javascript" src="{{ asset('javascript/service/SecurityService.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/vue/MapVue.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascript/manager/MapManager.js') }}"></script>
+
         {% block js %}
         
         {% endblock %}

@@ -43,6 +43,18 @@
   text-align: start;
 }
 
+.text-small {
+  font-size: 0.8em;
+}
+
+.text-big {
+  font-size: 1.8em;
+}
+
+.text-small-interligne {
+  line-height: 1.4em;
+}
+
 .link-01 {
   text-decoration: none;
   font-weight: 700;
@@ -649,6 +661,135 @@ input[type=email]:-webkit-autofill:active {
 }
 #map-accordion .accordion-button:not(.collapsed) {
   box-shadow: none;
+}
+
+.color-temp-0 {
+  color: rgb(6, 89, 122);
+}
+
+.color-temp-1 {
+  color: rgb(11, 124, 168);
+}
+
+.color-temp-2 {
+  color: rgb(18, 159, 214);
+}
+
+.color-temp-3 {
+  color: rgb(15, 189, 102);
+}
+
+.color-temp-4 {
+  color: rgb(133, 187, 9);
+}
+
+.color-temp-5 {
+  color: rgb(241, 119, 53);
+}
+
+.color-temp-6 {
+  color: rgb(175, 37, 3);
+}
+
+.color-temp-7 {
+  color: rgb(135, 5, 161);
+}
+
+.bg-temp-0 {
+  background-color: rgb(6, 89, 122);
+}
+
+.bg-temp-1 {
+  background-color: rgb(11, 124, 168);
+}
+
+.bg-temp-2 {
+  background-color: rgb(18, 159, 214);
+}
+
+.bg-temp-3 {
+  background-color: rgb(15, 189, 102);
+}
+
+.bg-temp-4 {
+  background-color: rgb(133, 187, 9);
+}
+
+.bg-temp-5 {
+  background-color: rgb(241, 119, 53);
+}
+
+.bg-temp-6 {
+  background-color: rgb(175, 37, 3);
+}
+
+.bg-temp-7 {
+  background-color: rgb(135, 5, 161);
+}
+
+.icon-weather {
+  font-size: 3.2em;
+  color: rgb(236, 250, 255);
+  margin-bottom: 10px;
+}
+
+.icon-wind {
+  font-size: 4em;
+  color: rgb(236, 250, 255);
+}
+
+.icon-temp {
+  font-size: 2.6em;
+  color: rgb(236, 250, 255);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.icon-proba-rain {
+  font-size: 3.2em;
+  color: rgb(236, 250, 255);
+  margin-top: 10px;
+}
+
+.icon-proba-frost {
+  font-size: 3.2em;
+  color: rgb(236, 250, 255);
+  margin-top: 10px;
+}
+
+.icon-proba-fog {
+  font-size: 2.4em;
+  color: rgb(236, 250, 255);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.icon-proba-wind100,
+.icon-proba-wind70 {
+  font-size: 2.4em;
+  color: rgb(236, 250, 255);
+  margin-top: 10px;
+}
+
+.icon-sun-hours {
+  font-size: 2.4em;
+  color: rgb(236, 250, 255);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.card-forecast {
+  padding: 10px;
+  padding-top: 20px;
+  width: 120px;
+  height: 120px;
+  background-color: rgb(2, 52, 71);
+  color: rgb(236, 250, 255);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /*# sourceMappingURL=app.css.map */

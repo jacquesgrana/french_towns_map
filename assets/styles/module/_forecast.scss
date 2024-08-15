@@ -1,0 +1,133 @@
+.color-temp-0 {
+    color: $color-temp-0;
+}
+
+.color-temp-1 {
+    color: $color-temp-1;
+}
+
+.color-temp-2 {
+    color: $color-temp-2;
+}
+
+.color-temp-3 {
+    color: $color-temp-3;
+}
+
+.color-temp-4 {
+    color: $color-temp-4;
+}
+
+.color-temp-5 {
+    color: $color-temp-5;
+}
+
+.color-temp-6 {
+    color: $color-temp-6;
+}
+
+.color-temp-7 {
+    color: $color-temp-7;
+}
+
+
+.bg-temp-0 {
+    background-color: $color-temp-0;
+}
+
+.bg-temp-1 {
+    background-color: $color-temp-1;
+}
+
+.bg-temp-2 {
+    background-color: $color-temp-2;
+}
+
+.bg-temp-3 {
+    background-color: $color-temp-3;
+}
+
+.bg-temp-4 {
+    background-color: $color-temp-4;
+}
+
+.bg-temp-5 {
+    background-color: $color-temp-5;
+}
+
+.bg-temp-6 {
+    background-color: $color-temp-6;
+}
+
+.bg-temp-7 {
+    background-color: $color-temp-7;
+}
+
+.icon-weather {
+    font-size: 3.2em;
+    color: $white;
+    margin-bottom: 10px;
+}
+
+.icon-wind {
+    font-size: 4em;
+    color: $white;
+}
+
+.icon-temp {
+    font-size: 2.6em;
+    color: $white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.icon-proba-rain {
+    font-size: 3.2em;
+    color: $white;
+    margin-top: 10px;
+    //margin-bottom: 10px;
+}
+
+.icon-proba-frost {
+    font-size: 3.2em;
+    color: $white;
+    margin-top: 10px;
+    //margin-bottom: 10px;
+}
+
+.icon-proba-fog {
+    font-size: 2.4em;
+    color: $white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.icon-proba-wind100, 
+.icon-proba-wind70 {
+    font-size: 2.4em;
+    color: $white;
+    margin-top: 10px;
+    //margin-bottom: 10px;
+}
+
+.icon-sun-hours {
+    font-size: 2.4em;
+    color: $white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card-forecast {
+    //margin: 10px;
+    padding: 10px;
+    padding-top: 20px;
+    width : 120px;
+    height: 120px;
+    background-color: $primary-color-dark;
+    color: $white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
