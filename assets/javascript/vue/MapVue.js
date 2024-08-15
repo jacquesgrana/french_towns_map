@@ -199,9 +199,9 @@ class MapVue {
         if(commentForm) commentForm.reset();
     }
 
-    displayForecast(forecastInfos) {
+    displayForecast(forecastInfos, day) {
         //map-accordion-body-forecast
-        const forecastDiv = document.getElementById('map-accordion-body-forecast');
+        const forecastDiv = document.getElementById(`forecast-div-${day}`);
         //console.log('forecastInfos : ', forecastInfos.forecast);
         if(forecastInfos && forecastDiv) {
             forecastDiv.innerHTML = '';
@@ -230,6 +230,10 @@ class MapVue {
             const day = forecastInfos.forecast.day;
 
             //console.log('weatherIcon class : ', WeatherLibrary.getWeatherIconClassByCode(weatherCode));
+            const divDate = document.createElement('p');
+            divDate.classList.add('div-forecast-date');
+            divDate.innerHTML = `Jour : <span class="text-secondary">${day}</span> • Date : <span class="text-secondary">${dateTime}</span>`;
+            forecastDiv.appendChild(divDate);
 
             const cardContainer = document.createElement('div');
             cardContainer.classList.add('card-forecast-container');

@@ -225,10 +225,15 @@ class MapManager {
     }
 
     async displayForecast(town) {
-        const forecastInfos = await this.townService.getForecastFromApis(town.townCode);
-        //console.log('forecastInfos : ', forecastInfos);
-        // appeler méthode de la vue
-        this.mapVue.displayForecast(forecastInfos);
+        //const forecastInfos0 = await this.townService.getForecastFromApis(town.townCode, 0);
+        //this.mapVue.displayForecast(forecastInfos0, 0);
+
+        for(let i = 0; i < 5; i++) { 
+            let rank =  i == 4 ? 7 : i;
+            const forecastInfos = await this.townService.getForecastFromApis(town.townCode, rank);
+            this.mapVue.displayForecast(forecastInfos, rank);
+
+        }
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
