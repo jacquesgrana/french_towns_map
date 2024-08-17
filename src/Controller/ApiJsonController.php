@@ -31,14 +31,14 @@ class ApiJsonController extends AbstractController
         $totalData = json_decode($result, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
-            $population = $totalData['population'];
+            $population = $totalData['population'] ?? 0;
         }
 
         $resultMeteoCpt = $meteoCptApiService->callEphemerideMeteoCptApi($townCode);
         $dataMeteoCpt = json_decode($resultMeteoCpt, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
-            $altitude = $dataMeteoCpt['city']['altitude'];
+            $altitude = $dataMeteoCpt['city']['altitude'] ?? 0;
         }
 
         //$toReturn = new \stdClass();
@@ -63,8 +63,14 @@ class ApiJsonController extends AbstractController
         $result = $meteoCptApiService->callForecastMeteoCptApi($townCode, $day);
         $data = json_decode($result, true);
         $forecastDto = new ForecastDto();
-        $forecastDto->hydrate($data['forecast']);
-        return new JsonResponse($forecastDto->serialize()); 
+        if(!isset($data['forecast'])) {
+            return new JsonResponse(['error' => 'forecast is required'], 200);
+        }
+        else {
+            $forecastDto->hydrate($data['forecast']);
+            return new JsonResponse($forecastDto->serialize(), 200); 
+        }
+        
     }
 }
 
