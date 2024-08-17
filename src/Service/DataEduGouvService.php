@@ -11,11 +11,13 @@ class DataEduGouvService
     {
         $this->dataEduGouvUrlStart = "https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_commune%3D";
         $this->dataEduGouvUrlEnd = "&limit=100&offset=50";
+
+        ///api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_commune%3D77288&order_by=nom_etablissement&limit=20
     }
 
-    public function getSchoolsByCodeCommune(string $code_commune, int $limit = 100, int $offset = 0)
+    public function getSchoolsByCodeCommune(string $code_commune, int $limit = 100, int $offset = 0, string $orderBy = 'nom_etablissement')
     {
-        $url = $this->dataEduGouvUrlStart . $code_commune. '&limit=' . $limit . '&offset=' . $offset;
+        $url = $this->dataEduGouvUrlStart . $code_commune. '&limit=' . $limit . '&offset=' . $offset . '&order_by=' . $orderBy;
         $curl = curl_init();
 
         // OPTIONS:
