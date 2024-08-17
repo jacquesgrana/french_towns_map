@@ -10,12 +10,12 @@ class DataEduGouvService
     public function __construct()
     {
         $this->dataEduGouvUrlStart = "https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_commune%3D";
-        $this->dataEduGouvUrlEnd = "&limit=20";
+        $this->dataEduGouvUrlEnd = "&limit=100&offset=50";
     }
 
-    public function getSchoolsByCodeCommune(string $code_commune)
+    public function getSchoolsByCodeCommune(string $code_commune, int $limit = 100, int $offset = 0)
     {
-        $url = $this->dataEduGouvUrlStart . $code_commune;  //. $this->dataEduGouvUrlEnd;
+        $url = $this->dataEduGouvUrlStart . $code_commune. '&limit=' . $limit . '&offset=' . $offset;
         $curl = curl_init();
 
         // OPTIONS:

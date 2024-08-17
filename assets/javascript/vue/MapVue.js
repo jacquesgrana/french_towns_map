@@ -199,6 +199,57 @@ class MapVue {
         if(commentForm) commentForm.reset();
     }
 
+    displaySchools(schools, schoolNb, callBackPrev, callBackNext) {
+        //map-accordion-body-schools
+        const schoolsDiv = document.getElementById('map-accordion-body-school');
+        if(schoolsDiv) {
+            schoolsDiv.innerHTML = '';
+            const paragraph = document.createElement('p');
+            paragraph.classList.add('text-white');
+            paragraph.textContent = 'Etablissements scolaires (' + schoolNb + ')';
+            schoolsDiv.appendChild(paragraph);
+            if(schools.length === 0) {
+                const noSchoolsDiv = document.createElement('div');
+                const paragraph = document.createElement('p');
+                paragraph.classList.add('text-white');
+                paragraph.textContent = 'Aucun établissement scolaire.';
+                noSchoolsDiv.appendChild(paragraph);
+                schoolsDiv.appendChild(noSchoolsDiv);
+            }
+            else {
+                schools.forEach(school => {
+                    const schoolDiv = document.createElement('div');
+                    schoolDiv.classList.add('div-school');
+                    schoolDiv.innerHTML = school.nom_etablissement;
+                    schoolsDiv.appendChild(schoolDiv);
+                });
+            }
+
+            const divButtons = document.createElement('div');
+            divButtons.classList.add('div-school-buttons');
+            const buttonPrev = document.createElement('button');
+            buttonPrev.classList.add('btn');
+            buttonPrev.classList.add('btn-primary-small');
+            buttonPrev.textContent = 'Page préc.';
+            buttonPrev.onclick = () => {
+                //this.displaySchools(schools, schoolNb + 1);
+                callBackPrev();
+            }
+            divButtons.appendChild(buttonPrev);
+            const buttonNext = document.createElement('button');
+            buttonNext.classList.add('btn');
+            buttonNext.classList.add('btn-primary-small');
+            buttonNext.textContent = 'Page suiv.';
+            buttonNext.onclick = () => {
+                //this.displaySchools(schools, schoolNb + 1);
+                callBackNext();
+            }
+            divButtons.appendChild(buttonNext);
+            
+            schoolsDiv.appendChild(divButtons);
+        }
+    }
+
     displayForecast(forecastInfos, day) {
         //map-accordion-body-forecast
         const forecastDiv = document.getElementById(`forecast-div-${day}`);
@@ -426,67 +477,8 @@ class MapVue {
             cardWindTempest.appendChild(paragWindTempest);
             cardContainer.appendChild(cardWindTempest);
 
-            /*
-            const growDiv = document.createElement('div');
-            growDiv.classList.add('flex-grow-1');
-            cardContainer.appendChild(growDiv);
-            */
             forecastDiv.appendChild(cardContainer);
 
-            /*
-            const paragTemps = document.createElement('p');
-            paragTemps.classList.add('text-white');
-            paragTemps.innerHTML = `Températures : <span class="text-secondary">min : <span class="${classTempMin}">${tMin}</span> °C </span>•<span class="text-secondary"> max : <span class="${classTempMax}">${tMax}</span> °C</span>`;
-            cardContainer.appendChild(paragTemps);
-            */
-
-            /*
-            const paragwind = document.createElement('p');
-            paragwind.classList.add('text-white');
-            paragwind.innerHTML = 'Vent : <span class="text-secondary">10m : ' + wind10m + ' km/h </span>•<span class="text-secondary"> Rafale : ' + gust10m + ' km/h</span>';
-            cardContainer.appendChild(paragwind);
-            */
-           /*
-            const paragWindDir = document.createElement('p');
-            paragWindDir.classList.add('text-white');
-            paragWindDir.innerHTML = 'Direction du vent : <span class="text-secondary">' + dirWind10m + '°</span>';
-            cardContainer.appendChild(paragWindDir);
-            */
-
-            /*
-            const paragSunHours = document.createElement('p');
-            paragSunHours.classList.add('text-white');
-            paragSunHours.innerHTML = 'Heures d\'eclairage : <span class="text-secondary">' + sunHours + 'h</span>';
-            cardContainer.appendChild(paragSunHours);
-            */
-
-            /*
-            const paragRain = document.createElement('p');
-            paragRain.classList.add('text-white');
-            paragRain.innerHTML = 'Probabilité de pluie : <span class="text-secondary">' + probaRain + '%</span>';
-            cardContainer.appendChild(paragRain);
-
-            const paragFrost = document.createElement('p');
-            paragFrost.classList.add('text-white');
-            paragFrost.innerHTML = 'Probabilité de gel : <span class="text-secondary">' + probaFrost + '%</span>';
-            cardContainer.appendChild(paragFrost);
-
-            const paragFog = document.createElement('p');
-            paragFog.classList.add('text-white');
-            paragFog.innerHTML = 'Probabilité de brouillard : <span class="text-secondary">' + probaFog + '%</span>';
-            cardContainer.appendChild(paragFog);
-            */
-            /*
-            const paragWind70 = document.createElement('p');
-            paragWind70.classList.add('text-white');
-            paragWind70.innerHTML = 'Probabilité de vent 70 km/h : <span class="text-secondary">' + probaWind70 + '%</span>';
-            cardContainer.appendChild(paragWind70);
-
-            const paragWind100 = document.createElement('p');
-            paragWind100.classList.add('text-white');
-            paragWind100.innerHTML = 'Probabilité de vent 100 km/h : <span class="text-secondary">' + probaWind100 + '%</span>';
-            cardContainer.appendChild(paragWind100);
-            */
         }
         
     }

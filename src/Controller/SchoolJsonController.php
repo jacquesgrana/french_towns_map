@@ -19,7 +19,9 @@ class SchoolJsonController extends AbstractController {
     {
         $data = json_decode($request->getContent(), true);
         $townCode = $data['townCode'];
-        $result = $dataEduGouvService->getSchoolsByCodeCommune($townCode);
+        $limit = $data['limit'];
+        $offset = $data['offset'];
+        $result = $dataEduGouvService->getSchoolsByCodeCommune($townCode, $limit, $offset);
         $data = json_decode($result, true);
         $totalCount = $data['total_count'];
         $resultArray = $data['results'];
@@ -30,6 +32,6 @@ class SchoolJsonController extends AbstractController {
             $schoolDto->hydrate($school);
             $toReturn[] = $schoolDto->serialize();
         }
-        return new JsonResponse($toReturn);
+        return new JsonResponse(['schools' => $toReturn, 'totalCount' => $totalCount], 200);
     }
 }

@@ -411,6 +411,26 @@ input[type=email]:-webkit-autofill:active {
   background-color: rgb(2, 52, 71);
 }
 
+.div-school {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: rgb(2, 52, 71);
+  color: rgb(236, 250, 255);
+  padding: 10px;
+}
+
+.div-school-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #map {
   height: 600px;
   min-width: 500px;
