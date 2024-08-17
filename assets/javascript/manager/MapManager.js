@@ -9,6 +9,7 @@ class MapManager {
     favoriteService;
     commentService;
     securityService;
+    schoolService;
     isNewComment;
     //isLoggedIn;
     constructor() {
@@ -22,6 +23,7 @@ class MapManager {
         this.favoriteService = FavoriteService.getInstance();
         this.commentService = CommentService.getInstance();
         this.securityService = SecurityService.getInstance();
+        this.schoolService = SchoolService.getInstance();
         this.isNewComment = true;
         //this.isLoggedIn = this.securityService.checkAuthStatus();
     }
@@ -81,6 +83,7 @@ class MapManager {
         if(this.selectedTown) {
             await this.displayTownDetails(this.selectedTown);
             await this.displayForecast(this.selectedTown);
+            await this.displaySchools(this.selectedTown);
             await this.updateComments(this.selectedTown);
         }
         this.updateMapFromBounds();
@@ -164,7 +167,7 @@ class MapManager {
         const modal = bootstrap.Modal.getInstance(document.getElementById('modal-comment'));
         if(modal) modal.hide();
         await this.displayTownDetails(this.selectedTown);
-        await this.displayForecast(this.selectedTown);
+        //await this.displayForecast(this.selectedTown);
         await this.updateComments(this.selectedTown);
     }
 
@@ -185,7 +188,7 @@ class MapManager {
         const modal = bootstrap.Modal.getInstance(document.getElementById('modal-comment'));
         if(modal) modal.hide();
         await this.displayTownDetails(this.selectedTown);
-        await this.displayForecast(this.selectedTown);
+        //await this.displayForecast(this.selectedTown);
         await this.updateComments(this.selectedTown);
     }
 
@@ -224,6 +227,22 @@ class MapManager {
         });
     }
 
+    handlePrevSchools = async () => {
+        console.log('prev schools');
+        if(this.schoolService.getOffset() > 0) {
+            this.schoolService.setOffset(this.schoolService.getOffset() - this.schoolService.getLimit());
+            await this.displaySchools(this.selectedTown);
+        }
+    }
+
+    handleNextSchools = async () => {
+        console.log('next schools');
+        if(this.schoolService.getOffset() + this.schoolService.getLimit() < this.schoolService.getTotalCount()) {
+            this.schoolService.setOffset(this.schoolService.getOffset() + this.schoolService.getLimit());
+            await this.displaySchools(this.selectedTown);
+        }
+    }
+
     async displayForecast(town) {
         //const forecastInfos0 = await this.townService.getForecastFromApis(town.townCode, 0);
         //this.mapVue.displayForecast(forecastInfos0, 0);
@@ -232,8 +251,18 @@ class MapManager {
             let rank =  i == 4 ? 7 : i;
             const forecastInfos = await this.townService.getForecastFromApis(town.townCode, rank);
             this.mapVue.displayForecast(forecastInfos, rank);
-
         }
+    }
+
+    async displaySchools(town) {
+        //console.log('displaySchool : ', town);
+        const datas = await this.schoolService.getSchoolsByTown(town.townCode);
+        const schoolNb = datas.totalCount;
+        this.schoolService.setTotalCount(schoolNb);
+        const schools = datas.schools;
+        console.log('schoolNb : ', schoolNb);
+        console.log('schoolsInfos : ', schools);
+        this.mapVue.displaySchools(schools, schoolNb, this.handlePrevSchools, this.handleNextSchools);
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -278,6 +307,7 @@ class MapManager {
         this.selectedTown = town;
         await this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
+        await this.displaySchools(this.selectedTown);
         await this.updateComments(this.selectedTown);
         this.refreshMap(this.map, this.townsData);
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);

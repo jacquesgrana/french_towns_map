@@ -7,11 +7,11 @@ class SchoolDto
 {
     // 46
     private string $identifiant_de_l_etablissement;
-    private string $nom_etablissement;
-    private string $type_etablissement;
-    private string | null  $statut_public_prive;
-    private string | null  $adresse_1;
-    private string | null  $adresse_2;
+    private string | null  $nom_etablissement;
+    private string | null $type_etablissement;
+    private string | null $statut_public_prive;
+    private string | null $adresse_1;
+    private string | null $adresse_2;
     private string | null $adresse_3;
     //private string $code_postal;
     //private string $code_commune;
@@ -19,37 +19,37 @@ class SchoolDto
     //private string $code_departement;
     //private string $code_academie;
     //private string $code_region;
-    private string | null  $ecole_maternelle;
-    private string | null  $ecole_elementaire;
-    private string | null  $voie_generale;
-    private string | null  $voie_technologique;
-    private string | null  $voie_professionnelle;
-    private string | null  $telephone;
-    private string | null  $fax;
-    private string | null  $web;
-    private string | null  $mail;
-    private string | null  $restauration;
-    private string | null  $hebergement;
+    private string | null $ecole_maternelle;
+    private string | null $ecole_elementaire;
+    private string | null $voie_generale;
+    private string | null $voie_technologique;
+    private string | null $voie_professionnelle;
+    private string | null $telephone;
+    private string | null $fax;
+    private string | null $web;
+    private string | null $mail;
+    private string | null $restauration;
+    private string | null $hebergement;
     //private string $ulis;
-    private string | null  $apprentissage;
-    private string | null  $segpa;
-    private string | null  $section_arts;
-    private string | null  $section_cinema;
-    private string | null  $section_theatre;
-    private string | null  $section_sports;
-    private string | null  $section_internationale;
-    private string | null  $section_europeenne;
-    private string | null  $lycee_agricole;
-    private string | null  $lycee_militaire;
-    private string | null  $lycee_des_metiers;
-    private string | null  $post_bac;
-    private string | null  $appartenance_education_prioritaire;
-    private string | null  $greta;
-    private string | null  $siren_siret;
+    private string | null $apprentissage;
+    private string | null $segpa;
+    private string | null $section_arts;
+    private string | null $section_cinema;
+    private string | null $section_theatre;
+    private string | null $section_sports;
+    private string | null $section_internationale;
+    private string | null $section_europeenne;
+    private string | null $lycee_agricole;
+    private string | null $lycee_militaire;
+    private string | null $lycee_des_metiers;
+    private string | null $post_bac;
+    private string | null $appartenance_education_prioritaire;
+    private string | null $greta;
+    private string | null $siren_siret;
     private int | null $nombre_d_eleves;
-    private string | null  $fiche_onisep;
+    private string | null $fiche_onisep;
     //private string $position;
-    private string | null  $type_contrat_prive;
+    private string | null $type_contrat_prive;
     //private string $libelle_departement;
     private string $libelle_academie;
     //private string $libelle_region;
@@ -62,8 +62,8 @@ class SchoolDto
     //private string $precision_localisation;
     private string $date_ouverture;
     private string $date_maj_ligne;
-    private string | null  $etat;
-    private string | null  $ministere_tutelle;
+    private string | null $etat;
+    private string | null $ministere_tutelle;
     //private string $multi_uai;
     //private string $rpi_concentre;
     //private string $rpi_disperse;
@@ -102,13 +102,13 @@ class SchoolDto
         return $this;
     }
 
-    public function setNom_etablissement(string $nom_etablissement): static {
-        $this->nom_etablissement = $nom_etablissement;
+    public function setNom_etablissement(string | null $nom_etablissement): static {
+        $this->nom_etablissement = $nom_etablissement ?? '';
         return $this;
     }
 
-    public function setType_etablissement(string $type_etablissement): static {
-        $this->type_etablissement = $type_etablissement;
+    public function setType_etablissement(string | null  $type_etablissement): static {
+        $this->type_etablissement = $type_etablissement ?? '';
         return $this;
     }
 
@@ -329,13 +329,13 @@ class SchoolDto
         return $this;
     }
 
-    public function setLatitude(float $latitude): static {
-        $this->latitude = $latitude;
+    public function setLatitude(float | null  $latitude): static {
+        $this->latitude = $latitude ?? 0.0;
         return $this;
     }
 
-    public function setLongitude(float $longitude): static {
-        $this->longitude = $longitude;
+    public function setLongitude(float | null  $longitude): static {
+        $this->longitude = $longitude ?? 0.0;
         return $this;
     }
 
