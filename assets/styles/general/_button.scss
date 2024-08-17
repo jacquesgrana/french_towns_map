@@ -86,3 +86,30 @@
     font-size: 0.8em;
     cursor: pointer;
 }
+
+.btn-tooltip[data-tooltip] {
+    position: relative; /* Position relative pour le positionnement absolu du tooltip */
+}
+
+.btn-tooltip[data-tooltip]::after {
+    content: attr(data-tooltip); /* Utilise l'attribut data-tooltip pour le texte */
+    position: absolute;
+    bottom: 100%; /* Positionne le tooltip au-dessus du bouton */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black; /* Couleur de fond du tooltip */
+    color: white; /* Couleur du texte */
+    padding: 5px; /* Espacement interne */
+    border-radius: 4px; /* Coins arrondis */
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    opacity: 0; /* Commence invisible */
+    transition: opacity 0.3s; /* Transition douce pour l'apparition */
+    pointer-events: none; /* Empêche l'interaction avec le tooltip */
+    z-index: 10; /* Assure que le tooltip est au-dessus d'autres éléments */
+    margin-bottom: 5px; /* Espace entre le bouton et le tooltip */
+    font-size: medium;
+}
+
+.btn-tooltip[data-tooltip]:hover::after {
+    opacity: 1; /* Rend le tooltip visible au survol */
+}

@@ -143,8 +143,8 @@ class MapManager {
             this.handleChangeOrderBy('nom_etablissement');
         });
 
-        const btnSortSchoolByTpe = document.getElementById('sort1-tab');
-        if(btnSortSchoolByTpe) btnSortSchoolByTpe.addEventListener('click', () => {
+        const btnSortSchoolByType = document.getElementById('sort1-tab');
+        if(btnSortSchoolByType) btnSortSchoolByType.addEventListener('click', () => {
             this.handleChangeOrderBy('type_etablissement');
         });
 
