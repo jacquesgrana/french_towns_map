@@ -3,6 +3,7 @@ class SchoolService {
     limit = 10;
     offset = 0;
     totalCount = 0;
+    order_by = 'nom_etablissement';
 
     static instance = null;
     static getInstance() {
@@ -24,7 +25,8 @@ class SchoolService {
             body: JSON.stringify({
                 townCode: townCode,
                 limit: this.limit,
-                offset: this.offset
+                offset: this.offset,
+                order_by: this.order_by
             })
         });
         return await result.json();
@@ -40,6 +42,14 @@ class SchoolService {
 
     getTotalCount() {
         return this.totalCount;
+    }
+
+    getOrder_by() {
+        return this.order_by;
+    }
+
+    setOrder_by(order_by) {
+        this.order_by = order_by;
     }
 
     setLimit(limit) {

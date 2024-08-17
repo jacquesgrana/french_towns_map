@@ -138,6 +138,26 @@ class MapManager {
             }
         });
 
+        const btnSortSchoolByName = document.getElementById('sort0-tab');
+        if(btnSortSchoolByName) btnSortSchoolByName.addEventListener('click', () => {
+            this.handleChangeOrderBy('nom_etablissement');
+        });
+
+        const btnSortSchoolByTpe = document.getElementById('sort1-tab');
+        if(btnSortSchoolByTpe) btnSortSchoolByTpe.addEventListener('click', () => {
+            this.handleChangeOrderBy('type_etablissement');
+        });
+
+        const btnSortSchoolByStatusPP = document.getElementById('sort2-tab');
+        if(btnSortSchoolByStatusPP) btnSortSchoolByStatusPP.addEventListener('click', () => {
+            this.handleChangeOrderBy('statut_public_prive');
+        });
+
+        const btnSortSchoolByNature = document.getElementById('sort3-tab');
+        if(btnSortSchoolByNature) btnSortSchoolByNature.addEventListener('click', () => {
+            this.handleChangeOrderBy('libelle_nature');
+        });
+
     }
 
     manageButtonsWithLoggedIn() {
@@ -228,7 +248,6 @@ class MapManager {
     }
 
     handlePrevSchools = async () => {
-        console.log('prev schools');
         if(this.schoolService.getOffset() > 0) {
             this.schoolService.setOffset(this.schoolService.getOffset() - this.schoolService.getLimit());
             await this.displaySchools(this.selectedTown);
@@ -236,11 +255,17 @@ class MapManager {
     }
 
     handleNextSchools = async () => {
-        console.log('next schools');
         if(this.schoolService.getOffset() + this.schoolService.getLimit() < this.schoolService.getTotalCount()) {
             this.schoolService.setOffset(this.schoolService.getOffset() + this.schoolService.getLimit());
             await this.displaySchools(this.selectedTown);
         }
+    }
+
+    handleChangeOrderBy = async (order_by) => {
+        if(this.selectedTown == null) return;
+        this.schoolService.setOrder_by(order_by);
+        this.schoolService.setOffset(0);
+        await this.displaySchools(this.selectedTown);
     }
 
     async displayForecast(town) {
@@ -262,7 +287,7 @@ class MapManager {
         const schools = datas.schools;
         console.log('schoolNb : ', schoolNb);
         console.log('schoolsInfos : ', schools);
-        this.mapVue.displaySchools(schools, schoolNb, this.handlePrevSchools, this.handleNextSchools);
+        this.mapVue.displaySchools(schools, schoolNb, this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchools, this.handleNextSchools);
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

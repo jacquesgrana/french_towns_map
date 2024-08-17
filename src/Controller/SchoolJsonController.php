@@ -21,7 +21,8 @@ class SchoolJsonController extends AbstractController {
         $townCode = $data['townCode'];
         $limit = $data['limit'];
         $offset = $data['offset'];
-        $result = $dataEduGouvService->getSchoolsByCodeCommune($townCode, $limit, $offset);
+        $order_by = $data['order_by'];
+        $result = $dataEduGouvService->getSchoolsByCodeCommune($townCode, $limit, $offset, $order_by);
         $data = json_decode($result, true);
         $totalCount = $data['total_count'];
         $resultArray = $data['results'];

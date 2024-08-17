@@ -199,14 +199,16 @@ class MapVue {
         if(commentForm) commentForm.reset();
     }
 
-    displaySchools(schools, schoolNb, callBackPrev, callBackNext) {
+    displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext) {
         //map-accordion-body-schools
+        const pageMaxNb = Math.floor(schoolsNb / limit) + 1;
+        const pageNb = Math.floor(offset / limit) + 1;
         const schoolsDiv = document.getElementById('map-accordion-body-school');
         if(schoolsDiv) {
             schoolsDiv.innerHTML = '';
             const paragraph = document.createElement('p');
             paragraph.classList.add('text-white');
-            paragraph.textContent = 'Etablissements scolaires (' + schoolNb + ')';
+            paragraph.textContent = 'Etablissements scolaires (' + schoolsNb + ')';
             schoolsDiv.appendChild(paragraph);
             if(schools.length === 0) {
                 const noSchoolsDiv = document.createElement('div');
@@ -221,6 +223,9 @@ class MapVue {
                     const schoolDiv = document.createElement('div');
                     schoolDiv.classList.add('div-school');
                     schoolDiv.innerHTML = school.nom_etablissement;
+                    schoolDiv.innerHTML += ' / ' + school.type_etablissement;
+                    schoolDiv.innerHTML += ' / ' + school.statut_public_prive;
+                    schoolDiv.innerHTML += '</br>' + school.libelle_nature;
                     schoolsDiv.appendChild(schoolDiv);
                 });
             }
@@ -235,7 +240,14 @@ class MapVue {
                 //this.displaySchools(schools, schoolNb + 1);
                 callBackPrev();
             }
+
             divButtons.appendChild(buttonPrev);
+
+            const paraPageNb = document.createElement('div');
+            paraPageNb.classList.add('text-secondary');
+            paraPageNb.textContent = 'Page : ' + pageNb + '/' + pageMaxNb;
+            divButtons.appendChild(paraPageNb);
+
             const buttonNext = document.createElement('button');
             buttonNext.classList.add('btn');
             buttonNext.classList.add('btn-primary-small');
