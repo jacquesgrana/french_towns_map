@@ -205,29 +205,29 @@ class MapVue {
         //console.log('forecastInfos : ', forecastInfos.forecast);
         if(forecastInfos && forecastDiv) {
             forecastDiv.innerHTML = '';
-            const dateTime = forecastInfos.forecast.datetime;
+            const dateTime = forecastInfos.datetime;
 
-            const wind10m = forecastInfos.forecast.wind10m;
-            const gust10m = forecastInfos.forecast.gust10m;
-            const dirWind10m = forecastInfos.forecast.dirwind10m;
+            const wind10m = forecastInfos.wind10m;
+            const gust10m = forecastInfos.gust10m;
+            const dirWind10m = forecastInfos.dirwind10m;
 
-            const tMin = forecastInfos.forecast.tmin;
-            const tMax = forecastInfos.forecast.tmax;
-            const sunHours = forecastInfos.forecast.sun_hours;
-            const weatherCode = forecastInfos.forecast.weather;
+            const tMin = forecastInfos.tmin;
+            const tMax = forecastInfos.tmax;
+            const sunHours = forecastInfos.sun_hours;
+            const weatherCode = forecastInfos.weather;
 
-            const probaRain = forecastInfos.forecast.probarain;
-            const probaFrost = forecastInfos.forecast.probafrost;
-            const probaFog = forecastInfos.forecast.probafog;
-            const probaWind70 = forecastInfos.forecast.probawind70;
-            const probaWind100 = forecastInfos.forecast.probawind100;
+            const probaRain = forecastInfos.probarain;
+            const probaFrost = forecastInfos.probafrost;
+            const probaFog = forecastInfos.probafog;
+            const probaWind70 = forecastInfos.probawind70;
+            const probaWind100 = forecastInfos.probawind100;
 
 
-            const rr10 = forecastInfos.forecast.rr10;
-            const rr1 = forecastInfos.forecast.rr1;
-            const gustx = forecastInfos.forecast.gustx;
-            const etp = forecastInfos.forecast.etp;
-            const day = forecastInfos.forecast.day;
+            const rr10 = forecastInfos.rr10;
+            const rr1 = forecastInfos.rr1;
+            const gustx = forecastInfos.gustx;
+            const etp = forecastInfos.etp;
+            const day = forecastInfos.day;
 
             //console.log('weatherIcon class : ', WeatherLibrary.getWeatherIconClassByCode(weatherCode));
             const divDate = document.createElement('p');
