@@ -4,6 +4,7 @@ class SchoolService {
     offset = 0;
     totalCount = 0;
     order_by = 'nom_etablissement';
+    order_by_type = 'ASC';
 
     static instance = null;
     static getInstance() {
@@ -26,7 +27,8 @@ class SchoolService {
                 townCode: townCode,
                 limit: this.limit,
                 offset: this.offset,
-                order_by: this.order_by
+                order_by: this.order_by,
+                order_by_type: this.order_by_type
             })
         });
         return await result.json();
@@ -48,8 +50,16 @@ class SchoolService {
         return this.order_by;
     }
 
+    getOrder_by_type() {
+        return this.order_by_type;
+    }
+
     setOrder_by(order_by) {
         this.order_by = order_by;
+    }
+
+    setOrder_by_type(order_by_type) {
+        this.order_by_type = order_by_type;
     }
 
     setLimit(limit) {

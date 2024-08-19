@@ -454,10 +454,14 @@ input[type=email]:-webkit-autofill:active {
 #day2-tab.nav-link,
 #day3-tab.nav-link,
 #day7-tab.nav-link,
-#sort0-tab.nav-link,
-#sort1-tab.nav-link,
-#sort2-tab.nav-link,
-#sort3-tab.nav-link {
+#sort0-asc-tab.nav-link,
+#sort0-desc-tab.nav-link,
+#sort1-asc-tab.nav-link,
+#sort1-desc-tab.nav-link,
+#sort2-asc-tab.nav-link,
+#sort2-desc-tab.nav-link,
+#sort3-asc-tab.nav-link,
+#sort3-desc-tab.nav-link {
   color: rgb(236, 250, 255);
   background-color: rgb(7, 96, 131);
 }
@@ -466,10 +470,14 @@ input[type=email]:-webkit-autofill:active {
 #day2-tab.nav-link:hover,
 #day3-tab.nav-link:hover,
 #day7-tab.nav-link:hover,
-#sort0-tab.nav-link:hover,
-#sort1-tab.nav-link:hover,
-#sort2-tab.nav-link:hover,
-#sort3-tab.nav-link:hover {
+#sort0-asc-tab.nav-link:hover,
+#sort0-desc-tab.nav-link:hover,
+#sort1-asc-tab.nav-link:hover,
+#sort1-desc-tab.nav-link:hover,
+#sort2-asc-tab.nav-link:hover,
+#sort2-desc-tab.nav-link:hover,
+#sort3-asc-tab.nav-link:hover,
+#sort3-desc-tab.nav-link:hover {
   color: rgb(240, 145, 93);
   background-color: rgb(5, 64, 87);
 }
@@ -478,10 +486,14 @@ input[type=email]:-webkit-autofill:active {
 #day2-tab.nav-link.active,
 #day3-tab.nav-link.active,
 #day7-tab.nav-link.active,
-#sort0-tab.nav-link.active,
-#sort1-tab.nav-link.active,
-#sort2-tab.nav-link.active,
-#sort3-tab.nav-link.active {
+#sort0-asc-tab.nav-link.active,
+#sort0-desc-tab.nav-link.active,
+#sort1-asc-tab.nav-link.active,
+#sort1-desc-tab.nav-link.active,
+#sort2-asc-tab.nav-link.active,
+#sort2-desc-tab.nav-link.active,
+#sort3-asc-tab.nav-link.active,
+#sort3-desc-tab.nav-link.active {
   color: rgb(241, 119, 53);
   background-color: rgb(2, 52, 71);
 }
