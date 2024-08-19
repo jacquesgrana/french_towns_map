@@ -270,7 +270,7 @@ class MapManager {
 
     handleViewSchool = (school) => {
         if(this.selectedTown == null) return;
-        console.log('handleViewSchools');
+        //console.log('handleViewSchools');
         const modal = new bootstrap.Modal(document.getElementById('modal-school'));
             //console.log('modal : ', modal);
         if(modal) modal.show();
@@ -284,7 +284,8 @@ class MapManager {
         for(let i = 0; i < 5; i++) { 
             let rank =  i == 4 ? 7 : i;
             const forecastInfos = await this.townService.getForecastFromApis(town.townCode, rank);
-            this.mapVue.displayForecast(forecastInfos, rank);
+            if(!forecastInfos['error']) this.mapVue.displayForecast(forecastInfos, rank);
+            // TODO afficher une info dans le div si l'api est ko
         }
     }
 
@@ -339,6 +340,7 @@ class MapManager {
         //console.log('isLoggedIn : ', this.securityService.isLoggedIn);
         //console.log('town objet: ', town);
         this.selectedTown = town;
+        this.schoolService.setOffset(0);
         await this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);
