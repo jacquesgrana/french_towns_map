@@ -87,6 +87,10 @@
     cursor: pointer;
 }
 
+.btn-text-small {
+    font-size: 0.8em;
+}
+
 .btn-tooltip[data-tooltip] {
     position: relative; /* Position relative pour le positionnement absolu du tooltip */
 }

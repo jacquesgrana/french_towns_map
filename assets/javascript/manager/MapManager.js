@@ -268,6 +268,15 @@ class MapManager {
         await this.displaySchools(this.selectedTown);
     }
 
+    handleViewSchool = (school) => {
+        if(this.selectedTown == null) return;
+        console.log('handleViewSchools');
+        const modal = new bootstrap.Modal(document.getElementById('modal-school'));
+            //console.log('modal : ', modal);
+        if(modal) modal.show();
+        this.mapVue.displaySchoolInModal(school);
+    }
+
     async displayForecast(town) {
         //const forecastInfos0 = await this.townService.getForecastFromApis(town.townCode, 0);
         //this.mapVue.displayForecast(forecastInfos0, 0);
@@ -285,9 +294,9 @@ class MapManager {
         const schoolNb = datas.totalCount;
         this.schoolService.setTotalCount(schoolNb);
         const schools = datas.schools;
-        console.log('schoolNb : ', schoolNb);
-        console.log('schoolsInfos : ', schools);
-        this.mapVue.displaySchools(schools, schoolNb, this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchools, this.handleNextSchools);
+        //console.log('schoolNb : ', schoolNb);
+        //console.log('schoolsInfos : ', schools);
+        this.mapVue.displaySchools(schools, schoolNb, this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchools, this.handleNextSchools, this.handleViewSchool);
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

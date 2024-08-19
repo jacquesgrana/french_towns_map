@@ -15,3 +15,35 @@
 .mt-20px {
     margin-top: 20px;
 }
+
+.text-bg-primary {
+    background-color: $primary-color !important;
+}
+
+.text-bg-primary-light {
+    background-color: $primary-color-light !important;
+}
+
+.text-bg-primary-medium {
+    background-color: $primary-color-medium !important;
+}
+
+.text-bg-primary-medium-dark {
+    background-color: $primary-color-medium-dark !important;
+}
+
+.text-bg-primary-dark {
+    background-color: $primary-color-dark !important;
+}
+
+.text-bg-secondary {
+    background-color: $secondary-color !important;
+}
+
+.text-bg-secondary-light {
+    background-color: $secondary-color-light !important;
+}
+
+.text-bg-secondary-dark {
+    background-color: $secondary-color-dark !important;
+}
