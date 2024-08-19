@@ -138,24 +138,44 @@ class MapManager {
             }
         });
 
-        const btnSortSchoolByName = document.getElementById('sort0-tab');
-        if(btnSortSchoolByName) btnSortSchoolByName.addEventListener('click', () => {
-            this.handleChangeOrderBy('nom_etablissement');
+        const btnSortSchoolByNameAsc = document.getElementById('sort0-asc-tab');
+        if(btnSortSchoolByNameAsc) btnSortSchoolByNameAsc.addEventListener('click', () => {
+            this.handleChangeOrderBy('nom_etablissement', 'ASC');
         });
 
-        const btnSortSchoolByType = document.getElementById('sort1-tab');
-        if(btnSortSchoolByType) btnSortSchoolByType.addEventListener('click', () => {
-            this.handleChangeOrderBy('type_etablissement');
+        const btnSortSchoolByNameDesc = document.getElementById('sort0-desc-tab');
+        if(btnSortSchoolByNameDesc) btnSortSchoolByNameDesc.addEventListener('click', () => {
+            this.handleChangeOrderBy('nom_etablissement', 'DESC');
         });
 
-        const btnSortSchoolByStatusPP = document.getElementById('sort2-tab');
-        if(btnSortSchoolByStatusPP) btnSortSchoolByStatusPP.addEventListener('click', () => {
-            this.handleChangeOrderBy('statut_public_prive');
+        const btnSortSchoolByTypeAsc = document.getElementById('sort1-asc-tab');
+        if(btnSortSchoolByTypeAsc) btnSortSchoolByTypeAsc.addEventListener('click', () => {
+            this.handleChangeOrderBy('type_etablissement', 'ASC');
         });
 
-        const btnSortSchoolByNature = document.getElementById('sort3-tab');
-        if(btnSortSchoolByNature) btnSortSchoolByNature.addEventListener('click', () => {
-            this.handleChangeOrderBy('libelle_nature');
+        const btnSortSchoolByTypeDesc = document.getElementById('sort1-desc-tab');
+        if(btnSortSchoolByTypeDesc) btnSortSchoolByTypeDesc.addEventListener('click', () => {
+            this.handleChangeOrderBy('type_etablissement', 'DESC');
+        });
+
+        const btnSortSchoolByStatusPPAsc = document.getElementById('sort2-asc-tab');
+        if(btnSortSchoolByStatusPPAsc) btnSortSchoolByStatusPPAsc.addEventListener('click', () => {
+            this.handleChangeOrderBy('statut_public_prive', 'ASC');
+        });
+
+        const btnSortSchoolByStatusPPDesc = document.getElementById('sort2-desc-tab');
+        if(btnSortSchoolByStatusPPDesc) btnSortSchoolByStatusPPDesc.addEventListener('click', () => {
+            this.handleChangeOrderBy('statut_public_prive', 'DESC');
+        });
+
+        const btnSortSchoolByNatureAsc = document.getElementById('sort3-asc-tab');
+        if(btnSortSchoolByNatureAsc) btnSortSchoolByNatureAsc.addEventListener('click', () => {
+            this.handleChangeOrderBy('libelle_nature', 'ASC');
+        });
+
+        const btnSortSchoolByNatureDesc = document.getElementById('sort3-desc-tab');
+        if(btnSortSchoolByNatureDesc) btnSortSchoolByNatureDesc.addEventListener('click', () => {
+            this.handleChangeOrderBy('libelle_nature', 'DESC');
         });
 
     }
@@ -261,9 +281,10 @@ class MapManager {
         }
     }
 
-    handleChangeOrderBy = async (order_by) => {
+    handleChangeOrderBy = async (order_by, order_by_type) => {
         if(this.selectedTown == null) return;
         this.schoolService.setOrder_by(order_by);
+        this.schoolService.setOrder_by_type(order_by_type);
         this.schoolService.setOffset(0);
         await this.displaySchools(this.selectedTown);
     }
@@ -341,6 +362,8 @@ class MapManager {
         //console.log('town objet: ', town);
         this.selectedTown = town;
         this.schoolService.setOffset(0);
+        this.schoolService.setOrder_by('nom_etablissement');
+        this.schoolService.setOrder_by_type('ASC');
         await this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);
