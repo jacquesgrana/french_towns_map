@@ -7,7 +7,7 @@ class SchoolDto
 {
     // 46
     private string $identifiant_de_l_etablissement;
-    private string | null  $nom_etablissement;
+    private string | null $nom_etablissement;
     private string | null $type_etablissement;
     private string | null $statut_public_prive;
     private string | null $adresse_1;

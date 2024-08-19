@@ -203,7 +203,52 @@ class MapVue {
         if(commentForm) commentForm.reset();
     }
 
-    displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext) {
+    displaySchoolInModal(school) {
+        const modalTitle = document.getElementById('title-modal-school');
+        modalTitle.textContent = school.nom_etablissement;
+        const divModal1 = document.getElementById('div-modal-school-1');
+        divModal1.innerHTML = school.libelle_nature + '</br>' + school.type_etablissement + ' / ' + school.statut_public_prive;
+        divModal1.innerHTML += school.nombre_d_eleves !== -1 ? `<br/>${school.nombre_d_eleves} élèves` : '';
+        divModal1.innerHTML += school.etat !== '' ? `<br/>${school.etat}` : '';
+        divModal1.innerHTML += school.libelle_academie !== '' ? '<br/> Académie : ' + school.libelle_academie : '';
+        divModal1.innerHTML += school.ministere_tutelle !== '' ? '<br/> Ministère : ' + school.ministere_tutelle : '';
+
+        const divModal2 = document.getElementById('div-modal-school-2');
+        divModal2.innerHTML = school.ecole_maternelle === '1' ? '<span class="badge rounded-pill text-bg-primary">Ecole Maternelle</span>': '';
+        divModal2.innerHTML += school.ecole_elementaire === '1' ? '<span class="badge rounded-pill text-bg-primary">Ecole Elémentaire</span>': '';
+        divModal2.innerHTML += school.libelle_nature === 'COLLEGE' ? '<span class="badge rounded-pill text-bg-primary">Collège</span>': '';
+        divModal2.innerHTML += school.libelle_nature.startsWith("LYCEE") ? '<span class="badge rounded-pill text-bg-primary">Lycée</span>': '';
+        divModal2.innerHTML += school.voie_generale === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Générale</span>': '';
+        divModal2.innerHTML += school.voie_technologique === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Technologique</span>': '';
+        divModal2.innerHTML += school.voie_professionnelle === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Professionnelle</span>': '';
+        divModal2.innerHTML += school.apprentissage === '1' ? '<span class="badge rounded-pill text-bg-secondary">Apprentissage</span>': '';
+        divModal2.innerHTML += school.segpa === '1' ? '<span class="badge rounded-pill text-bg-secondary">Segpa</span>': '';
+        divModal2.innerHTML += school.restauration === '1' ? '<span class="badge rounded-pill text-bg-secondary">Restauration</span>': '';
+        divModal2.innerHTML += school.hebergement === '1' ? '<span class="badge rounded-pill text-bg-secondary">Hébergement</span>': '';
+        divModal2.innerHTML += school.section_arts === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Arts</span>': '';
+        divModal2.innerHTML += school.section_cinema === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Cinema</span>': '';
+        divModal2.innerHTML += school.section_theatre === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Théâtre</span>': '';
+        divModal2.innerHTML += school.section_sports === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Sports</span>': '';
+        divModal2.innerHTML += school.section_internationale === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Internationale</span>': '';
+        divModal2.innerHTML += school.section_europeenne === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Européenne</span>': '';
+        divModal2.innerHTML += school.lycee_agricole === '1' ? '<span class="badge rounded-pill text-bg-primary">Lycée Agricole</span>': '';
+        divModal2.innerHTML += school.lycee_militaire === '1' ? '<span class="badge rounded-pill text-bg-primary">Lycée Militaire</span>': '';
+        divModal2.innerHTML += school.lycee_des_metiers === '1' ? '<span class="badge rounded-pill text-bg-primary">Lycée des Métiers</span>': '';
+
+        const divModal3 = document.getElementById('div-modal-school-3');
+        divModal3.innerHTML = 'Adresse : ';
+        divModal3.innerHTML += school.adresse_1 !== '' ? school.adresse_1 + ' ' : '';
+        divModal3.innerHTML += school.adresse_2 !== '' ? school.adresse_2 + ' ' : '';
+        divModal3.innerHTML += school.adresse_3 !== '' ? school.adresse_3 + ' ' : '';
+        divModal3.innerHTML += (school.telephone !== '' && school.telephone !== undefined) ? '</br>Téléphone : ' + school.telephone : '';
+        divModal3.innerHTML += (school.fax !== '' && school.fax !== undefined) ? '</br>Fax : ' + school.fax : '';
+        divModal3.innerHTML += (school.mail !== '' && school.mail !== undefined) ? '</br>Courriel : ' + school.mail : '';
+        divModal3.innerHTML += (school.fiche_onisep !== '' && school.fiche_onisep !== undefined) ? `</br><a class="link-02" target="_blank" href="${school.fiche_onisep}">Fiche ONISEP</a>` : '';
+        divModal3.innerHTML += (school.web !== '' && school.web !== undefined) ? `</br><a class="link-02" target="_blank" href="${school.web}">Page web</a>` : '';
+
+    }
+
+    displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext, callBackViewSchool) {
         //map-accordion-body-schools
         const pageMaxNb = Math.floor(schoolsNb / limit) + 1;
         const pageNb = Math.floor(offset / limit) + 1;
@@ -230,6 +275,20 @@ class MapVue {
                     schoolDiv.innerHTML += ' / ' + school.type_etablissement;
                     schoolDiv.innerHTML += ' / ' + school.statut_public_prive;
                     schoolDiv.innerHTML += '</br>' + school.libelle_nature;
+                    
+                    const buttonViewSchool = document.createElement('button');
+                    buttonViewSchool.classList.add('btn');
+                    buttonViewSchool.classList.add('btn-tooltip');
+                    buttonViewSchool.classList.add('btn-secondary-very-small');
+                    buttonViewSchool.classList.add('btn-text-small');
+                    buttonViewSchool.classList.add('btn-view-school');
+                    buttonViewSchool.textContent = '📄';
+                    buttonViewSchool.setAttribute("data-tooltip", "Voir les informations de l'établissement.");
+                    buttonViewSchool.onclick = () => {
+                        //console.log('viewSchool : ', school);
+                        callBackViewSchool(school);
+                    }
+                    schoolDiv.appendChild(buttonViewSchool);
                     schoolsDiv.appendChild(schoolDiv);
                 });
             }

@@ -56,6 +56,7 @@
 }
 
 .link-01 {
+  transition: 0.3s;
   text-decoration: none;
   font-weight: 700;
 }
@@ -69,7 +70,6 @@
   text-decoration: none;
   font-weight: 700;
   border: none;
-  background-color: transparent;
 }
 .link-02:hover {
   transition: 0.3s;
@@ -157,6 +157,10 @@
   padding-top: 5px;
   font-size: 0.8em;
   cursor: pointer;
+}
+
+.btn-text-small {
+  font-size: 0.8em;
 }
 
 .btn-tooltip[data-tooltip] {
@@ -270,6 +274,38 @@ footer {
 
 .mt-20px {
   margin-top: 20px;
+}
+
+.text-bg-primary {
+  background-color: rgb(6, 89, 122) !important;
+}
+
+.text-bg-primary-light {
+  background-color: rgb(50, 135, 168) !important;
+}
+
+.text-bg-primary-medium {
+  background-color: rgb(3, 76, 105) !important;
+}
+
+.text-bg-primary-medium-dark {
+  background-color: rgb(5, 64, 87) !important;
+}
+
+.text-bg-primary-dark {
+  background-color: rgb(2, 52, 71) !important;
+}
+
+.text-bg-secondary {
+  background-color: rgb(241, 119, 53) !important;
+}
+
+.text-bg-secondary-light {
+  background-color: rgb(240, 145, 93) !important;
+}
+
+.text-bg-secondary-dark {
+  background-color: rgb(85, 43, 0) !important;
 }
 
 .modal {
@@ -451,6 +487,7 @@ input[type=email]:-webkit-autofill:active {
 }
 
 .div-school {
+  position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
@@ -468,6 +505,42 @@ input[type=email]:-webkit-autofill:active {
   flex-direction: row;
   margin-top: 20px;
   margin-bottom: 10px;
+}
+
+.btn-view-school {
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+}
+
+#div-modal-school-1,
+#div-modal-school-2 {
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(5, 64, 87);
+  color: rgb(236, 250, 255);
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#div-modal-school-3 {
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(5, 64, 87);
+  color: rgb(236, 250, 255);
+  padding: 10px;
+}
+
+#modal-school-body {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 #map {
@@ -582,6 +655,7 @@ input[type=email]:-webkit-autofill:active {
 }
 
 #select-search-request {
+  position: relative;
   width: 30px;
   height: 30px;
   border-radius: 5px;
@@ -596,6 +670,9 @@ input[type=email]:-webkit-autofill:active {
 }
 
 .option-search-request {
+  position: absolute;
+  top: 30px;
+  left: 0;
   color: rgb(240, 145, 93);
   padding-left: 10px;
   padding-right: 10px;
