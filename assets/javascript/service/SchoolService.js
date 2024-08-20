@@ -7,6 +7,10 @@ class SchoolService {
     order_by_type = 'ASC';
     filters = '';
 
+    filter_without = true;
+    filter_restauration = false;
+    filter_hebergement = false;
+
     static instance = null;
     static getInstance() {
         if (SchoolService.instance == null) {
@@ -14,7 +18,6 @@ class SchoolService {
         }
         return SchoolService.instance;
     }
-
 
     async getSchoolsByTown(townCode) {
         // /get-schools-by-town-from-api
@@ -36,6 +39,28 @@ class SchoolService {
         return await result.json();
     } 
 
+    generateFilters() {
+        let filters = '';
+        if(!this.filter_without) {
+            if(this.filter_restauration) {
+                filters += ':restauration';
+            }
+            if(this.filter_hebergement) {
+                filters += ':hebergement';
+            }
+        } 
+        if(filters !== '') {
+            filters = filters.charAt(0) === ':' ? filters.slice(1) : filters;
+        } 
+        this.filters = filters;
+    }
+
+    updateFilters() {
+        if(!this.filter_restauration && !this.filter_hebergement) {
+            this.filter_without = true;
+        }
+    }
+
     getLimit() {
         return this.limit;
     }
@@ -56,6 +81,35 @@ class SchoolService {
         return this.order_by_type;
     }
 
+    getFilters() {
+        return this.filters;
+    }
+
+    getFilter_without() {
+        return this.filter_without;
+    }
+
+    getFilter_restauration() {
+        return this.filter_restauration;
+    }
+
+    getFilter_hebergement() {
+        return this.filter_hebergement;
+    }
+    /*
+
+    setFilter_without(filter_without) {
+        this.filter_without = filter_without;
+    }
+
+    setFilter_restauration(filter_restauration) {
+        this.filter_restauration = filter_restauration;
+    }
+
+    setFilter_hebergement(filter_hebergement) {
+        this.filter_hebergement = filter_hebergement;
+    }*/
+
     setOrder_by(order_by) {
         this.order_by = order_by;
     }
@@ -75,4 +129,35 @@ class SchoolService {
     setTotalCount(totalCount) {
         this.totalCount = totalCount;
     }
+
+    setFilters(filters) {
+        this.filters = filters;
+    }
+
+    setFilter_without(filter_without) {
+        this.filter_without = filter_without;
+        if(this.filter_without) {
+            this.filters = '';
+            this.filter_restauration = false;
+            this.filter_hebergement = false;
+        }
+    }
+
+    setFilter_restauration(filter_restauration) {
+        this.filter_restauration = filter_restauration;
+        /*
+        if(filter_restauration) {
+            this.filter_without = false;
+        }*/
+    }
+
+    setFilter_hebergement(filter_hebergement) {
+        this.filter_hebergement = filter_hebergement;
+        /*
+        if(filter_hebergement) {
+            this.filter_without = false;
+        }*/
+    }
+
+
 }

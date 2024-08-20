@@ -171,6 +171,10 @@
     //border: 1px solid $primary-color-dark;
     //background-color: $primary-color-medium !important;
 
+    #collapseFour {
+        padding: 20px;
+    }
+
     .accordion-item {
         border-radius: 10px;
         border: 1px solid $primary-color-dark;
@@ -186,7 +190,7 @@
         background-color: $primary-color-medium;
         color: $primary-color-dark;
         border-radius: 0 0 10px 10px;
-
+        padding: 0px;
     }
 
     #map-accordion-body-favorite {

@@ -59,3 +59,35 @@
     flex-wrap: wrap;
     gap: 20px;
 }
+
+#div-container-filters {
+    width: 100%;
+    margin: 20px 0px;
+    border-radius: 10px;
+    background-color: $primary-color-medium-dark;
+    color: $white;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .btn-radio {
+        color: $white;
+    }
+}
+
+
+#btn-check-without-filter-school,
+#btn-check-restauration-filter-school,
+#btn-check-hebergement-filter-school {
+    &:checked+ .btn {
+        color: $secondary-color !important;
+    }
+}
+
+
+.button-check:checked {
+    color: $secondary-color !important;
+}
