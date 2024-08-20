@@ -267,18 +267,29 @@ class MapManager {
         });
     }
 
-    handlePrevSchools = async () => {
+    handlePrevSchool = async () => {
         if(this.schoolService.getOffset() > 0) {
             this.schoolService.setOffset(this.schoolService.getOffset() - this.schoolService.getLimit());
             await this.displaySchools(this.selectedTown);
         }
     }
 
-    handleNextSchools = async () => {
+    handleNextSchool = async () => {
         if(this.schoolService.getOffset() + this.schoolService.getLimit() < this.schoolService.getTotalCount()) {
             this.schoolService.setOffset(this.schoolService.getOffset() + this.schoolService.getLimit());
             await this.displaySchools(this.selectedTown);
         }
+    }
+
+    handleFirstSchool = async () => {
+        this.schoolService.setOffset(0);
+        await this.displaySchools(this.selectedTown);
+    }
+
+    handleLastSchool = async () => {
+        const pageMax = Math.floor(this.schoolService.getTotalCount() / this.schoolService.getLimit());
+        this.schoolService.setOffset(pageMax * this.schoolService.getLimit());
+        await this.displaySchools(this.selectedTown);
     }
 
     handleChangeOrderBy = async (order_by, order_by_type) => {
@@ -318,7 +329,7 @@ class MapManager {
         const schools = datas.schools;
         //console.log('schoolNb : ', schoolNb);
         //console.log('schoolsInfos : ', schools);
-        this.mapVue.displaySchools(schools, schoolNb, this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchools, this.handleNextSchools, this.handleViewSchool);
+        this.mapVue.displaySchools(schools, schoolNb, this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchool, this.handleNextSchool, this.handleFirstSchool, this.handleLastSchool, this.handleViewSchool);
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

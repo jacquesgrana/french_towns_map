@@ -15,9 +15,22 @@ class DataEduGouvService
         ///api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_commune%3D77288&order_by=nom_etablissement&limit=20
     }
 
-    public function getSchoolsByCodeCommune(string $code_commune, int $limit = 100, int $offset = 0, string $orderBy = 'nom_etablissement', string $orderType = 'ASC')
+    public function getSchoolsByCodeCommune(string $code_commune, int $limit = 100, int $offset = 0, string $orderBy = 'nom_etablissement', string $orderType = 'ASC', array $filtersTab = [])
     {
-        $url = $this->dataEduGouvUrlStart . $code_commune. '&limit=' . $limit . '&offset=' . $offset . '&order_by=' . $orderBy . '%20' . $orderType;
+        //$filtersTab = ['lycee_agricole'];
+        $filters = '';
+        if(count($filtersTab) > 0) {
+            $filters = '%20AND%20(';
+            foreach ($filtersTab as $filter) {
+                $filters .= $filter . '%3D1%20OR%20';
+            }
+            $filters = substr($filters, 0, -8);
+            $filters .= ')';
+        }
+        //dd($filters);
+        //$filters = '%20AND%20(segpa%3D1%20OR%20lycee_agricole%3D1)';
+        $url = $this->dataEduGouvUrlStart . $code_commune . $filters . '&limit=' . $limit . '&offset=' . $offset . '&order_by=' . $orderBy . '%20' . $orderType;
+        //dd($url);
         $curl = curl_init();
 
         // OPTIONS:
@@ -39,6 +52,7 @@ class DataEduGouvService
             return ['error' => $error_msg];
         }
         return $result;
+        
     }
 }
 
