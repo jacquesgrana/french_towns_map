@@ -178,6 +178,27 @@ class MapManager {
             this.handleChangeOrderBy('libelle_nature', 'DESC');
         });
 
+        const btnFilterWithout = document.getElementById('btn-check-without-filter-school');
+        if(btnFilterWithout) btnFilterWithout.addEventListener('click', () => {
+            //this.handleChangeOrderBy(null, null);
+            //console.log('click without filter school');
+            this.handleFilterWithoutClick();
+        });
+
+        const btnFilterRestauration = document.getElementById('btn-check-restauration-filter-school');
+        if(btnFilterRestauration) btnFilterRestauration.addEventListener('click', () => {
+            //this.handleChangeOrderBy(null, null);
+            //console.log('click filter restauration');
+            this.handleFilterRestaurationClick();
+        });
+
+        const btnFilterHebergement = document.getElementById('btn-check-hebergement-filter-school');
+        if(btnFilterHebergement) btnFilterHebergement.addEventListener('click', () => {
+            //this.handleChangeOrderBy(null, null);
+            //console.log('click filter hebergement');
+            this.handleFilterHebergementClick();
+        });
+
     }
 
     manageButtonsWithLoggedIn() {
@@ -265,6 +286,67 @@ class MapManager {
             });
 
         });
+    }
+
+    emptyBoolFilters = () => {
+        const btnRestauration = document.getElementById('btn-check-restauration-filter-school');
+        if(btnRestauration) btnRestauration.checked = false;
+        const btnHebergement = document.getElementById('btn-check-hebergement-filter-school');
+        if(btnHebergement) btnHebergement.checked = false;
+    }
+
+    updateSchoolFiltersButtons() {
+        const btnWithout = document.getElementById('btn-check-without-filter-school');
+        if (btnWithout) {
+            btnWithout.checked = this.schoolService.getFilter_without();
+        }
+
+        const btnRestauration = document.getElementById('btn-check-restauration-filter-school');
+        if (btnRestauration) {
+            btnRestauration.checked = this.schoolService.getFilter_restauration();
+        }
+
+        const btnHebergement = document.getElementById('btn-check-hebergement-filter-school');
+        if (btnHebergement) {
+            btnHebergement.checked = this.schoolService.getFilter_hebergement();
+        }
+    }
+
+    handleFilterWithoutClick = () => {
+        console.log('click without filter school');
+        this.schoolService.setFilter_without(!this.schoolService.getFilter_without());
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterRestaurationClick = () => {
+        console.log('click filter restauration');
+        this.schoolService.setFilter_restauration(!this.schoolService.getFilter_restauration());
+
+        if(this.schoolService.getFilter_restauration()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterHebergementClick = () => {
+        console.log('click filter hebergement');
+        this.schoolService.setFilter_hebergement(!this.schoolService.getFilter_hebergement());
+        if(this.schoolService.getFilter_hebergement()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        this.displaySchools(this.selectedTown);
     }
 
     handlePrevSchool = async () => {

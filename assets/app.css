@@ -555,6 +555,33 @@ input[type=email]:-webkit-autofill:active {
   gap: 20px;
 }
 
+#div-container-filters {
+  width: 100%;
+  margin: 20px 0px;
+  border-radius: 10px;
+  background-color: rgb(5, 64, 87);
+  color: rgb(236, 250, 255);
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+#div-container-filters .btn-radio {
+  color: rgb(236, 250, 255);
+}
+
+#btn-check-without-filter-school:checked + .btn,
+#btn-check-restauration-filter-school:checked + .btn,
+#btn-check-hebergement-filter-school:checked + .btn {
+  color: rgb(241, 119, 53) !important;
+}
+
+.button-check:checked {
+  color: rgb(241, 119, 53) !important;
+}
+
 #map {
   height: 600px;
   min-width: 500px;
@@ -725,6 +752,9 @@ input[type=email]:-webkit-autofill:active {
   }
   */
 }
+#map-accordion #collapseFour {
+  padding: 20px;
+}
 #map-accordion .accordion-item {
   border-radius: 10px;
   border: 1px solid rgb(2, 52, 71);
@@ -738,6 +768,7 @@ input[type=email]:-webkit-autofill:active {
   background-color: rgb(3, 76, 105);
   color: rgb(2, 52, 71);
   border-radius: 0 0 10px 10px;
+  padding: 0px;
 }
 #map-accordion #map-accordion-body-favorite {
   margin-left: 20px;
