@@ -248,7 +248,7 @@ class MapVue {
 
     }
 
-    displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext, callBackViewSchool) {
+    displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext, callBackFirst, callBackLast, callBackViewSchool) {
         //map-accordion-body-schools
         const pageMaxNb = Math.floor(schoolsNb / limit) + 1;
         const pageNb = Math.floor(offset / limit) + 1;
@@ -295,31 +295,62 @@ class MapVue {
 
             const divButtons = document.createElement('div');
             divButtons.classList.add('div-school-buttons');
+
+            const divButtonsStart = document.createElement('div');
+            divButtonsStart.classList.add('div-school-buttons-start');
+
+            const buttonFirst = document.createElement('button');
+            buttonFirst.classList.add('btn');
+            buttonFirst.classList.add('btn-primary-small');
+            buttonFirst.innerHTML = '&laquo;';
+            buttonFirst.onclick = () => {
+                //this.displaySchools(schools, 0);
+                callBackFirst();
+            }
+            divButtonsStart.appendChild(buttonFirst);
+            divButtons.appendChild(divButtonsStart);
+
             const buttonPrev = document.createElement('button');
             buttonPrev.classList.add('btn');
             buttonPrev.classList.add('btn-primary-small');
-            buttonPrev.textContent = 'Page préc.';
+            buttonPrev.innerHTML = '&lsaquo;';
             buttonPrev.onclick = () => {
                 //this.displaySchools(schools, schoolNb + 1);
                 callBackPrev();
             }
 
-            divButtons.appendChild(buttonPrev);
+            divButtonsStart.appendChild(buttonPrev);
+            divButtons.appendChild(divButtonsStart);
 
             const paraPageNb = document.createElement('div');
             paraPageNb.classList.add('text-secondary');
             paraPageNb.textContent = 'Page : ' + pageNb + '/' + pageMaxNb;
             divButtons.appendChild(paraPageNb);
 
+            const divButtonsEnd = document.createElement('div');
+            divButtonsEnd.classList.add('div-school-buttons-end');
             const buttonNext = document.createElement('button');
             buttonNext.classList.add('btn');
             buttonNext.classList.add('btn-primary-small');
-            buttonNext.textContent = 'Page suiv.';
+            buttonNext.innerHTML = '&rsaquo;';
             buttonNext.onclick = () => {
                 //this.displaySchools(schools, schoolNb + 1);
                 callBackNext();
             }
-            divButtons.appendChild(buttonNext);
+            divButtonsEnd.appendChild(buttonNext);
+
+            const buttonLast = document.createElement('button');
+            buttonLast.classList.add('btn');
+            buttonLast.classList.add('btn-primary-small');
+            buttonLast.innerHTML = '&raquo;';
+            buttonLast.onclick = () => {
+                //this.displaySchools(schools, 0);
+                callBackLast();
+            }
+            divButtonsEnd.appendChild(buttonLast);
+
+            divButtons.appendChild(divButtonsEnd);
+
             
             schoolsDiv.appendChild(divButtons);
         }

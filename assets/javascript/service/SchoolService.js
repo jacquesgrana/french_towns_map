@@ -5,6 +5,7 @@ class SchoolService {
     totalCount = 0;
     order_by = 'nom_etablissement';
     order_by_type = 'ASC';
+    filters = '';
 
     static instance = null;
     static getInstance() {
@@ -28,7 +29,8 @@ class SchoolService {
                 limit: this.limit,
                 offset: this.offset,
                 order_by: this.order_by,
-                order_by_type: this.order_by_type
+                order_by_type: this.order_by_type,
+                filters: this.filters
             })
         });
         return await result.json();

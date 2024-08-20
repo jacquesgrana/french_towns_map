@@ -23,8 +23,12 @@ class SchoolJsonController extends AbstractController {
         $offset = $data['offset'];
         $order_by = $data['order_by'];
         $order_by_type = $data['order_by_type'];
+        $filters = $data['filters'];
         //$order_by_type = 'ASC';
-        $result = $dataEduGouvService->getSchoolsByCodeCommune($townCode, $limit, $offset, $order_by, $order_by_type);
+        //$filtersString = 'lycee_agricole:restauration';
+        $filtersTab = $filters !== '' ? explode(':', $filters) : [];
+        //$filtersTab = ['lycee_agricole'];
+        $result = $dataEduGouvService->getSchoolsByCodeCommune($townCode, $limit, $offset, $order_by, $order_by_type, $filtersTab);
         $data = json_decode($result, true);
         $totalCount = $data['total_count'];
         $resultArray = $data['results'];
