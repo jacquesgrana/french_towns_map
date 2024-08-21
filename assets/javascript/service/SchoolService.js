@@ -10,6 +10,8 @@ class SchoolService {
     filter_without = true;
     filter_restauration = false;
     filter_hebergement = false;
+    filter_maternelle = false;
+    filter_elementaire = false;
 
     static instance = null;
     static getInstance() {
@@ -48,6 +50,12 @@ class SchoolService {
             if(this.filter_hebergement) {
                 filters += ':hebergement';
             }
+            if(this.filter_maternelle) {
+                filters += ':ecole_maternelle';
+            }
+            if(this.filter_elementaire) {
+                filters += ':ecole_elementaire';
+            }
         } 
         if(filters !== '') {
             filters = filters.charAt(0) === ':' ? filters.slice(1) : filters;
@@ -56,7 +64,12 @@ class SchoolService {
     }
 
     updateFilters() {
-        if(!this.filter_restauration && !this.filter_hebergement) {
+        if(
+            !this.filter_restauration 
+            && !this.filter_hebergement 
+            && !this.filter_maternelle
+            && !this.filter_elementaire
+        ) {
             this.filter_without = true;
         }
     }
@@ -95,6 +108,14 @@ class SchoolService {
 
     getFilter_hebergement() {
         return this.filter_hebergement;
+    }
+
+    getFilter_maternelle() {
+        return this.filter_maternelle;
+    }
+
+    getFilter_elementaire() {
+        return this.filter_elementaire;
     }
     /*
 
@@ -140,6 +161,8 @@ class SchoolService {
             this.filters = '';
             this.filter_restauration = false;
             this.filter_hebergement = false;
+            this.filter_maternelle = false;
+            this.filter_elementaire = false;
         }
     }
 
@@ -159,5 +182,11 @@ class SchoolService {
         }*/
     }
 
+    setFilter_maternelle(filter_maternelle) {
+        this.filter_maternelle = filter_maternelle;
+    }
 
+    setFilter_elementaire(filter_elementaire) {
+        this.filter_elementaire = filter_elementaire;
+    }
 }
