@@ -209,11 +209,64 @@ class MapManager {
             this.handleFilterElementaireClick();
         });
 
-
         const btnFilterVoieGenerale = document.getElementById('btn-check-voie-generale-filter-school');
         if(btnFilterVoieGenerale) btnFilterVoieGenerale.addEventListener('click', () => {
             //console.log('click filter elementaire');
             this.handleFilterVoieGeneraleClick();
+        });
+
+        const btnFilterVoieTechno = document.getElementById('btn-check-voie-techno-filter-school');
+        if(btnFilterVoieTechno) btnFilterVoieTechno.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterVoieTechnologiqueClick();
+        });
+
+        const btnFilterVoieProfessionnelle = document.getElementById('btn-check-voie-prof-filter-school');
+        if(btnFilterVoieProfessionnelle) btnFilterVoieProfessionnelle.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterVoieProfessionnelleClick();
+        });
+
+        const btnFilterApprentissage = document.getElementById('btn-check-apprentissage-filter-school');
+        if(btnFilterApprentissage) btnFilterApprentissage.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterApprentissageClick();
+        });
+
+        const btnFilterSegpa = document.getElementById('btn-check-segpa-filter-school');
+        if(btnFilterSegpa) btnFilterSegpa.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterSegpaClick();
+        });
+
+        const btnFilterSectionArts = document.getElementById('btn-check-section-arts-filter-school');
+        if(btnFilterSectionArts) btnFilterSectionArts.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterSectionArtsClick();
+        });
+
+        const btnFilterSectionCinema = document.getElementById('btn-check-section-cinema-filter-school');
+        if(btnFilterSectionCinema) btnFilterSectionCinema.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterSectionCinemaClick();
+        });
+
+        const btnFilterSectionTheatre = document.getElementById('btn-check-section-theatre-filter-school');
+        if(btnFilterSectionTheatre) btnFilterSectionTheatre.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterSectionTheatreClick();
+        });
+
+        const btnFilterSectionInternationale = document.getElementById('btn-check-section-internationale-filter-school');
+        if(btnFilterSectionInternationale) btnFilterSectionInternationale.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterSectionInternationaleClick();
+        });
+
+        const btnFilterSectionEuropeenne = document.getElementById('btn-check-section-europeenne-filter-school');
+        if(btnFilterSectionEuropeenne) btnFilterSectionEuropeenne.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterSectionEuropeenneClick();
         });
     }
 
@@ -341,6 +394,51 @@ class MapManager {
         if (btnVoieGenerale) {
             btnVoieGenerale.checked = this.schoolService.getFilter_voie_generale();
         }
+
+        const btnVoieTechnologique = document.getElementById('btn-check-voie-techno-filter-school');
+        if (btnVoieTechnologique) {
+            btnVoieTechnologique.checked = this.schoolService.getFilter_voie_technologique();
+        }
+
+        const btnVoieProfessionnelle = document.getElementById('btn-check-voie-prof-filter-school');
+        if (btnVoieProfessionnelle) {
+            btnVoieProfessionnelle.checked = this.schoolService.getFilter_voie_professionnelle();
+        }
+
+        const btnApprentissage = document.getElementById('btn-check-apprentissage-filter-school');
+        if (btnApprentissage) {
+            btnApprentissage.checked = this.schoolService.getFilter_apprentissage();
+        }
+
+        const btnSegpa = document.getElementById('btn-check-segpa-filter-school');
+        if (btnSegpa) {
+            btnSegpa.checked = this.schoolService.getFilter_segpa();
+        }
+
+        const btnSectionArts = document.getElementById('btn-check-section-arts-filter-school');
+        if (btnSectionArts) {
+            btnSectionArts.checked = this.schoolService.getFilter_section_arts();
+        }
+
+        const btnSectionCinema = document.getElementById('btn-check-section-cinema-filter-school');
+        if (btnSectionCinema) {
+            btnSectionCinema.checked = this.schoolService.getFilter_section_cinema();
+        }
+
+        const btnSectionTheatre = document.getElementById('btn-check-section-theatre-filter-school');
+        if (btnSectionTheatre) {
+            btnSectionTheatre.checked = this.schoolService.getFilter_section_theatre();
+        }
+
+        const btnSectionInternationale = document.getElementById('btn-check-section-internationale-filter-school');
+        if (btnSectionInternationale) {
+            btnSectionInternationale.checked = this.schoolService.getFilter_section_internationale();
+        }
+
+        const btnSectionEuropeenne = document.getElementById('btn-check-section-europeenne-filter-school');
+        if (btnSectionEuropeenne) {
+            btnSectionEuropeenne.checked = this.schoolService.getFilter_section_europeenne();
+        }
     }
 
     handleFilterWithoutClick = async () => {
@@ -414,6 +512,132 @@ class MapManager {
         console.log('click filter voie generale');
         this.schoolService.setFilter_voie_generale(!this.schoolService.getFilter_voie_generale());
         if(this.schoolService.getFilter_voie_generale()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterVoieTechnologiqueClick = async () => {
+        console.log('click filter voie technologique');
+        this.schoolService.setFilter_voie_technologique(!this.schoolService.getFilter_voie_technologique());
+        if(this.schoolService.getFilter_voie_technologique()) { 
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterVoieProfessionnelleClick = async () => {
+        console.log('click filter voie professionnelle');
+        this.schoolService.setFilter_voie_professionnelle(!this.schoolService.getFilter_voie_professionnelle());
+        if(this.schoolService.getFilter_voie_professionnelle()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterApprentissageClick = async () => {
+        console.log('click filter apprentissage');
+        this.schoolService.setFilter_apprentissage(!this.schoolService.getFilter_apprentissage());
+        if(this.schoolService.getFilter_apprentissage()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterSegpaClick = async () => {
+        console.log('click filter segpa');
+        this.schoolService.setFilter_segpa(!this.schoolService.getFilter_segpa());
+        if(this.schoolService.getFilter_segpa()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterSectionArtsClick = async () => {
+        console.log('click filter section arts');
+        this.schoolService.setFilter_section_arts(!this.schoolService.getFilter_section_arts());
+        if(this.schoolService.getFilter_section_arts()) {   
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterSectionCinemaClick = async () => {
+        console.log('click filter section cinema');
+        this.schoolService.setFilter_section_cinema(!this.schoolService.getFilter_section_cinema());
+        if(this.schoolService.getFilter_section_cinema()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterSectionTheatreClick = async () => {
+        console.log('click filter section theatre');
+        this.schoolService.setFilter_section_theatre(!this.schoolService.getFilter_section_theatre());
+        if(this.schoolService.getFilter_section_theatre()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterSectionInternationaleClick = async () => {
+        console.log('click filter section internationale');
+        this.schoolService.setFilter_section_internationale(!this.schoolService.getFilter_section_internationale());
+        if(this.schoolService.getFilter_section_internationale()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterSectionEuropeenneClick = async () => {
+        console.log('click filter section europeenne');
+        this.schoolService.setFilter_section_europeenne(!this.schoolService.getFilter_section_europeenne());
+        if(this.schoolService.getFilter_section_europeenne()) {
             this.schoolService.setFilter_without(false);
         }
         this.schoolService.updateFilters();

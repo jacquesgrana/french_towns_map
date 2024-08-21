@@ -13,6 +13,15 @@ class SchoolService {
     filter_maternelle = false;
     filter_elementaire = false;
     filter_voie_generale = false;
+    filter_voie_technologique = false;
+    filter_voie_professionnelle = false;
+    filter_apprentissage = false;
+    filter_segpa = false;
+    filter_section_arts = false;
+    filter_section_cinema = false;
+    filter_section_theatre = false;
+    filter_section_internationale = false;
+    filter_section_europeenne = false;
 
     static instance = null;
     static getInstance() {
@@ -60,6 +69,33 @@ class SchoolService {
             if(this.filter_voie_generale) {
                 filters += ':voie_generale';
             }
+            if(this.filter_voie_technologique) {
+                filters += ':voie_technologique';
+            }
+            if(this.filter_voie_professionnelle) {
+                filters += ':voie_professionnelle';
+            }
+            if(this.filter_apprentissage) {
+                filters += ':apprentissage';
+            }
+            if(this.filter_segpa) {
+                filters += ':segpa';
+            }
+            if(this.filter_section_arts) {
+                filters += ':section_arts';
+            }
+            if(this.filter_section_cinema) {
+                filters += ':section_cinema';
+            }
+            if(this.filter_section_theatre) {
+                filters += ':section_theatre';
+            }
+            if(this.filter_section_internationale) {
+                filters += ':section_internationale';
+            }
+            if(this.filter_section_europeenne) {
+                filters += ':section_europeenne';
+            }
         } 
         if(filters !== '') {
             filters = filters.charAt(0) === ':' ? filters.slice(1) : filters;
@@ -74,6 +110,15 @@ class SchoolService {
             && !this.filter_maternelle
             && !this.filter_elementaire
             && !this.filter_voie_generale
+            && !this.filter_voie_technologique
+            && !this.filter_voie_professionnelle
+            && !this.filter_apprentissage
+            && !this.filter_segpa
+            && !this.filter_section_arts
+            && !this.filter_section_cinema
+            && !this.filter_section_theatre
+            && !this.filter_section_internationale
+            && !this.filter_section_europeenne
         ) {
             this.filter_without = true;
         }
@@ -126,6 +171,43 @@ class SchoolService {
     getFilter_voie_generale() {
         return this.filter_voie_generale;
     }
+
+    getFilter_voie_technologique() {
+        return this.filter_voie_technologique;
+    }
+
+    getFilter_voie_professionnelle() {
+        return this.filter_voie_professionnelle;
+    }
+
+    getFilter_apprentissage() {
+        return this.filter_apprentissage;
+    }
+
+    getFilter_segpa() {
+        return this.filter_segpa;
+    }
+
+    getFilter_section_arts() {
+        return this.filter_section_arts;
+    }
+
+    getFilter_section_cinema() {
+        return this.filter_section_cinema;
+    }
+
+    getFilter_section_theatre() {
+        return this.filter_section_theatre;
+    }
+
+    getFilter_section_internationale() {
+        return this.filter_section_internationale;
+    }
+
+    getFilter_section_europeenne() {
+        return this.filter_section_europeenne;
+    }
+
     /*
 
     setFilter_without(filter_without) {
@@ -173,6 +255,15 @@ class SchoolService {
             this.filter_maternelle = false;
             this.filter_elementaire = false;
             this.filter_voie_generale = false;
+            this.filter_voie_technologique = false;
+            this.filter_voie_professionnelle = false;
+            this.filter_apprentissage = false;
+            this.filter_segpa = false;
+            this.filter_section_arts = false;
+            this.filter_section_cinema = false;
+            this.filter_section_theatre = false;
+            this.filter_section_internationale = false;
+            this.filter_section_europeenne = false;
         }
     }
 
@@ -202,5 +293,41 @@ class SchoolService {
 
     setFilter_voie_generale(filter_voie_generale) {
         this.filter_voie_generale = filter_voie_generale;
+    }
+
+    setFilter_voie_technologique(filter_voie_technologique) {
+        this.filter_voie_technologique = filter_voie_technologique;
+    }
+
+    setFilter_voie_professionnelle(filter_voie_professionnelle) {
+        this.filter_voie_professionnelle = filter_voie_professionnelle;
+    }
+
+    setFilter_apprentissage(filter_apprentissage) {
+        this.filter_apprentissage = filter_apprentissage;
+    }
+
+    setFilter_segpa(filter_segpa) {
+        this.filter_segpa = filter_segpa;
+    }
+
+    setFilter_section_arts(filter_section_arts) {
+        this.filter_section_arts = filter_section_arts;
+    }
+
+    setFilter_section_cinema(filter_section_cinema) {
+        this.filter_section_cinema = filter_section_cinema;
+    }
+
+    setFilter_section_theatre(filter_section_theatre) {
+        this.filter_section_theatre = filter_section_theatre;
+    }
+
+    setFilter_section_internationale(filter_section_internationale) {
+        this.filter_section_internationale = filter_section_internationale;
+    }
+
+    setFilter_section_europeenne(filter_section_europeenne) {
+        this.filter_section_europeenne = filter_section_europeenne;
     }
 }
