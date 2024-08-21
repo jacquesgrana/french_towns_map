@@ -36,7 +36,6 @@ class SchoolDto
     private string | null $section_arts;
     private string | null $section_cinema;
     private string | null $section_theatre;
-    private string | null $section_sports;
     private string | null $section_internationale;
     private string | null $section_europeenne;
     private string | null $lycee_agricole;
@@ -249,11 +248,6 @@ class SchoolDto
 
     public function setSection_theatre(string | null $section_theatre): static {
         $this->section_theatre = $section_theatre === null ? '0' : $section_theatre;
-        return $this;
-    }
-
-    public function setSection_sports(string | null $section_sports): static {
-        $this->section_sports = $section_sports === null ? '0' : $section_sports;
         return $this;
     }
 

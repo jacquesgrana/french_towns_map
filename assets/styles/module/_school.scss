@@ -85,9 +85,19 @@
 #btn-check-hebergement-filter-school,
 #btn-check-maternelle-filter-school,
 #btn-check-elementaire-filter-school,
-#btn-check-voie-generale-filter-school {
+#btn-check-voie-generale-filter-school,
+#btn-check-voie-techno-filter-school,
+#btn-check-voie-prof-filter-school,
+#btn-check-apprentissage-filter-school,
+#btn-check-segpa-filter-school,
+#btn-check-section-arts-filter-school,
+#btn-check-section-cinema-filter-school,
+#btn-check-section-theatre-filter-school,
+#btn-check-section-internationale-filter-school,
+#btn-check-section-europeenne-filter-school
+ {
     transition: 0.3s;
-    
+
     &:checked+ .btn {
         transition: 0.3s;
         color: $secondary-color !important;

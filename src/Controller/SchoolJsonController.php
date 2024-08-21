@@ -29,6 +29,7 @@ class SchoolJsonController extends AbstractController {
         $filtersTab = $filters !== '' ? explode(':', $filters) : [];
         //$filtersTab = ['lycee_agricole'];
         $result = $dataEduGouvService->getSchoolsByCodeCommune($townCode, $limit, $offset, $order_by, $order_by_type, $filtersTab);
+        //dd($result);
         $data = json_decode($result, true);
         $totalCount = $data['total_count'];
         $resultArray = $data['results'];

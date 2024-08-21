@@ -578,7 +578,16 @@ input[type=email]:-webkit-autofill:active {
 #btn-check-hebergement-filter-school,
 #btn-check-maternelle-filter-school,
 #btn-check-elementaire-filter-school,
-#btn-check-voie-generale-filter-school {
+#btn-check-voie-generale-filter-school,
+#btn-check-voie-techno-filter-school,
+#btn-check-voie-prof-filter-school,
+#btn-check-apprentissage-filter-school,
+#btn-check-segpa-filter-school,
+#btn-check-section-arts-filter-school,
+#btn-check-section-cinema-filter-school,
+#btn-check-section-theatre-filter-school,
+#btn-check-section-internationale-filter-school,
+#btn-check-section-europeenne-filter-school {
   transition: 0.3s;
 }
 #btn-check-without-filter-school:checked + .btn,
@@ -586,7 +595,16 @@ input[type=email]:-webkit-autofill:active {
 #btn-check-hebergement-filter-school:checked + .btn,
 #btn-check-maternelle-filter-school:checked + .btn,
 #btn-check-elementaire-filter-school:checked + .btn,
-#btn-check-voie-generale-filter-school:checked + .btn {
+#btn-check-voie-generale-filter-school:checked + .btn,
+#btn-check-voie-techno-filter-school:checked + .btn,
+#btn-check-voie-prof-filter-school:checked + .btn,
+#btn-check-apprentissage-filter-school:checked + .btn,
+#btn-check-segpa-filter-school:checked + .btn,
+#btn-check-section-arts-filter-school:checked + .btn,
+#btn-check-section-cinema-filter-school:checked + .btn,
+#btn-check-section-theatre-filter-school:checked + .btn,
+#btn-check-section-internationale-filter-school:checked + .btn,
+#btn-check-section-europeenne-filter-school:checked + .btn {
   transition: 0.3s;
   color: rgb(241, 119, 53) !important;
 }
