@@ -570,13 +570,24 @@ input[type=email]:-webkit-autofill:active {
 }
 #div-container-filters .btn-radio {
   color: rgb(236, 250, 255);
+  font-size: 0.75rem;
 }
 
+#btn-check-without-filter-school,
+#btn-check-restauration-filter-school,
+#btn-check-hebergement-filter-school,
+#btn-check-maternelle-filter-school,
+#btn-check-elementaire-filter-school,
+#btn-check-voie-generale-filter-school {
+  transition: 0.3s;
+}
 #btn-check-without-filter-school:checked + .btn,
 #btn-check-restauration-filter-school:checked + .btn,
 #btn-check-hebergement-filter-school:checked + .btn,
 #btn-check-maternelle-filter-school:checked + .btn,
-#btn-check-elementaire-filter-school:checked + .btn {
+#btn-check-elementaire-filter-school:checked + .btn,
+#btn-check-voie-generale-filter-school:checked + .btn {
+  transition: 0.3s;
   color: rgb(241, 119, 53) !important;
 }
 
@@ -773,8 +784,7 @@ input[type=email]:-webkit-autofill:active {
   padding: 0px;
 }
 #map-accordion #map-accordion-body-favorite {
-  margin-left: 20px;
-  margin-right: 0px;
+  padding: 20px;
   border-radius: 5px;
 }
 #map-accordion #map-accordion-body-comment {
@@ -783,6 +793,10 @@ input[type=email]:-webkit-autofill:active {
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  padding: 20px;
+}
+#map-accordion #map-accordion-body-forecast {
+  padding: 20px;
 }
 #map-accordion .card {
   position: relative;

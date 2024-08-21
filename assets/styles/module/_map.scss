@@ -194,8 +194,7 @@
     }
 
     #map-accordion-body-favorite {
-        margin-left: 20px;
-        margin-right: 0px;
+        padding: 20px;
         border-radius: 5px;
     }
 
@@ -205,6 +204,11 @@
         align-items: center;
         flex-direction: column;
         gap: 10px;
+        padding: 20px;
+    }
+
+    #map-accordion-body-forecast {
+        padding: 20px;
     }
 
     .card {
