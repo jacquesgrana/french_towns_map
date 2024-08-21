@@ -574,7 +574,9 @@ input[type=email]:-webkit-autofill:active {
 
 #btn-check-without-filter-school:checked + .btn,
 #btn-check-restauration-filter-school:checked + .btn,
-#btn-check-hebergement-filter-school:checked + .btn {
+#btn-check-hebergement-filter-school:checked + .btn,
+#btn-check-maternelle-filter-school:checked + .btn,
+#btn-check-elementaire-filter-school:checked + .btn {
   color: rgb(241, 119, 53) !important;
 }
 

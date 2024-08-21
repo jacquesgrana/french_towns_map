@@ -81,7 +81,9 @@
 
 #btn-check-without-filter-school,
 #btn-check-restauration-filter-school,
-#btn-check-hebergement-filter-school {
+#btn-check-hebergement-filter-school,
+#btn-check-maternelle-filter-school,
+#btn-check-elementaire-filter-school {
     &:checked+ .btn {
         color: $secondary-color !important;
     }

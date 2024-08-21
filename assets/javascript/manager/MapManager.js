@@ -180,25 +180,33 @@ class MapManager {
 
         const btnFilterWithout = document.getElementById('btn-check-without-filter-school');
         if(btnFilterWithout) btnFilterWithout.addEventListener('click', () => {
-            //this.handleChangeOrderBy(null, null);
             //console.log('click without filter school');
             this.handleFilterWithoutClick();
         });
 
         const btnFilterRestauration = document.getElementById('btn-check-restauration-filter-school');
         if(btnFilterRestauration) btnFilterRestauration.addEventListener('click', () => {
-            //this.handleChangeOrderBy(null, null);
             //console.log('click filter restauration');
             this.handleFilterRestaurationClick();
         });
 
         const btnFilterHebergement = document.getElementById('btn-check-hebergement-filter-school');
         if(btnFilterHebergement) btnFilterHebergement.addEventListener('click', () => {
-            //this.handleChangeOrderBy(null, null);
             //console.log('click filter hebergement');
             this.handleFilterHebergementClick();
         });
 
+        const btnFilterMaternelle = document.getElementById('btn-check-maternelle-filter-school');
+        if(btnFilterMaternelle) btnFilterMaternelle.addEventListener('click', () => {
+            console.log('click filter maternelle');
+            this.handleFilterMaternelleClick();
+        });
+
+        const btnFilterElementaire = document.getElementById('btn-check-elementaire-filter-school');
+        if(btnFilterElementaire) btnFilterElementaire.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterElementaireClick();
+        });
     }
 
     manageButtonsWithLoggedIn() {
@@ -310,6 +318,16 @@ class MapManager {
         if (btnHebergement) {
             btnHebergement.checked = this.schoolService.getFilter_hebergement();
         }
+
+        const btnMaternelle = document.getElementById('btn-check-maternelle-filter-school');
+        if (btnMaternelle) {
+            btnMaternelle.checked = this.schoolService.getFilter_maternelle();
+        }
+
+        const btnElementaire = document.getElementById('btn-check-elementaire-filter-school');
+        if (btnElementaire) {
+            btnElementaire.checked = this.schoolService.getFilter_elementaire();
+        }
     }
 
     handleFilterWithoutClick = () => {
@@ -317,6 +335,7 @@ class MapManager {
         this.schoolService.setFilter_without(!this.schoolService.getFilter_without());
         this.schoolService.updateFilters();
         this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
         this.displaySchools(this.selectedTown);
@@ -331,6 +350,7 @@ class MapManager {
         }
         this.schoolService.updateFilters();
         this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
         this.displaySchools(this.selectedTown);
@@ -344,6 +364,35 @@ class MapManager {
         }
         this.schoolService.updateFilters();
         this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterMaternelleClick = () => {
+        console.log('click filter maternelle');
+        this.schoolService.setFilter_maternelle(!this.schoolService.getFilter_maternelle());
+        if(this.schoolService.getFilter_maternelle()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterElementaireClick = () => {
+        console.log('click filter elementaire');
+        this.schoolService.setFilter_elementaire(!this.schoolService.getFilter_elementaire());
+        if(this.schoolService.getFilter_elementaire()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
         this.displaySchools(this.selectedTown);

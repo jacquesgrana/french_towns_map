@@ -221,8 +221,8 @@ class MapVue {
         divModal2.innerHTML += school.voie_generale === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Générale</span>': '';
         divModal2.innerHTML += school.voie_technologique === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Technologique</span>': '';
         divModal2.innerHTML += school.voie_professionnelle === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Professionnelle</span>': '';
-        divModal2.innerHTML += school.apprentissage === '1' ? '<span class="badge rounded-pill text-bg-secondary">Apprentissage</span>': '';
-        divModal2.innerHTML += school.segpa === '1' ? '<span class="badge rounded-pill text-bg-secondary">Segpa</span>': '';
+        divModal2.innerHTML += school.apprentissage === '1' ? '<span class="badge rounded-pill text-bg-primary">Apprentissage</span>': '';
+        divModal2.innerHTML += school.segpa === '1' ? '<span class="badge rounded-pill text-bg-primary">Segpa</span>': '';
         divModal2.innerHTML += school.restauration === '1' ? '<span class="badge rounded-pill text-bg-secondary">Restauration</span>': '';
         divModal2.innerHTML += school.hebergement === '1' ? '<span class="badge rounded-pill text-bg-secondary">Hébergement</span>': '';
         divModal2.innerHTML += school.section_arts === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Arts</span>': '';
