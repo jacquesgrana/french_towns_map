@@ -89,6 +89,7 @@ class MapManager {
         this.updateMapFromBounds();
         this.map.on('moveend', this.updateMapFromBounds);
         if(this.securityService.isLoggedIn) await this.updateFavorites();
+        this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
     }
 
     initListeners() {
@@ -206,6 +207,13 @@ class MapManager {
         if(btnFilterElementaire) btnFilterElementaire.addEventListener('click', () => {
             //console.log('click filter elementaire');
             this.handleFilterElementaireClick();
+        });
+
+
+        const btnFilterVoieGenerale = document.getElementById('btn-check-voie-generale-filter-school');
+        if(btnFilterVoieGenerale) btnFilterVoieGenerale.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterVoieGeneraleClick();
         });
     }
 
@@ -328,9 +336,14 @@ class MapManager {
         if (btnElementaire) {
             btnElementaire.checked = this.schoolService.getFilter_elementaire();
         }
+
+        const btnVoieGenerale = document.getElementById('btn-check-voie-generale-filter-school');
+        if (btnVoieGenerale) {
+            btnVoieGenerale.checked = this.schoolService.getFilter_voie_generale();
+        }
     }
 
-    handleFilterWithoutClick = () => {
+    handleFilterWithoutClick = async () => {
         console.log('click without filter school');
         this.schoolService.setFilter_without(!this.schoolService.getFilter_without());
         this.schoolService.updateFilters();
@@ -338,13 +351,12 @@ class MapManager {
         this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
-        this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
     }
 
-    handleFilterRestaurationClick = () => {
+    handleFilterRestaurationClick = async () => {
         console.log('click filter restauration');
         this.schoolService.setFilter_restauration(!this.schoolService.getFilter_restauration());
-
         if(this.schoolService.getFilter_restauration()) {
             this.schoolService.setFilter_without(false);
         }
@@ -353,10 +365,10 @@ class MapManager {
         this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
-        this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
     }
 
-    handleFilterHebergementClick = () => {
+    handleFilterHebergementClick = async () => {
         console.log('click filter hebergement');
         this.schoolService.setFilter_hebergement(!this.schoolService.getFilter_hebergement());
         if(this.schoolService.getFilter_hebergement()) {
@@ -367,10 +379,10 @@ class MapManager {
         this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
-        this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown); 
     }
 
-    handleFilterMaternelleClick = () => {
+    handleFilterMaternelleClick = async () => {
         console.log('click filter maternelle');
         this.schoolService.setFilter_maternelle(!this.schoolService.getFilter_maternelle());
         if(this.schoolService.getFilter_maternelle()) {
@@ -381,10 +393,10 @@ class MapManager {
         this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
-        this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
     }
 
-    handleFilterElementaireClick = () => {
+    handleFilterElementaireClick = async () => {
         console.log('click filter elementaire');
         this.schoolService.setFilter_elementaire(!this.schoolService.getFilter_elementaire());
         if(this.schoolService.getFilter_elementaire()) {
@@ -395,32 +407,46 @@ class MapManager {
         this.schoolService.setOffset(0);
         console.log('filters', this.schoolService.getFilters());
         this.updateSchoolFiltersButtons();
-        this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown); 
+    }
+
+    handleFilterVoieGeneraleClick = async () => {
+        console.log('click filter voie generale');
+        this.schoolService.setFilter_voie_generale(!this.schoolService.getFilter_voie_generale());
+        if(this.schoolService.getFilter_voie_generale()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
     }
 
     handlePrevSchool = async () => {
         if(this.schoolService.getOffset() > 0) {
             this.schoolService.setOffset(this.schoolService.getOffset() - this.schoolService.getLimit());
-            await this.displaySchools(this.selectedTown);
+            if(this.selectedTown) await this.displaySchools(this.selectedTown);
         }
     }
 
     handleNextSchool = async () => {
         if(this.schoolService.getOffset() + this.schoolService.getLimit() < this.schoolService.getTotalCount()) {
             this.schoolService.setOffset(this.schoolService.getOffset() + this.schoolService.getLimit());
-            await this.displaySchools(this.selectedTown);
+            if(this.selectedTown) await this.displaySchools(this.selectedTown);
         }
     }
 
     handleFirstSchool = async () => {
         this.schoolService.setOffset(0);
-        await this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
     }
 
     handleLastSchool = async () => {
         const pageMax = Math.floor(this.schoolService.getTotalCount() / this.schoolService.getLimit());
         this.schoolService.setOffset(pageMax * this.schoolService.getLimit());
-        await this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
     }
 
     handleChangeOrderBy = async (order_by, order_by_type) => {
@@ -428,12 +454,13 @@ class MapManager {
         this.schoolService.setOrder_by(order_by);
         this.schoolService.setOrder_by_type(order_by_type);
         this.schoolService.setOffset(0);
-        await this.displaySchools(this.selectedTown);
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
     }
 
     handleViewSchool = (school) => {
         if(this.selectedTown == null) return;
         //console.log('handleViewSchools');
+        // TODO mettre l'init de la modal dans la vue
         const modal = new bootstrap.Modal(document.getElementById('modal-school'));
             //console.log('modal : ', modal);
         if(modal) modal.show();
@@ -453,6 +480,7 @@ class MapManager {
     }
 
     async displaySchools(town) {
+        if(!town) return;
         //console.log('displaySchool : ', town);
         const datas = await this.schoolService.getSchoolsByTown(town.townCode);
         const schoolNb = datas.totalCount;
@@ -506,6 +534,10 @@ class MapManager {
         this.schoolService.setOffset(0);
         this.schoolService.setOrder_by('nom_etablissement');
         this.schoolService.setOrder_by_type('ASC');
+        this.schoolService.setFilter_without(true);
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.updateSchoolFiltersButtons();
         await this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);

@@ -12,6 +12,7 @@ class SchoolService {
     filter_hebergement = false;
     filter_maternelle = false;
     filter_elementaire = false;
+    filter_voie_generale = false;
 
     static instance = null;
     static getInstance() {
@@ -56,6 +57,9 @@ class SchoolService {
             if(this.filter_elementaire) {
                 filters += ':ecole_elementaire';
             }
+            if(this.filter_voie_generale) {
+                filters += ':voie_generale';
+            }
         } 
         if(filters !== '') {
             filters = filters.charAt(0) === ':' ? filters.slice(1) : filters;
@@ -69,6 +73,7 @@ class SchoolService {
             && !this.filter_hebergement 
             && !this.filter_maternelle
             && !this.filter_elementaire
+            && !this.filter_voie_generale
         ) {
             this.filter_without = true;
         }
@@ -117,6 +122,10 @@ class SchoolService {
     getFilter_elementaire() {
         return this.filter_elementaire;
     }
+
+    getFilter_voie_generale() {
+        return this.filter_voie_generale;
+    }
     /*
 
     setFilter_without(filter_without) {
@@ -163,6 +172,7 @@ class SchoolService {
             this.filter_hebergement = false;
             this.filter_maternelle = false;
             this.filter_elementaire = false;
+            this.filter_voie_generale = false;
         }
     }
 
@@ -188,5 +198,9 @@ class SchoolService {
 
     setFilter_elementaire(filter_elementaire) {
         this.filter_elementaire = filter_elementaire;
+    }
+
+    setFilter_voie_generale(filter_voie_generale) {
+        this.filter_voie_generale = filter_voie_generale;
     }
 }

@@ -75,6 +75,7 @@
 
     .btn-radio {
         color: $white;
+        font-size: 0.75rem;
     }
 }
 
@@ -83,8 +84,12 @@
 #btn-check-restauration-filter-school,
 #btn-check-hebergement-filter-school,
 #btn-check-maternelle-filter-school,
-#btn-check-elementaire-filter-school {
+#btn-check-elementaire-filter-school,
+#btn-check-voie-generale-filter-school {
+    transition: 0.3s;
+    
     &:checked+ .btn {
+        transition: 0.3s;
         color: $secondary-color !important;
     }
 }
