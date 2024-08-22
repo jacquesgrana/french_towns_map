@@ -22,6 +22,10 @@ class SchoolService {
     filter_section_theatre = false;
     filter_section_internationale = false;
     filter_section_europeenne = false;
+    filter_lycee_agricole = false;
+    filter_lycee_militaire = false;
+    filter_lycee_metiers = false;
+    filter_greta = false;
 
     static instance = null;
     static getInstance() {
@@ -96,6 +100,18 @@ class SchoolService {
             if(this.filter_section_europeenne) {
                 filters += ':section_europeenne';
             }
+            if(this.filter_lycee_agricole) {
+                filters += ':lycee_agricole';
+            }
+            if(this.filter_lycee_militaire) {
+                filters += ':lycee_militaire';
+            }
+            if(this.filter_lycee_metiers) {
+                filters += ':lycee_des_metiers';
+            }
+            if(this.filter_greta) {
+                filters += ':greta';
+            }
         } 
         if(filters !== '') {
             filters = filters.charAt(0) === ':' ? filters.slice(1) : filters;
@@ -119,6 +135,10 @@ class SchoolService {
             && !this.filter_section_theatre
             && !this.filter_section_internationale
             && !this.filter_section_europeenne
+            && !this.filter_lycee_agricole
+            && !this.filter_lycee_militaire
+            && !this.filter_lycee_metiers
+            && !this.filter_greta
         ) {
             this.filter_without = true;
         }
@@ -208,6 +228,22 @@ class SchoolService {
         return this.filter_section_europeenne;
     }
 
+    getFilter_lycee_agricole() {
+        return this.filter_lycee_agricole;
+    }
+
+    getFilter_lycee_militaire() {
+        return this.filter_lycee_militaire;
+    }
+
+    getFilter_lycee_metiers() {
+        return this.filter_lycee_metiers;
+    }
+
+    getFilter_greta() {
+        return this.filter_greta;
+    }
+
     /*
 
     setFilter_without(filter_without) {
@@ -264,6 +300,10 @@ class SchoolService {
             this.filter_section_theatre = false;
             this.filter_section_internationale = false;
             this.filter_section_europeenne = false;
+            this.filter_lycee_agricole = false;
+            this.filter_lycee_militaire = false;
+            this.filter_lycee_metiers = false;
+            this.filter_greta = false;
         }
     }
 
@@ -329,5 +369,21 @@ class SchoolService {
 
     setFilter_section_europeenne(filter_section_europeenne) {
         this.filter_section_europeenne = filter_section_europeenne;
+    }
+
+    setFilter_lycee_agricole(filter_lycee_agricole) {
+        this.filter_lycee_agricole = filter_lycee_agricole;
+    }
+
+    setFilter_lycee_militaire(filter_lycee_militaire) {
+        this.filter_lycee_militaire = filter_lycee_militaire;
+    }
+
+    setFilter_lycee_metiers(filter_lycee_metiers) {
+        this.filter_lycee_metiers = filter_lycee_metiers;
+    }
+
+    setFilter_greta(filter_greta) {
+        this.filter_greta = filter_greta;
     }
 }

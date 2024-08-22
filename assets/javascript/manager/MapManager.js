@@ -268,6 +268,30 @@ class MapManager {
             //console.log('click filter elementaire');
             this.handleFilterSectionEuropeenneClick();
         });
+
+        const btnFilterLyceeAgricole = document.getElementById('btn-check-lycee-agricole-filter-school');
+        if(btnFilterLyceeAgricole) btnFilterLyceeAgricole.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterLyceeAgricoleClick();
+        });
+
+        const btnFilterLyceeMilitaire = document.getElementById('btn-check-lycee-militaire-filter-school');
+        if(btnFilterLyceeMilitaire) btnFilterLyceeMilitaire.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterLyceeMilitaireClick();
+        });
+
+        const btnFilterLyceeMetiers = document.getElementById('btn-check-lycee-metiers-filter-school');
+        if(btnFilterLyceeMetiers) btnFilterLyceeMetiers.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterLyceeMetiersClick();
+        });
+
+        const btnFilterGreta = document.getElementById('btn-check-greta-filter-school');
+        if(btnFilterGreta) btnFilterGreta.addEventListener('click', () => {
+            //console.log('click filter elementaire');
+            this.handleFilterGretaClick();
+        });
     }
 
     manageButtonsWithLoggedIn() {
@@ -438,6 +462,26 @@ class MapManager {
         const btnSectionEuropeenne = document.getElementById('btn-check-section-europeenne-filter-school');
         if (btnSectionEuropeenne) {
             btnSectionEuropeenne.checked = this.schoolService.getFilter_section_europeenne();
+        }
+
+        const btnLyceeAgricole = document.getElementById('btn-check-lycee-agricole-filter-school');
+        if (btnLyceeAgricole) {
+            btnLyceeAgricole.checked = this.schoolService.getFilter_lycee_agricole();
+        }
+
+        const btnLyceeMilitaire = document.getElementById('btn-check-lycee-militaire-filter-school');
+        if (btnLyceeMilitaire) {
+            btnLyceeMilitaire.checked = this.schoolService.getFilter_lycee_militaire();
+        }
+
+        const btnLyceeMetiers = document.getElementById('btn-check-lycee-metiers-filter-school');
+        if (btnLyceeMetiers) {
+            btnLyceeMetiers.checked = this.schoolService.getFilter_lycee_metiers();
+        }
+
+        const btnGreta = document.getElementById('btn-check-greta-filter-school');
+        if (btnGreta) {
+            btnGreta.checked = this.schoolService.getFilter_greta();
         }
     }
 
@@ -638,6 +682,62 @@ class MapManager {
         console.log('click filter section europeenne');
         this.schoolService.setFilter_section_europeenne(!this.schoolService.getFilter_section_europeenne());
         if(this.schoolService.getFilter_section_europeenne()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterLyceeAgricoleClick = async () => {
+        console.log('click filter lycee agricole');
+        this.schoolService.setFilter_lycee_agricole(!this.schoolService.getFilter_lycee_agricole());
+        if(this.schoolService.getFilter_lycee_agricole()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterLyceeMilitaireClick = async () => {
+        console.log('click filter lycee militaire');
+        this.schoolService.setFilter_lycee_militaire(!this.schoolService.getFilter_lycee_militaire());
+        if(this.schoolService.getFilter_lycee_militaire()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterLyceeMetiersClick = async () => {
+        console.log('click filter lycee metiers');
+        this.schoolService.setFilter_lycee_metiers(!this.schoolService.getFilter_lycee_metiers());
+        if(this.schoolService.getFilter_lycee_metiers()) {
+            this.schoolService.setFilter_without(false);
+        }
+        this.schoolService.updateFilters();
+        this.schoolService.generateFilters();
+        this.schoolService.setOffset(0);
+        console.log('filters', this.schoolService.getFilters());
+        this.updateSchoolFiltersButtons();
+        if(this.selectedTown) await this.displaySchools(this.selectedTown);
+    }
+
+    handleFilterGretaClick = async () => {
+        console.log('click filter greta');
+        this.schoolService.setFilter_greta(!this.schoolService.getFilter_greta());
+        if(this.schoolService.getFilter_greta()) {
             this.schoolService.setFilter_without(false);
         }
         this.schoolService.updateFilters();
