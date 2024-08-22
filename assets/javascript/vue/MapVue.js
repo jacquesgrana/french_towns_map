@@ -274,10 +274,15 @@ class MapVue {
                 schools.forEach(school => {
                     const schoolDiv = document.createElement('div');
                     schoolDiv.classList.add('div-school');
-                    schoolDiv.innerHTML = school.nom_etablissement;
-                    schoolDiv.innerHTML += ' / ' + school.type_etablissement;
-                    schoolDiv.innerHTML += ' / ' + school.statut_public_prive;
-                    schoolDiv.innerHTML += '</br>' + school.libelle_nature;
+                    schoolDiv.innerHTML = `<strong class="text-secondary text-medium">${school.nom_etablissement}</strong>`;
+                    schoolDiv.innerHTML += '</br>' + school.type_etablissement;
+                    schoolDiv.innerHTML += school.statut_public_prive !== '' ? '&nbsp;<span class="text-secondary">•</span>&nbsp;' + school.statut_public_prive : '';
+                    const libelleNature = school.libelle_nature
+                    .toLowerCase() // Met toute la chaîne en minuscules
+                    .split(' ') // Divise la chaîne en mots
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Met la première lettre de chaque mot en majuscule
+                    .join(' '); ;
+                    schoolDiv.innerHTML += '</br><em class="badge rounded-pill text-bg-secondary">' + libelleNature + '</em>';
                     
                     const buttonViewSchool = document.createElement('button');
                     buttonViewSchool.classList.add('btn');

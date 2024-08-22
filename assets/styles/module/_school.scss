@@ -7,7 +7,7 @@
     //border: 1px solid $primary-color-dark;
     background-color: $primary-color-dark;
     color: $white;
-    padding: 10px;
+    padding: 20px;
 }
 
 .div-school-buttons {
@@ -24,6 +24,16 @@
     position: absolute !important;
     top: 10px;
     right: 10px;
+}
+
+.div-school-buttons-start,
+.div-school-buttons-end {
+    display: flex;
+    //width: 100%;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
 }
 
 #div-modal-school-1,
