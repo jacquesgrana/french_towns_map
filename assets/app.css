@@ -47,6 +47,10 @@
   font-size: 0.8em;
 }
 
+.text-medium {
+  font-size: 1.2em;
+}
+
 .text-big {
   font-size: 1.8em;
 }
@@ -506,7 +510,7 @@ input[type=email]:-webkit-autofill:active {
   border-radius: 10px;
   background-color: rgb(2, 52, 71);
   color: rgb(236, 250, 255);
-  padding: 10px;
+  padding: 20px;
 }
 
 .div-school-buttons {
@@ -523,6 +527,15 @@ input[type=email]:-webkit-autofill:active {
   position: absolute !important;
   top: 10px;
   right: 10px;
+}
+
+.div-school-buttons-start,
+.div-school-buttons-end {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 
 #div-modal-school-1,
