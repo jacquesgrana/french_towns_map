@@ -217,23 +217,26 @@ class MapVue {
         divModal2.innerHTML = school.ecole_maternelle === '1' ? '<span class="badge rounded-pill text-bg-primary">Ecole Maternelle</span>': '';
         divModal2.innerHTML += school.ecole_elementaire === '1' ? '<span class="badge rounded-pill text-bg-primary">Ecole Elémentaire</span>': '';
         divModal2.innerHTML += school.libelle_nature === 'COLLEGE' ? '<span class="badge rounded-pill text-bg-primary">Collège</span>': '';
-        divModal2.innerHTML += school.libelle_nature.startsWith("LYCEE") ? '<span class="badge rounded-pill text-bg-primary">Lycée</span>': '';
+        divModal2.innerHTML += school.libelle_nature.startsWith("LYC") ? '<span class="badge rounded-pill text-bg-primary">Lycée</span>': '';
         divModal2.innerHTML += school.voie_generale === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Générale</span>': '';
         divModal2.innerHTML += school.voie_technologique === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Technologique</span>': '';
         divModal2.innerHTML += school.voie_professionnelle === '1' ? '<span class="badge rounded-pill text-bg-primary">Voie Professionnelle</span>': '';
         divModal2.innerHTML += school.apprentissage === '1' ? '<span class="badge rounded-pill text-bg-primary">Apprentissage</span>': '';
         divModal2.innerHTML += school.segpa === '1' ? '<span class="badge rounded-pill text-bg-primary">Segpa</span>': '';
-        divModal2.innerHTML += school.restauration === '1' ? '<span class="badge rounded-pill text-bg-secondary">Restauration</span>': '';
-        divModal2.innerHTML += school.hebergement === '1' ? '<span class="badge rounded-pill text-bg-secondary">Hébergement</span>': '';
+
         divModal2.innerHTML += school.section_arts === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Arts</span>': '';
         divModal2.innerHTML += school.section_cinema === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Cinema</span>': '';
         divModal2.innerHTML += school.section_theatre === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Théâtre</span>': '';
         divModal2.innerHTML += school.section_sports === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Sports</span>': '';
         divModal2.innerHTML += school.section_internationale === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Internationale</span>': '';
         divModal2.innerHTML += school.section_europeenne === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Section Européenne</span>': '';
-        divModal2.innerHTML += school.lycee_agricole === '1' ? '<span class="badge rounded-pill text-bg-primary">Lycée Agricole</span>': '';
-        divModal2.innerHTML += school.lycee_militaire === '1' ? '<span class="badge rounded-pill text-bg-primary">Lycée Militaire</span>': '';
-        divModal2.innerHTML += school.lycee_des_metiers === '1' ? '<span class="badge rounded-pill text-bg-primary">Lycée des Métiers</span>': '';
+        divModal2.innerHTML += school.lycee_agricole === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Lycée Agricole</span>': '';
+        divModal2.innerHTML += school.lycee_militaire === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Lycée Militaire</span>': '';
+        divModal2.innerHTML += school.lycee_des_metiers === '1' ? '<span class="badge rounded-pill text-bg-secondary-dark">Lycée des Métiers</span>': '';
+
+        divModal2.innerHTML += school.restauration === '1' ? '<span class="badge rounded-pill text-bg-secondary">Restauration</span>': '';
+        divModal2.innerHTML += school.hebergement === '1' ? '<span class="badge rounded-pill text-bg-secondary">Hébergement</span>': '';
+        divModal2.innerHTML += school.greta === '1' ? '<span class="badge rounded-pill text-bg-secondary">Greta</span>': '';
 
         const divModal3 = document.getElementById('div-modal-school-3');
         divModal3.innerHTML = 'Adresse : ';
