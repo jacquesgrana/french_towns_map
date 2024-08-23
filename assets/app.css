@@ -59,6 +59,19 @@
   line-height: 1.4em;
 }
 
+.text-in-circle {
+  display: inline-block;
+  color: rgb(236, 250, 255);
+  font-weight: bold;
+  font-size: 1.4em;
+  width: 30px !important;
+  height: 30px !important;
+  text-align: center;
+  line-height: 1.3em;
+  border-radius: 15px;
+  background-color: green;
+}
+
 .link-01 {
   transition: 0.3s;
   text-decoration: none;
@@ -538,7 +551,6 @@ input[type=email]:-webkit-autofill:active {
   flex-direction: row;
 }
 
-#div-modal-school-1,
 #div-modal-school-2 {
   width: 100%;
   border-radius: 5px;
@@ -550,6 +562,18 @@ input[type=email]:-webkit-autofill:active {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+#collapseFour {
+  padding-top: 0px !important;
+}
+
+#div-modal-school-1 {
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(5, 64, 87);
+  color: rgb(236, 250, 255);
+  padding: 10px;
 }
 
 #div-modal-school-3 {
@@ -572,7 +596,7 @@ input[type=email]:-webkit-autofill:active {
   width: 100%;
   margin: 20px 0px;
   border-radius: 10px;
-  background-color: rgb(5, 64, 87);
+  background-color: rgb(2, 52, 71);
   color: rgb(236, 250, 255);
   padding: 20px;
   display: flex;
@@ -584,6 +608,14 @@ input[type=email]:-webkit-autofill:active {
 #div-container-filters .btn-radio {
   color: rgb(236, 250, 255);
   font-size: 0.75rem;
+}
+
+#acc-button-school.accordion-button.collapsed {
+  width: 100%;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-direction: row !important;
 }
 
 #btn-check-without-filter-school,

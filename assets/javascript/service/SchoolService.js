@@ -6,6 +6,8 @@ class SchoolService {
     order_by = 'nom_etablissement';
     order_by_type = 'ASC';
     filters = '';
+    schools = [];
+    isSchoolsDisplayed = false;
 
     filter_without = true;
     filter_restauration = false;
@@ -244,6 +246,14 @@ class SchoolService {
         return this.filter_greta;
     }
 
+    getSchools() {
+        return this.schools;
+    }
+
+    getIsSchoolsDisplayed() {
+        return this.isSchoolsDisplayed;
+    }
+
     /*
 
     setFilter_without(filter_without) {
@@ -385,5 +395,13 @@ class SchoolService {
 
     setFilter_greta(filter_greta) {
         this.filter_greta = filter_greta;
+    }
+
+    setSchools(schools) {
+        this.schools = schools;
+    }
+
+    setIsSchoolsDisplayed(isSchoolsDisplayed) {
+        this.isSchoolsDisplayed = isSchoolsDisplayed;
     }
 }

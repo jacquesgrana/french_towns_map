@@ -57,3 +57,17 @@
 .text-small-interligne {
     line-height: 1.4em;
 }
+
+
+.text-in-circle {
+    display: inline-block;
+    color: $white;
+    font-weight: bold;
+    font-size: 1.4em;
+    width: 30px !important;
+    height: 30px !important;
+    text-align: center;
+    line-height: 1.3em;
+    border-radius: 15px;
+    background-color: green;
+}

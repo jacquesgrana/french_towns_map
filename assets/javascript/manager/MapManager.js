@@ -292,6 +292,13 @@ class MapManager {
             //console.log('click filter elementaire');
             this.handleFilterGretaClick();
         });
+
+        const btnSwitchDisplaySchools = document.getElementById('switch-display-schools');
+        if(btnSwitchDisplaySchools) btnSwitchDisplaySchools.addEventListener('change', (e) => {
+            //console.log('click filter elementaire');
+            e.preventDefault();
+            this.handleSwitchDisplaySchoolsClick();
+        });
     }
 
     manageButtonsWithLoggedIn() {
@@ -360,6 +367,41 @@ class MapManager {
                 layer.remove();
             }
         });
+        if(this.schoolService.getIsSchoolsDisplayed() && this.schoolService.getSchools().length > 0) {
+            let cpt = 0;
+            this.schoolService.getSchools().forEach((school) => {
+                cpt++;
+                if(!school.latitude || !school.longitude) return; // ajouter d'autres tests
+                const customIcon = L.divIcon({
+                    className: 'custom-div-icon',
+                    html: `
+
+                        <div style=" background-color:green; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold;">
+                            ${cpt}
+                        </div>
+                    `,
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 30]
+                });
+
+
+                const markerSchool = L.marker([school.latitude, school.longitude], {
+                    icon: customIcon
+                    
+                    /*L.icon({
+                        iconUrl: greenDotUrl,
+                        iconSize: [16, 16],
+                        iconAnchor: [8, 16],
+                        //popupAnchor: [0, -16]
+                    })*/
+                })
+                .addTo(map);
+                markerSchool.on('click', () => {
+                    this.handleViewSchool(school);
+                })
+            })
+        }
+
         towns.forEach((town) => {
             if(this.selectedTown && town.id === this.selectedTown.id) {
                 // ajouter un cercle sur la ville selectionné
@@ -377,8 +419,9 @@ class MapManager {
                 await this.updateSelectedTown(town);
             //marker.openPopup();
             });
-
         });
+
+ //this.handleViewSchool(school);
     }
 
     emptyBoolFilters = () => {
@@ -791,6 +834,14 @@ class MapManager {
         this.mapVue.displaySchoolInModal(school);
     }
 
+    handleSwitchDisplaySchoolsClick = () => {
+        console.log('switch display schools');
+        this.schoolService.setIsSchoolsDisplayed(!this.schoolService.getIsSchoolsDisplayed());
+        const btnSwitchDisplaySchools = document.getElementById('switch-display-schools');
+        btnSwitchDisplaySchools.checked = this.schoolService.getIsSchoolsDisplayed();
+        this.refreshMap(this.map, this.townsData);
+    }
+
     async displayForecast(town) {
         //const forecastInfos0 = await this.townService.getForecastFromApis(town.townCode, 0);
         //this.mapVue.displayForecast(forecastInfos0, 0);
@@ -809,10 +860,12 @@ class MapManager {
         const datas = await this.schoolService.getSchoolsByTown(town.townCode);
         const schoolNb = datas.totalCount;
         this.schoolService.setTotalCount(schoolNb);
-        const schools = datas.schools;
+        this.schoolService.setSchools(datas.schools);
+        if(this.schoolService.getIsSchoolsDisplayed()) this.refreshMap(this.map, this.townsData);
+        
         //console.log('schoolNb : ', schoolNb);
         //console.log('schoolsInfos : ', schools);
-        this.mapVue.displaySchools(schools, schoolNb, this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchool, this.handleNextSchool, this.handleFirstSchool, this.handleLastSchool, this.handleViewSchool);
+        this.mapVue.displaySchools(this.schoolService.getSchools(), this.schoolService.getTotalCount(), this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchool, this.handleNextSchool, this.handleFirstSchool, this.handleLastSchool, this.handleViewSchool);
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
