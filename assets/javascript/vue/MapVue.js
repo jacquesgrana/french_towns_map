@@ -205,13 +205,16 @@ class MapVue {
 
     displaySchoolInModal(school) {
         const modalTitle = document.getElementById('title-modal-school');
+        modalTitle.classList.add('text-secondary');
         modalTitle.textContent = school.nom_etablissement;
         const divModal1 = document.getElementById('div-modal-school-1');
-        divModal1.innerHTML = school.libelle_nature + '</br>' + school.type_etablissement + ' / ' + school.statut_public_prive;
+        divModal1.innerHTML = school.libelle_nature !== '' ? this.formatTextToCamelCase(school.libelle_nature) + '<br/>' : '';
+        divModal1.innerHTML += school.type_etablissement !== '' ? school.type_etablissement : '';
+        divModal1.innerHTML += school.statut_public_prive !== '' ? '&nbsp;' + '<span class="badge rounded-pill text-bg-secondary">' + school.statut_public_prive + '</span>': '';
         divModal1.innerHTML += school.nombre_d_eleves !== -1 ? `<br/>${school.nombre_d_eleves} élèves` : '';
         divModal1.innerHTML += school.etat !== '' ? `<br/>${school.etat}` : '';
-        divModal1.innerHTML += school.libelle_academie !== '' ? '<br/> Académie : ' + school.libelle_academie : '';
-        divModal1.innerHTML += school.ministere_tutelle !== '' ? '<br/> Ministère : ' + school.ministere_tutelle : '';
+        divModal1.innerHTML += school.libelle_academie !== '' ? '<br/> <span class="text-secondary">Académie :</span> ' + school.libelle_academie : '';
+        divModal1.innerHTML += school.ministere_tutelle !== '' ? '<br/> <span class="text-secondary">Ministère :</span> ' + this.formatTextToCamelCase(school.ministere_tutelle) : '';
 
         const divModal2 = document.getElementById('div-modal-school-2');
         divModal2.innerHTML = school.ecole_maternelle === '1' ? '<span class="badge rounded-pill text-bg-primary">Ecole Maternelle</span>': '';
@@ -239,13 +242,13 @@ class MapVue {
         divModal2.innerHTML += school.greta === '1' ? '<span class="badge rounded-pill text-bg-secondary">Greta</span>': '';
 
         const divModal3 = document.getElementById('div-modal-school-3');
-        divModal3.innerHTML = 'Adresse : ';
-        divModal3.innerHTML += school.adresse_1 !== '' ? school.adresse_1 + ' ' : '';
-        divModal3.innerHTML += school.adresse_2 !== '' ? school.adresse_2 + ' ' : '';
-        divModal3.innerHTML += school.adresse_3 !== '' ? school.adresse_3 + ' ' : '';
-        divModal3.innerHTML += (school.telephone !== '' && school.telephone !== undefined) ? '</br>Téléphone : ' + school.telephone : '';
-        divModal3.innerHTML += (school.fax !== '' && school.fax !== undefined) ? '</br>Fax : ' + school.fax : '';
-        divModal3.innerHTML += (school.mail !== '' && school.mail !== undefined) ? '</br>Courriel : ' + school.mail : '';
+        divModal3.innerHTML = '<span class="text-secondary">Adresse :</span> ';
+        divModal3.innerHTML += school.adresse_1 !== '' ? this.formatTextToCamelCase(school.adresse_1) + ' ' : '';
+        divModal3.innerHTML += school.adresse_2 !== '' ? this.formatTextToCamelCase(school.adresse_2) + ' ' : '';
+        divModal3.innerHTML += school.adresse_3 !== '' ? this.formatTextToCamelCase(school.adresse_3) + ' ' : '';
+        divModal3.innerHTML += (school.telephone !== '' && school.telephone !== undefined) ? '</br><span class="text-secondary">Téléphone :</span> ' + school.telephone : '';
+        divModal3.innerHTML += (school.fax !== '' && school.fax !== undefined) ? '</br><span class="text-secondary">Fax :</span> ' + school.fax : '';
+        divModal3.innerHTML += (school.mail !== '' && school.mail !== undefined) ? '</br><span class="text-secondary">Courriel :</span> ' + school.mail : '';
         divModal3.innerHTML += (school.fiche_onisep !== '' && school.fiche_onisep !== undefined) ? `</br><a class="link-02" target="_blank" href="${school.fiche_onisep}">Fiche ONISEP</a>` : '';
         divModal3.innerHTML += (school.web !== '' && school.web !== undefined) ? `</br><a class="link-02" target="_blank" href="${school.web}">Page web</a>` : '';
 
@@ -271,18 +274,21 @@ class MapVue {
                 schoolsDiv.appendChild(noSchoolsDiv);
             }
             else {
+                let cpt = 0;
                 schools.forEach(school => {
+                    cpt++;
                     const schoolDiv = document.createElement('div');
                     schoolDiv.classList.add('div-school');
-                    schoolDiv.innerHTML = `<strong class="text-secondary text-medium">${school.nom_etablissement}</strong>`;
+                    schoolDiv.innerHTML = '<strong class="text-in-circle">' + cpt + '</strong>&nbsp;&nbsp;';
+                    schoolDiv.innerHTML += `<strong class="text-secondary text-medium">${school.nom_etablissement}</strong>`;
                     schoolDiv.innerHTML += '</br>' + school.type_etablissement;
                     schoolDiv.innerHTML += school.statut_public_prive !== '' ? '&nbsp;<span class="text-secondary">•</span>&nbsp;' + school.statut_public_prive : '';
-                    const libelleNature = school.libelle_nature
-                    .toLowerCase() // Met toute la chaîne en minuscules
-                    .split(' ') // Divise la chaîne en mots
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Met la première lettre de chaque mot en majuscule
-                    .join(' '); ;
-                    schoolDiv.innerHTML += '</br><em class="badge rounded-pill text-bg-secondary">' + libelleNature + '</em>';
+                    //const libelleNature = school.libelle_nature
+                    //.toLowerCase() // Met toute la chaîne en minuscules
+                    //.split(' ') // Divise la chaîne en mots
+                    //.map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Met la première lettre de chaque mot en majuscule
+                    //.join(' ');
+                    schoolDiv.innerHTML += '</br><em class="badge rounded-pill text-bg-secondary">' + this.formatTextToCamelCase(school.libelle_nature) + '</em>';
                     
                     const buttonViewSchool = document.createElement('button');
                     buttonViewSchool.classList.add('btn');
@@ -595,6 +601,31 @@ class MapVue {
 
         }
         
+    }
+
+    formatTextToCamelCase(text) {
+        return text
+        .toLowerCase()
+        .split(' ')
+        //.filter(word => word !== '' && word !== 'de' && word !== 'des' && word !== 'd\'' && word !== 'd' && word !== 'la' && word !== 'le' && word !== 'les' && word !== 'l\'' && word !== 'l' && word !== 'en' && word !== 'et' && word !== 'un' && word !== 'une' && word !== 'pour')
+        .map(word => {
+            if(word !== '' && word !== 'de' && word !== 'des' && word !== 'd\'' && word !== 'd' && word !== 'la' && word !== 'le' && word !== 'les' && word !== 'l\'' && word !== 'l' && word !== 'en' && word !== 'et' && word !== 'un' && word !== 'une' && word !== 'pour' && word !== 'ou' && word !== 'du') {
+                if(word.startsWith('l\'') || word.startsWith('d\'')) {
+                    return word.charAt(0) + word.charAt(1) + word.charAt(2).toUpperCase() + word.slice(3)
+                    //return word.charAt(0).toUpperCase() + word.slice(1)
+                }
+                else {
+                    return word.charAt(0).toUpperCase() + word.slice(1)
+                }
+                
+                
+            }
+            else {
+                return word
+            }
+            //return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
     }
 }
 

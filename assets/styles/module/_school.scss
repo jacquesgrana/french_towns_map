@@ -36,7 +36,6 @@
     flex-direction: row;
 }
 
-#div-modal-school-1,
 #div-modal-school-2 {
     
     width: 100%;
@@ -51,6 +50,20 @@
     flex-wrap: wrap;
     gap: 10px;
 }
+
+#collapseFour {
+    padding-top: 0px !important;
+}
+
+#div-modal-school-1 {
+    width: 100%;
+    border-radius: 5px;
+    //border: 1px solid $primary-color-dark;
+    background-color: $primary-color-medium-dark;
+    color: $white;
+    padding: 10px;
+}
+
 
 #div-modal-school-3 {
     
@@ -74,7 +87,7 @@
     width: 100%;
     margin: 20px 0px;
     border-radius: 10px;
-    background-color: $primary-color-medium-dark;
+    background-color: $primary-color-dark;
     color: $white;
     padding: 20px;
     display: flex;
@@ -87,6 +100,14 @@
         color: $white;
         font-size: 0.75rem;
     }
+}
+
+#acc-button-school.accordion-button.collapsed {
+    width: 100%;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-direction: row !important;
 }
 
 
