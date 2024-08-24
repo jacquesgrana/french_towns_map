@@ -826,12 +826,17 @@ class MapManager {
 
     handleViewSchool = (school) => {
         if(this.selectedTown == null) return;
-        //console.log('handleViewSchools');
         // TODO mettre l'init de la modal dans la vue
         const modal = new bootstrap.Modal(document.getElementById('modal-school'));
-            //console.log('modal : ', modal);
         if(modal) modal.show();
         this.mapVue.displaySchoolInModal(school);
+    }
+
+    handleCenterMapOnSchool = (school) => {
+        if(this.selectedTown == null) return;
+        if(school.latitude !== '' && school.longitude !== '') {
+            this.centerMapOnPosition(school.latitude, school.longitude); 
+        }
     }
 
     handleSwitchDisplaySchoolsClick = () => {
@@ -865,7 +870,7 @@ class MapManager {
         
         //console.log('schoolNb : ', schoolNb);
         //console.log('schoolsInfos : ', schools);
-        this.mapVue.displaySchools(this.schoolService.getSchools(), this.schoolService.getTotalCount(), this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchool, this.handleNextSchool, this.handleFirstSchool, this.handleLastSchool, this.handleViewSchool);
+        this.mapVue.displaySchools(this.schoolService.getSchools(), this.schoolService.getTotalCount(), this.schoolService.getLimit(), this.schoolService.getOffset(), this.handlePrevSchool, this.handleNextSchool, this.handleFirstSchool, this.handleLastSchool, this.handleViewSchool, this.handleCenterMapOnSchool);
     }
 
     // TODO gérer les erreurs Api !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -962,7 +967,7 @@ class MapManager {
         }
 
         function error() {
-        alert("Pas de position accessible !");
+            alert("Pas de position accessible !");
         }
         const options = {
         enableHighAccuracy: true,
