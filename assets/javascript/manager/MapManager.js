@@ -372,21 +372,21 @@ class MapManager {
             this.schoolService.getSchools().forEach((school) => {
                 cpt++;
                 if(!school.latitude || !school.longitude) return; // ajouter d'autres tests
-                const customIcon = L.divIcon({
+                const iconSchool = L.divIcon({
                     className: 'custom-div-icon',
                     html: `
-
                         <div style=" background-color:green; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold;">
                             ${cpt}
                         </div>
                     `,
                     iconSize: [30, 30],
-                    iconAnchor: [15, 30]
+                    iconAnchor: [15, 30],
+                    popupAnchor: [0, -30],
+                    tooltipAnchor: [0, -30]
                 });
 
-
                 const markerSchool = L.marker([school.latitude, school.longitude], {
-                    icon: customIcon
+                    icon: iconSchool
                     
                     /*L.icon({
                         iconUrl: greenDotUrl,
@@ -395,26 +395,52 @@ class MapManager {
                         //popupAnchor: [0, -16]
                     })*/
                 })
+                .bindTooltip(school.nom_etablissement, {
+                    permanent: false,
+                    direction: 'top',
+                    opacity: 1.0
+                })
                 .addTo(map);
                 markerSchool.on('click', () => {
                     this.handleViewSchool(school);
-                })
-            })
+                });
+            });
         }
+
+        const iconSelectedTown = L.divIcon({
+            className: 'custom-div-icon',
+            html: `
+                <div style=" background-color:red; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; justify-content: center; align-items: center;">
+                </div>
+            `,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
 
         towns.forEach((town) => {
             if(this.selectedTown && town.id === this.selectedTown.id) {
-                // ajouter un cercle sur la ville selectionné
+                /*
                 const circle = L.circle([town.latitude, town.longitude], {
                     color: '#8d3302',
                     fillColor: '#f17735',
                     fillOpacity: 0.33,
                     radius: 200
                 }).addTo(map);
+                */
+
+                const markerSelectedTown = L.marker([town.latitude, town.longitude], {
+                    icon: iconSelectedTown
+                })
+                .addTo(map);
             }
             const marker = L.marker([town.latitude, town.longitude])
-                .addTo(map)
-                .bindPopup(town.townName);
+                //.bindPopup(town.townName)
+                .bindTooltip(town.townName, {
+                    permanent: false,
+                    direction: 'top',
+                    opacity: 1.0
+                })
+                .addTo(map);
             marker.on('click', async () => {
                 await this.updateSelectedTown(town);
             //marker.openPopup();
@@ -424,12 +450,14 @@ class MapManager {
  //this.handleViewSchool(school);
     }
 
+    /*
     emptyBoolFilters = () => {
         const btnRestauration = document.getElementById('btn-check-restauration-filter-school');
         if(btnRestauration) btnRestauration.checked = false;
         const btnHebergement = document.getElementById('btn-check-hebergement-filter-school');
         if(btnHebergement) btnHebergement.checked = false;
     }
+    */
 
     updateSchoolFiltersButtons() {
         const btnWithout = document.getElementById('btn-check-without-filter-school');
