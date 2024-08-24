@@ -26,6 +26,14 @@
     right: 10px;
 }
 
+.btn-center-school {
+    position: absolute !important;
+    top: 10px;
+    right: 45px;
+    font-size: 1.4em;
+    line-height: 1.0em;
+}
+
 .div-school-buttons-start,
 .div-school-buttons-end {
     display: flex;
@@ -35,6 +43,12 @@
     align-items: center;
     flex-direction: row;
 }
+
+
+.title-div-school {
+    line-break: strict;
+}
+
 
 #div-modal-school-2 {
     

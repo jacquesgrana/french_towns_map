@@ -254,7 +254,7 @@ class MapVue {
 
     }
 
-    displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext, callBackFirst, callBackLast, callBackViewSchool) {
+    displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext, callBackFirst, callBackLast, callBackViewSchool, callBackCenterMapOnSchool) {
         //map-accordion-body-schools
         const pageMaxNb = Math.floor(schoolsNb / limit) + 1;
         const pageNb = Math.floor(offset / limit) + 1;
@@ -280,7 +280,7 @@ class MapVue {
                     const schoolDiv = document.createElement('div');
                     schoolDiv.classList.add('div-school');
                     schoolDiv.innerHTML = '<strong class="text-in-circle">' + cpt + '</strong>&nbsp;&nbsp;';
-                    schoolDiv.innerHTML += `<strong class="text-secondary text-medium">${school.nom_etablissement}</strong>`;
+                    schoolDiv.innerHTML += `<strong class="text-secondary text-medium title-div-school">${school.nom_etablissement}</strong>`;
                     schoolDiv.innerHTML += '</br>' + school.type_etablissement;
                     schoolDiv.innerHTML += school.statut_public_prive !== '' ? '&nbsp;<span class="text-secondary">•</span>&nbsp;' + school.statut_public_prive : '';
                     //const libelleNature = school.libelle_nature
@@ -303,6 +303,20 @@ class MapVue {
                         callBackViewSchool(school);
                     }
                     schoolDiv.appendChild(buttonViewSchool);
+
+                    const buttonCenterSchool = document.createElement('button');
+                    buttonCenterSchool.classList.add('btn');
+                    buttonCenterSchool.classList.add('btn-tooltip');
+                    buttonCenterSchool.classList.add('btn-secondary-very-small');
+                    buttonCenterSchool.classList.add('btn-text-small');
+                    buttonCenterSchool.classList.add('btn-center-school');
+                    buttonCenterSchool.textContent = '⊕';
+                    buttonCenterSchool.setAttribute("data-tooltip", "Centrer la carte sur l'établissement.");
+                    buttonCenterSchool.onclick = () => {
+                        //console.log('viewSchool : ', school);
+                        callBackCenterMapOnSchool(school);
+                    }
+                    schoolDiv.appendChild(buttonCenterSchool);
                     schoolsDiv.appendChild(schoolDiv);
                 });
             }
@@ -316,6 +330,8 @@ class MapVue {
             const buttonFirst = document.createElement('button');
             buttonFirst.classList.add('btn');
             buttonFirst.classList.add('btn-primary-small');
+            buttonFirst.classList.add('btn-tooltip');
+            buttonFirst.setAttribute("data-tooltip", "Première page.");
             buttonFirst.innerHTML = '&laquo;';
             buttonFirst.onclick = () => {
                 //this.displaySchools(schools, 0);
@@ -327,6 +343,8 @@ class MapVue {
             const buttonPrev = document.createElement('button');
             buttonPrev.classList.add('btn');
             buttonPrev.classList.add('btn-primary-small');
+            buttonPrev.classList.add('btn-tooltip');
+            buttonPrev.setAttribute("data-tooltip", "Page précédente.");
             buttonPrev.innerHTML = '&lsaquo;';
             buttonPrev.onclick = () => {
                 //this.displaySchools(schools, schoolNb + 1);
@@ -346,6 +364,8 @@ class MapVue {
             const buttonNext = document.createElement('button');
             buttonNext.classList.add('btn');
             buttonNext.classList.add('btn-primary-small');
+            buttonNext.classList.add('btn-tooltip');
+            buttonNext.setAttribute("data-tooltip", "Page suivante.");
             buttonNext.innerHTML = '&rsaquo;';
             buttonNext.onclick = () => {
                 //this.displaySchools(schools, schoolNb + 1);
@@ -356,6 +376,8 @@ class MapVue {
             const buttonLast = document.createElement('button');
             buttonLast.classList.add('btn');
             buttonLast.classList.add('btn-primary-small');
+            buttonLast.classList.add('btn-tooltip');
+            buttonLast.setAttribute("data-tooltip", "Dernière page.");
             buttonLast.innerHTML = '&raquo;';
             buttonLast.onclick = () => {
                 //this.displaySchools(schools, 0);

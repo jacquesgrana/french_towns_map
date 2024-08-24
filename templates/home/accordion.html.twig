@@ -88,94 +88,94 @@
                 Enseignement
             </button>
         </div>
-        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#map-accordion">
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#map-accordion" >
             <div id="div-switch-display-school" class="form-check form-switch mt-0 mb-2">
-                <input class="form-check-input" type="checkbox" role="switch" id="switch-display-schools">
+                <input class="form-check-input btn-tooltip" type="checkbox" role="switch" id="switch-display-schools" data-tooltip="Activer/Désactiver la vue sur la carte.">
                 <label class="form-check-label text-secondary" for="switch-display-schools">Voir sur la carte</label>
             </div>
             <ul class="nav nav-pills gap-2 display-flex flex-wrap justify-content-between" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="sort0-asc-tab" type="button" role="tab" aria-selected="true" data-bs-toggle="tab">Nom ↥</button>
+                    <button class="nav-link active btn-tooltip" id="sort0-asc-tab" type="button" role="tab" aria-selected="true" data-bs-toggle="tab" data-tooltip="Tri par nom par ordre croissant.">Nom ↥</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="sort0-desc-tab" type="button" role="tab" aria-selected="true" data-bs-toggle="tab">Nom ↧</button>
+                    <button class="nav-link btn-tooltip" id="sort0-desc-tab" type="button" role="tab" aria-selected="true" data-bs-toggle="tab" data-tooltip="Tri par nom par ordre décroissant.">Nom ↧</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="sort1-asc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab">Type ↥</button>
-                </li>
-                                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="sort1-desc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab">Type ↧</button>
+                    <button class="nav-link btn-tooltip" id="sort1-asc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab" data-tooltip="Tri par type par ordre croissant.">Type ↥</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="sort2-asc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab">Statut ↥</button>
+                    <button class="nav-link btn-tooltip" id="sort1-desc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab" data-tooltip="Tri par type par ordre décroissant.">Type ↧</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="sort2-desc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab">Statut ↧</button>
+                    <button class="nav-link btn-tooltip" id="sort2-asc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab" data-tooltip="Tri par statut par ordre croissant.">Statut ↥</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="sort3-asc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab">Nature ↥</button>
+                    <button class="nav-link btn-tooltip" id="sort2-desc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab" data-tooltip="Tri par statut par ordre décroissant.">Statut ↧</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="sort3-desc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab">Nature ↧</button>
+                    <button class="nav-link btn-tooltip" id="sort3-asc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab" data-tooltip="Tri par nature par ordre croissant.">Nature ↥</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-tooltip" id="sort3-desc-tab" type="button" role="tab" aria-selected="false" data-bs-toggle="tab" data-tooltip="Tri par nature par ordre décroissant.">Nature ↧</button>
                 </li>
             </ul>
             <div id="div-container-filters">
                 <input type="checkbox" class="btn-check" id="btn-check-without-filter-school" autocomplete="off" checked>
-                <label class="btn btn-radio" for="btn-check-without-filter-school">Aucun filtre(s)</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-without-filter-school" data-tooltip="Appliquer aucun filtre.">Aucun filtre</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-maternelle-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-maternelle-filter-school">Ec. Maternelle</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-maternelle-filter-school" data-tooltip="Filtrer les écoles maternelles.">Ec. Maternelle</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-elementaire-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-elementaire-filter-school">Ec. Elémentaire</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-elementaire-filter-school" data-tooltip="Filtrer les écoles élémentaires.">Ec. Elémentaire</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-voie-generale-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-voie-generale-filter-school">Lycée Voie Gén.</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-voie-generale-filter-school" data-tooltip="Filtrer les lycées - voie générale.">Lycée Voie Gén.</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-voie-techno-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-voie-techno-filter-school">Lycée Voie Techno.</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-voie-techno-filter-school" data-tooltip="Filtrer les lycées - voie technomogique.">Lycée Voie Techno.</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-voie-prof-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-voie-prof-filter-school">Lycée Voie Prof.</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-voie-prof-filter-school" data-tooltip="Filtrer les lycées - voie professionnelle.">Lycée Voie Prof.</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-section-arts-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-section-arts-filter-school">Section Arts</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-section-arts-filter-school" data-tooltip="Filtrer les lycées - section arts.">Section Arts</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-section-cinema-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-section-cinema-filter-school">Section Cinéma</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-section-cinema-filter-school" data-tooltip="Filtrer les lycées - section cinéma.">Section Cinéma</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-section-theatre-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-section-theatre-filter-school">Section Théâtre</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-section-theatre-filter-school" data-tooltip="Filtrer les lycées - section théâtre.">Section Théâtre</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-section-internationale-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-section-internationale-filter-school">Section Intern.</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-section-internationale-filter-school" data-tooltip="Filtrer les lycées - section internationale.">Section Intern.</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-section-europeenne-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-section-europeenne-filter-school">Section Europ.</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-section-europeenne-filter-school" data-tooltip="Filtrer les lycées - section européenne.">Section Europ.</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-lycee-agricole-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-lycee-agricole-filter-school">Lycée Agric.</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-lycee-agricole-filter-school" data-tooltip="Filtrer les lycées agricoles.">Lycée Agric.</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-lycee-militaire-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-lycee-militaire-filter-school">Lycée Milit.</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-lycee-militaire-filter-school" data-tooltip="Filtrer les lycées militaires.">Lycée Milit.</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-lycee-metiers-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-lycee-metiers-filter-school">Lycée Métiers</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-lycee-metiers-filter-school" data-tooltip="Filtrer les lycées des métiers.">Lycée Métiers</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-apprentissage-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-apprentissage-filter-school">Apprentissage</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-apprentissage-filter-school" data-tooltip="Filtrer par : apprentissage.">Apprentissage</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-segpa-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-segpa-filter-school">Segpa</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-segpa-filter-school" data-tooltip="Filtrer par : segpa.">Segpa</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-restauration-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-restauration-filter-school">Restauration</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-restauration-filter-school" data-tooltip="Filtrer par : restauration.">Restauration</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-hebergement-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-hebergement-filter-school">Hébergement</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-hebergement-filter-school" data-tooltip="Filtrer par : hébergement.">Hébergement</label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-greta-filter-school" autocomplete="off">
-                <label class="btn btn-radio" for="btn-check-greta-filter-school">Greta</label>
+                <label class="btn btn-radio btn-tooltip" for="btn-check-greta-filter-school" data-tooltip="Filtrer par : greta.">Greta</label>
 
             </div>
             <div class="accordion-body" id="map-accordion-body-school">
