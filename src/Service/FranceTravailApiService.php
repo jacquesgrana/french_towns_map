@@ -93,7 +93,11 @@ class FranceTravailApiService
 
     public function getOffersByTownFromApi(string $townCode): array
     {
-        $url = $this->apiRequestUrl . '?commune=' . $townCode;
+        $url = $this->apiRequestUrl . '?commune=' . $townCode; // . '&range=0-149'
+        //dd($url);
+        // TODO : faire méthode
+        
+        /*
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -101,6 +105,47 @@ class FranceTravailApiService
         $result = curl_exec($curl);
         if (curl_errno($curl)) {
             $error_msg = curl_error($curl);
+            curl_close($curl);
+            throw new \Exception("Erreur cURL lors de la connexion à l'API : " . $error_msg);
+        }
+        curl_close($curl);
+        $data = json_decode($result, true);
+        return $data;
+        */
+        return $this->callUrlByCurl($url);
+    }
+
+    public function getOffersByTownForDatatable($townCode, $start, $end) {
+        $url = $this->apiRequestUrl . '?commune=' . $townCode . '&range=' . $start . '-' . $end;
+
+        // TODO : faire méthode
+        /*
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $this->getAccessToken(), 'Content-Type: application/json'));
+        $result = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+            curl_close($curl);
+            throw new \Exception("Erreur cURL lors de la connexion à l'API : " . $error_msg);
+        }
+        curl_close($curl);
+        $data = json_decode($result, true);
+
+        return $data;
+        */
+        return $this->callUrlByCurl($url);
+    }
+
+    public function callUrlByCurl($url) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $this->getAccessToken(), 'Content-Type: application/json'));
+        $result = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl); 
             curl_close($curl);
             throw new \Exception("Erreur cURL lors de la connexion à l'API : " . $error_msg);
         }

@@ -56,7 +56,7 @@ class EmploymentOfferDto
             $this->lieuTravail->hydrate($data['lieuTravail']);
         }
         else {
-            $this->lieuTravail = [];
+            $this->lieuTravail = new LieuTravailDto();
         }
         $this->romeCode = isset($data['romeCode']) ? $data['romeCode'] : '';
         $this->romeLibelle = isset($data['romeLibelle']) ? $data['romeLibelle'] : '';
@@ -66,7 +66,7 @@ class EmploymentOfferDto
             $this->entreprise->hydrate($data['entreprise']);
         }
         else {
-            $this->entreprise = [];
+            $this->entreprise = new EntrepriseDto();
         }
         $this->typeContrat = isset($data['typeContrat']) ? $data['typeContrat'] : '';
         $this->typeContratLibelle = isset($data['typeContratLibelle']) ? $data['typeContratLibelle'] : '';
@@ -98,7 +98,7 @@ class EmploymentOfferDto
             $this->contact->hydrate($data['contact']);
         }
         else {
-            $this->contact = [];
+            $this->contact = new ContactDto();
         }
         $this->urlPostulation = isset($data['urlPostulation']) ? $data['urlPostulation'] : '';
         $this->accessibleTH = isset($data['accessibleTH']) ? $data['accessibleTH'] : '';
@@ -112,7 +112,7 @@ class EmploymentOfferDto
             $this->origineOffre->hydrate($data['origineOffre']);
         }
         else {
-            $this->origineOffre = [];
+            $this->origineOffre = new OrigineOffreDto();
         }
         $this->offresManqueCandidats = isset($data['offresManqueCandidats']) ? $data['offresManqueCandidats'] : '';
     }
