@@ -254,6 +254,65 @@ class MapVue {
 
     }
 
+    displayOffers(townCode) {
+        //console.log('display offers : offers : ', offers);
+        //console.log('filters : ', filters);
+        const divEmployment = document.getElementById('map-accordion-body-employment');
+        if(divEmployment) {
+            divEmployment.innerHTML = '';
+            const title = document.createElement('h6');
+            title.classList.add('text-white', 'text-center', 'mb-2');
+            title.textContent = 'Offres d\'emploi de France Travail';
+            divEmployment.appendChild(title);
+
+            const table = document.createElement('table');
+            table.id = 'table-offers';
+            table.classList.add('display', 'table', 'table-striped', 'mb-2');
+            //table.style.width = '100%';
+            divEmployment.appendChild(table);
+/*
+            const dataSet = [];
+            offers.forEach(offer => {
+                const row = [];
+                row.push(offer.intitule);
+                //row.push(offer.dateCreation);
+                row.push(offer.lieuTravail.libelle);
+                row.push(offer.romeLibelle);
+                row.push(offer.typeContratLibelle);
+                row.push(offer.secteurActiviteLibelle);
+
+                dataSet.push(row);
+            });
+*/
+            //console.log('townCode : ', townCode);
+            new DataTable('#table-offers', {
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '/get-employment-by-town-for-datatable',
+                    type: 'POST',
+                    contentType: 'application/x-www-form-urlencoded',
+                    data: function(d) {
+                        return $.param({
+                            townCode: townCode,
+                            start: d.start,
+                            length: d.length,
+                            draw: d.draw
+                        });
+                    }
+                },
+                columns: [
+                    { title: 'Intitulé' },
+                    { title: 'Lieu' },
+                    { title: 'Rome' },
+                    { title: 'Type de contrat' },
+                    { title: 'Secteur d\'activité' },
+                ]
+            });
+            
+        }
+    }
+
     displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext, callBackFirst, callBackLast, callBackViewSchool, callBackCenterMapOnSchool) {
         //map-accordion-body-schools
         const pageMaxNb = Math.floor(schoolsNb / limit) + 1;

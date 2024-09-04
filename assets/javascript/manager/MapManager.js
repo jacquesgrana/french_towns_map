@@ -1,3 +1,4 @@
+// TODO : renommer en HomeManager
 class MapManager {
     mapVue;
     map;
@@ -10,6 +11,7 @@ class MapManager {
     commentService;
     securityService;
     schoolService;
+    employmentService;
     isNewComment;
     //isLoggedIn;
     constructor() {
@@ -24,6 +26,7 @@ class MapManager {
         this.commentService = CommentService.getInstance();
         this.securityService = SecurityService.getInstance();
         this.schoolService = SchoolService.getInstance();
+        this.employmentService = EmploymentService.getInstance();
         this.isNewComment = true;
         //this.isLoggedIn = this.securityService.checkAuthStatus();
     }
@@ -880,11 +883,28 @@ class MapManager {
         //this.mapVue.displayForecast(forecastInfos0, 0);
 
         for(let i = 0; i < 5; i++) { 
-            let rank =  i == 4 ? 7 : i;
-            const forecastInfos = await this.townService.getForecastFromApis(town.townCode, rank);
-            if(!forecastInfos['error']) this.mapVue.displayForecast(forecastInfos, rank);
+            let dayRank =  i == 4 ? 7 : i;
+            const forecastInfos = await this.townService.getForecastFromApis(town.townCode, dayRank);
+            if(!forecastInfos['error']) this.mapVue.displayForecast(forecastInfos, dayRank);
             // TODO afficher une info dans le div si l'api est ko
         }
+    }
+
+    async displayOffers(town) {
+        if(!town) return;
+
+        //const datas = await this.employmentService.getEmploymentOffersByTown(town.townCode);
+        //console.log('townCode : ', town.townCode);
+        //this.employmentService.setOffers(datas.offers);
+        //this.employmentService.setFilters(datas.filters);
+
+
+        //this.employmentService.calculateAndSetTotalCountFromFilters();
+        //console.log('totalCount : ', this.employmentService.getTotalCount());
+
+        //console.log('offers : ', this.employmentService.getOffers());
+        //console.log('filters : ', this.employmentService.getFilters());
+        this.mapVue.displayOffers(town.townCode);
     }
 
     async displaySchools(town) {
@@ -951,6 +971,7 @@ class MapManager {
         await this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);
+        await this.displayOffers(this.selectedTown);
         await this.updateComments(this.selectedTown);
         this.refreshMap(this.map, this.townsData);
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);

@@ -51,6 +51,7 @@ security:
         - { path: /get-town-forecast-from-apis, roles: PUBLIC_ACCESS }
         - { path: /get-schools-by-town-from-api, roles: PUBLIC_ACCESS }
         - { path: /get-employment-by-town-from-api, roles: PUBLIC_ACCESS }
+        - { path: /get-employment-by-town-for-datatable, roles: PUBLIC_ACCESS }
         - { path: /get-is-favorite, roles: ROLE_USER }
         - { path: /toggle-favorite-for-town, roles: ROLE_USER }
         - { path: /get-favorites-by-user, roles: ROLE_USER }
