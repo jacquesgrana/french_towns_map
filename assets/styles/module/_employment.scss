@@ -1,0 +1,112 @@
+#table-offers {
+    color: $white !important;
+    width: 100% !important;
+    max-width: 1120px;
+
+    &.table-offers {
+        td {
+            //background-color: $primary-color-medium-dark !important;
+            color: $white;
+        }
+
+        th {
+            background-color: $primary-color-medium-dark !important;
+            color: $secondary-color !important;
+        }
+
+        // Styliser les lignes paires
+        tr:nth-child(even) {
+            td {
+                background-color: $primary-color-medium-dark !important;
+            }
+        }
+
+        // Styliser les lignes impaires
+        tr:nth-child(odd) {
+            td {
+                background-color: $primary-color-medium !important;
+            }
+        }
+
+        // Effet de survol (optionnel)
+        tr:hover {
+            td {
+                background-color: lighten($primary-color-medium-dark, 10%) !important;
+                transition: background-color 0.3s ease;
+            }
+        }
+    }
+
+}
+
+div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
+    color: $secondary-color !important;
+    background:none !important;
+    background-color: lighten($primary-color-medium-dark, 10%) !important;
+    border-color: $primary-color-light !important;
+}
+
+
+.dt-paging-button {
+    color: $white !important;
+    background-color: $primary-color-medium-dark !important;
+    border: 1px solid $primary-color-medium !important;
+    padding: 6px 12px;
+    margin: 0 2px;
+    cursor: pointer;
+    border-radius: 5px !important;
+    transition: all 0.3s ease;
+
+    /*
+    :hover {
+        color: $secondary-color !important;
+        background-color: lighten($primary-color-medium-dark, 10%) !important;
+        border-color: $secondary-color !important;
+    }
+    */
+
+    &.current {
+        color: $primary-color-medium-dark !important;
+        background-color: $secondary-color !important;
+        border-color: $secondary-color !important;
+        font-weight: bold;
+    }
+
+    &.disabled {
+        background-color: $primary-color-dark !important;
+        cursor: not-allowed;
+        border-color: $primary-color-dark !important;
+        color: $primary-color-medium !important;
+        
+        /*
+        &:hover {
+            color: $white !important;
+            background-color: $primary-color-dark !important;
+            border-color: $white !important;
+        }
+        */
+    }
+
+    // Styles spécifiques pour les boutons "Previous" et "Next"
+    &.previous, &.next {
+        font-weight: bold;
+    }
+}
+
+
+
+
+// Ajustements supplémentaires si nécessaire
+#table-offers_wrapper {
+    .dataTables_paginate {
+        margin-top: 10px;
+    }
+}
+
+
+  #table-offers_wrapper {
+    color: $white !important;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
