@@ -267,7 +267,7 @@ class MapVue {
 
             const table = document.createElement('table');
             table.id = 'table-offers';
-            table.classList.add('display', 'table', 'table-striped', 'mb-2');
+            table.classList.add('display', 'mb-2', 'table', 'table-responsive', 'table-offers');
             //table.style.width = '100%';
             divEmployment.appendChild(table);
 /*
@@ -286,6 +286,24 @@ class MapVue {
 */
             //console.log('townCode : ', townCode);
             new DataTable('#table-offers', {
+                dom: 'lrtip',
+                ordering: false,
+                dom: '<"row justify-content-center mb-2"l>' +
+                    '<"row"<"col-sm-12"tr>>' +
+                    '<"row justify-content-center gap-2 mb-2"<"col-sm-auto"i><"col-sm-auto custom-pagination"p>>',
+                language: {
+                    lengthMenu: "_MENU_ &nbsp;&nbsp;résultats par page",
+                    info: "Affichage de _START_ à _END_ sur _TOTAL_ résultats",
+                    infoEmpty: "Aucun résultat disponible",
+                    infoFiltered: "(filtré de _MAX_ résultats au total)",
+                    zeroRecords: "Aucun résultat trouvé",
+                    paginate: {
+                        first: "Premier",
+                        last: "Dernier",
+                        next: "Suivant",
+                        previous: "Précédent"
+                    }
+                },
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -305,7 +323,7 @@ class MapVue {
                     { title: 'Intitulé' },
                     { title: 'Lieu' },
                     { title: 'Rome' },
-                    { title: 'Type de contrat' },
+                    { title: 'Contrat' },
                     { title: 'Secteur d\'activité' },
                 ]
             });

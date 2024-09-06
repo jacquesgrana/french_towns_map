@@ -27,12 +27,21 @@ class ApiJsonController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $townCode = $data['townCode'];
-        $result = $geoApiService->callGeoApi($townCode);
-        $totalData = json_decode($result, true);
+        $result = $geoApiService->callGeoApi($townCode); 
 
-        if (json_last_error() === JSON_ERROR_NONE) {
-            $population = $totalData['population'] ?? 0;
+        if($result === null || is_array($result)) {
+            $population = 0;
         }
+        else {
+            $totalData = json_decode($result, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $population = $totalData['population'] ?? 0;
+            }
+        }
+            
+            
+        //dd($totalData);
+        
 
         $resultMeteoCpt = $meteoCptApiService->callEphemerideMeteoCptApi($townCode);
         $dataMeteoCpt = json_decode($resultMeteoCpt, true);

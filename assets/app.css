@@ -678,6 +678,86 @@ input[type=email]:-webkit-autofill:active {
   color: rgb(241, 119, 53) !important;
 }
 
+#table-offers {
+  color: rgb(236, 250, 255) !important;
+  width: 100% !important;
+  max-width: 1120px;
+}
+#table-offers.table-offers td {
+  color: rgb(236, 250, 255);
+}
+#table-offers.table-offers th {
+  background-color: rgb(5, 64, 87) !important;
+  color: rgb(241, 119, 53) !important;
+}
+#table-offers.table-offers tr:nth-child(even) td {
+  background-color: rgb(5, 64, 87) !important;
+}
+#table-offers.table-offers tr:nth-child(odd) td {
+  background-color: rgb(3, 76, 105) !important;
+}
+#table-offers.table-offers tr:hover td {
+  background-color: #086387 !important;
+  transition: background-color 0.3s ease;
+}
+
+div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
+  color: rgb(241, 119, 53) !important;
+  background: none !important;
+  background-color: #086387 !important;
+  border-color: rgb(50, 135, 168) !important;
+}
+
+.dt-paging-button {
+  color: rgb(236, 250, 255) !important;
+  background-color: rgb(5, 64, 87) !important;
+  border: 1px solid rgb(3, 76, 105) !important;
+  padding: 6px 12px;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 5px !important;
+  transition: all 0.3s ease;
+  /*
+  :hover {
+      color: $secondary-color !important;
+      background-color: lighten($primary-color-medium-dark, 10%) !important;
+      border-color: $secondary-color !important;
+  }
+  */
+}
+.dt-paging-button.current {
+  color: rgb(5, 64, 87) !important;
+  background-color: rgb(241, 119, 53) !important;
+  border-color: rgb(241, 119, 53) !important;
+  font-weight: bold;
+}
+.dt-paging-button.disabled {
+  background-color: rgb(2, 52, 71) !important;
+  cursor: not-allowed;
+  border-color: rgb(2, 52, 71) !important;
+  color: rgb(3, 76, 105) !important;
+  /*
+  &:hover {
+      color: $white !important;
+      background-color: $primary-color-dark !important;
+      border-color: $white !important;
+  }
+  */
+}
+.dt-paging-button.previous, .dt-paging-button.next {
+  font-weight: bold;
+}
+
+#table-offers_wrapper .dataTables_paginate {
+  margin-top: 10px;
+}
+
+#table-offers_wrapper {
+  color: rgb(236, 250, 255) !important;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 #map {
   height: 600px;
   min-width: 500px;
