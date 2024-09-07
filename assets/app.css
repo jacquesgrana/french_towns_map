@@ -207,6 +207,17 @@
   opacity: 1; /* Rend le tooltip visible au survol */
 }
 
+.btn-active {
+  background-color: rgb(241, 119, 53) !important;
+  border-color: rgb(241, 119, 53) !important;
+  color: rgb(236, 250, 255) !important;
+}
+.btn-active:hover {
+  background-color: rgb(85, 43, 0) !important;
+  border-color: rgb(85, 43, 0) !important;
+  color: rgb(241, 119, 53) !important;
+}
+
 * {
   box-sizing: border-box;
   margin: 0px;
@@ -756,6 +767,21 @@ div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
   color: rgb(236, 250, 255) !important;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.dt-buttons .dt-button {
+  color: #ffffff;
+  background-color: rgb(5, 64, 87);
+  border: 1px solid rgb(3, 76, 105);
+  padding: 6px 12px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.dt-buttons .dt-button:hover {
+  color: rgb(241, 119, 53);
+  background-color: #086387;
+  border-color: rgb(50, 135, 168);
 }
 
 #map {

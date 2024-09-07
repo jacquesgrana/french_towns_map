@@ -1,5 +1,10 @@
 class MapVue {
+
+    sort = 2;
+
+    employmentService = EmploymentService.getInstance();
     constructor() {
+        this.sort = 2;
     }
 
     displayFavoriteTowns = (towns, that) => {
@@ -251,10 +256,36 @@ class MapVue {
         divModal3.innerHTML += (school.mail !== '' && school.mail !== undefined) ? '</br><span class="text-secondary">Courriel :</span> ' + school.mail : '';
         divModal3.innerHTML += (school.fiche_onisep !== '' && school.fiche_onisep !== undefined) ? `</br><a class="link-02" target="_blank" href="${school.fiche_onisep}">Fiche ONISEP</a>` : '';
         divModal3.innerHTML += (school.web !== '' && school.web !== undefined) ? `</br><a class="link-02" target="_blank" href="${school.web}">Page web</a>` : '';
-
     }
 
-    displayOffers(townCode) {
+    updateOffersSortButtons() {
+        const btnDistance = document.getElementById('btn-sort-offers-distance');
+        const btnDate = document.getElementById('btn-sort-offers-date');
+        const btnPertinence = document.getElementById('btn-sort-offers-pertinence');
+        //console.log('updateOffersSortButtons : ', this.sort);
+        if(btnDistance && btnDate && btnPertinence) {
+            switch (this.sort)
+            {
+                case 2:
+                    btnDistance.classList.add('btn-active');
+                    btnDate.classList.remove('btn-active');
+                    btnPertinence.classList.remove('btn-active');
+                    break;
+                case 1:
+                    btnDistance.classList.remove('btn-active');
+                    btnDate.classList.add('btn-active');
+                    btnPertinence.classList.remove('btn-active');
+                    break;
+                case 0:
+                    btnDistance.classList.remove('btn-active');
+                    btnDate.classList.remove('btn-active');
+                    btnPertinence.classList.add('btn-active');
+                    break;
+            }
+        }
+    }
+
+    displayOffers(townCode, initOffersSortButtonsCB) {
         //console.log('display offers : offers : ', offers);
         //console.log('filters : ', filters);
         const divEmployment = document.getElementById('map-accordion-body-employment');
@@ -284,13 +315,18 @@ class MapVue {
                 dataSet.push(row);
             });
 */
+            //console.log('sort : ', this.employmentService.getSort());
+            
+            
+            //let sort = this.employmentService.getSort();
+            //let service = this.employmentService;
+            let self = this;
             //console.log('townCode : ', townCode);
             new DataTable('#table-offers', {
-                dom: 'lrtip',
-                ordering: false,
-                dom: '<"row justify-content-center mb-2"l>' +
+                //dom: 'lrtip',
+                dom: '<"row justify-content-center mb-2 align-items-center"<"col-auto"l><"col-auto"B>>' +
                     '<"row"<"col-sm-12"tr>>' +
-                    '<"row justify-content-center gap-2 mb-2"<"col-sm-auto"i><"col-sm-auto custom-pagination"p>>',
+                    '<"row justify-content-center gap-2 mb-3"<"col-sm-auto"i><"col-sm-auto custom-pagination"p>>',
                 language: {
                     lengthMenu: "_MENU_ &nbsp;&nbsp;résultats par page",
                     info: "Affichage de _START_ à _END_ sur _TOTAL_ résultats",
@@ -298,12 +334,58 @@ class MapVue {
                     infoFiltered: "(filtré de _MAX_ résultats au total)",
                     zeroRecords: "Aucun résultat trouvé",
                     paginate: {
-                        first: "Premier",
-                        last: "Dernier",
-                        next: "Suivant",
-                        previous: "Précédent"
+                        first: "&laquo;",
+                        last: "&raquo;",
+                        next: "&rsaquo;",
+                        previous: "&lsaquo;"
                     }
+
                 },
+                ordering: false,
+                buttons: [
+                    {
+                        text: 'Distance',
+                        attr: {
+                            id: 'btn-sort-offers-distance'
+                        },
+                        action: function (e, dt, node, config) {
+                            //console.log('btn-sort-offers-distance');
+                            //sort = 2;
+                            //self.sortValue = 2;
+                            self.sort = 2;
+                            self.updateOffersSortButtons();
+                            dt.ajax.reload();
+                        }
+                    },
+                    {
+                        text: 'Date',
+                        attr: {
+                            id: 'btn-sort-offers-date'
+                        },
+                        action: function (e, dt, node, config) {
+                            //console.log('btn-sort-offers-date');
+                            //sort = 1;
+                            //self.sortValue = 1;
+                            self.sort = 1;
+                            self.updateOffersSortButtons();
+                            dt.ajax.reload();
+                        }
+                    },
+                    {
+                        text: 'Pertinence',
+                        attr: {
+                            id: 'btn-sort-offers-pertinence'
+                        },
+                        action: function (e, dt, node, config) {
+                            //console.log('btn-sort-offers-pertinence');
+                            //sort = 0;
+                            //self.sortValue = 0;
+                            self.sort = 0;
+                            self.updateOffersSortButtons();
+                            dt.ajax.reload();
+                        }
+                    }
+                ],
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -315,7 +397,8 @@ class MapVue {
                             townCode: townCode,
                             start: d.start,
                             length: d.length,
-                            draw: d.draw
+                            draw: d.draw,
+                            sort: self.getSort(),
                         });
                     }
                 },
@@ -324,12 +407,43 @@ class MapVue {
                     { title: 'Lieu' },
                     { title: 'Rome' },
                     { title: 'Contrat' },
-                    { title: 'Secteur d\'activité' },
+                    { title: 'Secteur' },
                 ]
             });
-            
+            //initOffersSortButtonsCB();
         }
     }
+
+    refreshOffersDataTable() {
+        const table = document.getElementById('table-offers');
+        if(table) {
+            table.ajax.reload();
+        }
+    }
+
+    /*
+
+    setSort(sort) {
+        this.sortValue = sort;
+    }
+
+    getSort() {
+        return this.sortValue;
+    }
+    */
+   
+    /*
+
+sort
+string
+
+Il est possible de trier les résultats de 3 façons :
+
+    Pertinence décroissante , distance croissante, date de création horodatée décroissante, origine de l’offre : sort=0
+    Date de création horodatée décroissante, pertinence décroissante, distance croissante, origine de l’offre : sort=1
+    Distance croissante, pertinence décroissante, date de création horodatée décroissante, origine de l’offre : sort=2 
+
+*/
 
     displaySchools(schools, schoolsNb, limit, offset, callBackPrev, callBackNext, callBackFirst, callBackLast, callBackViewSchool, callBackCenterMapOnSchool) {
         //map-accordion-body-schools

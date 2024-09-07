@@ -57,10 +57,10 @@ class EmploymentJsonController extends AbstractController {
         $start = (int)$request->request->get('start', $request->query->get('start', 0));
         $length = (int)$request->request->get('length', $request->query->get('length', 10));
         $draw = (int)$request->request->get('draw', $request->query->get('draw', 1));
-
-        $end = $start + $length -1;
+        $sort = (int)$request->request->get('sort', $request->query->get('sort', 2));
+        $end = $start + $length - 1;
         //dd($townCode, $start, $end);
-        $result = $franceTravailApiService->getOffersByTownForDatatable($townCode, $start, $end);
+        $result = $franceTravailApiService->getOffersByTownForDatatable($townCode, $start, $end, $sort);
 
         if (!isset($result['resultats'])) {
             return new JsonResponse(['error' => 'No results found'], 500);
