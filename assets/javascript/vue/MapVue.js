@@ -398,7 +398,7 @@ class MapVue {
                             start: d.start,
                             length: d.length,
                             draw: d.draw,
-                            sort: self.getSort(),
+                            sort: self.sort,
                         });
                     }
                 },
@@ -431,7 +431,7 @@ class MapVue {
         return this.sortValue;
     }
     */
-   
+
     /*
 
 sort
