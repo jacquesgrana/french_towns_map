@@ -3,6 +3,7 @@ class EmploymentService {
     offers = [];
     filters = [];
     totalCount = -1;
+    sort = 2;
 
     static instance = null;
     static getInstance() {
@@ -51,6 +52,12 @@ class EmploymentService {
         return this.totalCount;
     }
 
+
+    getSort() {
+        return this.sort;
+    }
+
+
     setOffers(offers) {
         this.offers = offers;
     }
@@ -61,6 +68,10 @@ class EmploymentService {
 
     setTotalCount(totalCount) {
         this.totalCount = totalCount;
+    }
+
+    setSort(sort) {
+        this.sort = sort;
     }
 
 }

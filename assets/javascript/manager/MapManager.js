@@ -302,7 +302,37 @@ class MapManager {
             e.preventDefault();
             this.handleSwitchDisplaySchoolsClick();
         });
+
     }
+
+    /*
+    initOffersSortButtons() {
+        console.log('init offers sort buttons');
+        
+        //btn-sort-offers-distance btn-sort-offers-date btn-sort-offers-pertinence
+        const handleClick = (sortValue) => () => {
+            console.log(`click sort offers ${sortValue === 2 ? 'distance' : sortValue === 1 ? 'date' : 'pertinence'}`);
+            this.employmentService.setSort(sortValue);
+            console.log('sort : ', this.employmentService.getSort());
+            this.mapVue.refreshOffersDataTable();
+        }
+    
+        const btnSortOffersDistance = document.getElementById('btn-sort-offers-distance');
+        if (btnSortOffersDistance) {
+            btnSortOffersDistance.addEventListener('click', handleClick(2));
+        }
+    
+        const btnSortOffersDate = document.getElementById('btn-sort-offers-date');
+        if (btnSortOffersDate) {
+            btnSortOffersDate.addEventListener('click', handleClick(1));
+        }
+    
+        const btnSortOffersPertinence = document.getElementById('btn-sort-offers-pertinence');
+        if (btnSortOffersPertinence) {
+            btnSortOffersPertinence.addEventListener('click', handleClick(0));
+        }
+    }
+    */
 
     manageButtonsWithLoggedIn() {
         const buttonFavorite = document.getElementById('btn-favorite');
@@ -904,7 +934,7 @@ class MapManager {
 
         //console.log('offers : ', this.employmentService.getOffers());
         //console.log('filters : ', this.employmentService.getFilters());
-        this.mapVue.displayOffers(town.townCode);
+        this.mapVue.displayOffers(town.townCode, this.initOffersSortButtons); //, initOffersSortButtons
     }
 
     async displaySchools(town) {
@@ -972,6 +1002,7 @@ class MapManager {
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);
         await this.displayOffers(this.selectedTown);
+        this.mapVue.updateOffersSortButtons();
         await this.updateComments(this.selectedTown);
         this.refreshMap(this.map, this.townsData);
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);

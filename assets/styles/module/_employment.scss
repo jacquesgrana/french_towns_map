@@ -109,4 +109,19 @@ div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
     padding-left: 20px;
     padding-right: 20px;
   }
+
+  .dt-buttons .dt-button {
+    color: #ffffff;
+    background-color: $primary-color-medium-dark;
+    border: 1px solid $primary-color-medium;
+    padding: 6px 12px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+.dt-buttons .dt-button:hover {
+    color: $secondary-color;
+    background-color: lighten($primary-color-medium-dark, 10%);
+    border-color: $primary-color-light;
+}
   

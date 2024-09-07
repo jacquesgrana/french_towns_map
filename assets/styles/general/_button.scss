@@ -117,3 +117,14 @@
 .btn-tooltip[data-tooltip]:hover::after {
     opacity: 1; /* Rend le tooltip visible au survol */
 }
+
+.btn-active {
+    background-color: $secondary-color !important;
+    border-color: $secondary-color !important;
+    color: $white !important;
+    &:hover {
+        background-color: $secondary-color-dark !important;
+        border-color: $secondary-color-dark !important;
+        color: $secondary-color !important;
+    }
+}

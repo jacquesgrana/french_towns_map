@@ -115,8 +115,8 @@ class FranceTravailApiService
         return $this->callUrlByCurl($url);
     }
 
-    public function getOffersByTownForDatatable($townCode, $start, $end) {
-        $url = $this->apiRequestUrl . '?commune=' . $townCode . '&range=' . $start . '-' . $end;
+    public function getOffersByTownForDatatable($townCode, $start, $end, $sort = 2) {
+        $url = $this->apiRequestUrl . '?commune=' . $townCode . '&range=' . $start . '-' . $end . '&sort=' . $sort;
 
         // TODO : faire méthode
         /*
