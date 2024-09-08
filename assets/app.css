@@ -784,6 +784,31 @@ div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
   border-color: rgb(50, 135, 168);
 }
 
+#custom-select-types, #custom-select-domaines {
+  color: rgb(236, 250, 255);
+  background-color: rgb(5, 64, 87);
+  border: 1px solid rgb(3, 76, 105);
+  padding: 6px 12px;
+  margin-right: 5px;
+  max-width: 140px;
+  border-radius: 5px;
+}
+#custom-select-types:hover, #custom-select-domaines:hover {
+  cursor: pointer;
+  background-color: #086387;
+  border-color: rgb(50, 135, 168);
+}
+#custom-select-types:focus, #custom-select-domaines:focus {
+  box-shadow: none;
+}
+
+.custom-selects-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
 #map {
   height: 600px;
   min-width: 500px;

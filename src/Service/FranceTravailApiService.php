@@ -18,6 +18,8 @@ class FranceTravailApiService
     private string $clientSecret;
     private string $apiConnectUrl;
     private string $apiRequestUrl;
+    private string $apiRequestTypesContratsUrl;
+    private string $apiRequestDomainesUrl;
     private ?string $accessToken = null;
     private ?int $tokenValidUntilTS = null; // à enlever qd l'entité sera créée et ok
 
@@ -30,6 +32,8 @@ class FranceTravailApiService
         $this->clientSecret = $_ENV['API_FT_CLIENT_SECRET'];
         $this->apiConnectUrl = "https://entreprise.francetravail.fr/connexion/oauth2/access_token?realm=partenaire";
         $this->apiRequestUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search";
+        $this->apiRequestTypesContratsUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/typesContrats";
+        $this->apiRequestDomainesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/domaines";
     }
 
     private function connectToApiAndSetToken(): void
@@ -94,47 +98,22 @@ class FranceTravailApiService
     public function getOffersByTownFromApi(string $townCode): array
     {
         $url = $this->apiRequestUrl . '?commune=' . $townCode; // . '&range=0-149'
-        //dd($url);
-        // TODO : faire méthode
-        
-        /*
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $this->getAccessToken(), 'Content-Type: application/json'));
-        $result = curl_exec($curl);
-        if (curl_errno($curl)) {
-            $error_msg = curl_error($curl);
-            curl_close($curl);
-            throw new \Exception("Erreur cURL lors de la connexion à l'API : " . $error_msg);
-        }
-        curl_close($curl);
-        $data = json_decode($result, true);
-        return $data;
-        */
         return $this->callUrlByCurl($url);
     }
 
-    public function getOffersByTownForDatatable($townCode, $start, $end, $sort = 2) {
-        $url = $this->apiRequestUrl . '?commune=' . $townCode . '&range=' . $start . '-' . $end . '&sort=' . $sort;
+    public function getOffersByTownForDatatable($townCode, $start, $end, $sort = 2, $filters = '') {
+        //$filters = '&typeContrat=CDI';
+        $url = $this->apiRequestUrl . '?commune=' . $townCode . '&range=' . $start . '-' . $end . '&sort=' . $sort . $filters;
+        return $this->callUrlByCurl($url);
+    }
 
-        // TODO : faire méthode
-        /*
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $this->getAccessToken(), 'Content-Type: application/json'));
-        $result = curl_exec($curl);
-        if (curl_errno($curl)) {
-            $error_msg = curl_error($curl);
-            curl_close($curl);
-            throw new \Exception("Erreur cURL lors de la connexion à l'API : " . $error_msg);
-        }
-        curl_close($curl);
-        $data = json_decode($result, true);
+    public function getTypesContrats() {
+        $url = $this->apiRequestTypesContratsUrl;
+        return $this->callUrlByCurl($url);
+    }
 
-        return $data;
-        */
+    public function getDomaines() {
+        $url = $this->apiRequestDomainesUrl;
         return $this->callUrlByCurl($url);
     }
 

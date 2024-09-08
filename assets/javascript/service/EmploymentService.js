@@ -38,6 +38,28 @@ class EmploymentService {
 
         this.setTotalCount(totalOffers);
     }
+
+    async getTypesContratsFilters() {
+        const result = await fetch('/get-types-contrats-filters', {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await result.json();
+    }
+
+    async getDomainesFilters() {
+        const result = await fetch('/get-domaines-filters', {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await result.json();
+    }
     
 
     getOffers() {
