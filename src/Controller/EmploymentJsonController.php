@@ -58,12 +58,14 @@ class EmploymentJsonController extends AbstractController {
         $length = (int)$request->request->get('length', $request->query->get('length', 10));
         $draw = (int)$request->request->get('draw', $request->query->get('draw', 1));
         $sort = (int)$request->request->get('sort', $request->query->get('sort', 2));
+        $filters = $request->request->get('filters', $request->query->get('filters', ''));
         $end = $start + $length - 1;
+        //$filters = '';
         //dd($townCode, $start, $end);
-        $result = $franceTravailApiService->getOffersByTownForDatatable($townCode, $start, $end, $sort);
+        $result = $franceTravailApiService->getOffersByTownForDatatable($townCode, $start, $end, $sort, $filters);
 
         if (!isset($result['resultats'])) {
-            return new JsonResponse(['error' => 'No results found'], 500);
+            return new JsonResponse([], 203);
         }
 
         if(!isset($result['filtresPossibles'])) {
@@ -77,25 +79,31 @@ class EmploymentJsonController extends AbstractController {
                 $filterTypeContrat = $filter;
             }
         }
+
+        $totalFilteredOffers = 0;
         $filtersAgregation = $filterTypeContrat['agregation'];
         $totalOffers = 0;
+
         foreach ($filtersAgregation as $filter) {
             $totalOffers += $filter['nbResultats'];
+
+            /*
+            if($filter['valeurPossible'] === $codeTypeContrat) {
+                $totalFilteredOffers = $filter['nbResultats'];
+            }*/
         }
         $totalOffers = $totalOffers > 3000 ? 3000 : $totalOffers;
+        $totalFilteredOffers = $totalFilteredOffers === 0 ? $totalOffers : $totalFilteredOffers;
+        $totalFilteredOffers = $totalFilteredOffers > 3000 ? 3000 : $totalFilteredOffers;
 
         // récupérer les filtres possibles et appeler fonction qui calcule le nombre d'offres possibles et affecter "recordsTotal" et "recordsFiltered" dans $response
 
         $offers = $result['resultats'];
         $toReturn = array_map(function($offer) {
             $intitule = isset($offer['intitule']) ? $offer['intitule'] : '';
-
             $lieuTravailLibelle = isset($offer['lieuTravail']['libelle']) ? $offer['lieuTravail']['libelle'] : '';
-
             $romeLibelle = isset($offer['romeLibelle']) ? $offer['romeLibelle'] : '';
-
             $typeContratLibelle = isset($offer['typeContratLibelle']) ? $offer['typeContratLibelle'] : '';
-
             $secteurActiviteLibelle = isset($offer['secteurActiviteLibelle']) ? $offer['secteurActiviteLibelle'] : '';
 
             return [
@@ -110,11 +118,25 @@ class EmploymentJsonController extends AbstractController {
         $response = [
             "draw" => $draw,
             "recordsTotal" => $totalOffers,
-            "recordsFiltered" => $totalOffers,
+            "recordsFiltered" => $totalFilteredOffers,
             "data" => $toReturn
         ];
 
         return new JsonResponse($response);
+    }
+
+    #[Route('/get-types-contrats-filters', name: 'get_type_contrat_filters', methods: ['GET'])]
+    public function getTypeContratFilters(FranceTravailApiService $franceTravailApiService): JsonResponse
+    {
+        $result = $franceTravailApiService->getTypesContrats();
+        return new JsonResponse($result, 200);
+    }
+
+    #[Route('/get-domaines-filters', name: 'get_domaines_filters', methods: ['GET'])]
+    public function getDomaines(FranceTravailApiService $franceTravailApiService): JsonResponse
+    {
+        $result = $franceTravailApiService->getDomaines();
+        return new JsonResponse($result, 200);
     }
 
 }

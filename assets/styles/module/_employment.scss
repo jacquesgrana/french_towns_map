@@ -124,4 +124,33 @@ div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
     background-color: lighten($primary-color-medium-dark, 10%);
     border-color: $primary-color-light;
 }
+
+#custom-select-types, #custom-select-domaines {
+    color: $white;
+    background-color: $primary-color-medium-dark;
+    border: 1px solid $primary-color-medium;
+    padding: 6px 12px;
+    margin-right: 5px;
+    max-width: 140px;
+    
+    border-radius: 5px;
+
+    &:hover {
+        cursor: pointer;
+        //color: $secondary-color;
+        background-color: lighten($primary-color-medium-dark, 10%);
+        border-color: $primary-color-light;
+    }
+
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+.custom-selects-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
   

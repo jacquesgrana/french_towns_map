@@ -934,7 +934,14 @@ class MapManager {
 
         //console.log('offers : ', this.employmentService.getOffers());
         //console.log('filters : ', this.employmentService.getFilters());
-        this.mapVue.displayOffers(town.townCode, this.initOffersSortButtons); //, initOffersSortButtons
+
+        const typesContrats = await this.employmentService.getTypesContratsFilters();
+        typesContrats.sort((a, b) => (a.libelle > b.libelle) ? 1 : -1);
+        const domaines = await this.employmentService.getDomainesFilters();
+        domaines.sort((a, b) => (a.libelle > b.libelle) ? 1 : -1);
+        //console.log('typesContrats : ', typesContrats);
+
+        this.mapVue.displayOffers(town.townCode, typesContrats, domaines); //, initOffersSortButtons
     }
 
     async displaySchools(town) {
@@ -998,6 +1005,7 @@ class MapManager {
         this.schoolService.updateFilters();
         this.schoolService.generateFilters();
         this.updateSchoolFiltersButtons();
+        //this.mapVue.initVars();
         await this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);

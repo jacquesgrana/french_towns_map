@@ -1,10 +1,20 @@
 class MapVue {
 
     sort = 2;
+    filtersTypesContrats = '';
+    filtersDomaines = '';
 
     employmentService = EmploymentService.getInstance();
     constructor() {
         this.sort = 2;
+        this.filtersTypesContrats = '';
+        this.filtersDomaines = '';
+    }
+
+    initVars() {
+        this.sort = 2;
+        this.filtersTypesContrats = '';
+        this.filtersDomaines = '';
     }
 
     displayFavoriteTowns = (towns, that) => {
@@ -285,9 +295,10 @@ class MapVue {
         }
     }
 
-    displayOffers(townCode, initOffersSortButtonsCB) {
+    displayOffers(townCode, typesContrats, domaines) {
         //console.log('display offers : offers : ', offers);
         //console.log('filters : ', filters);
+        //console.log('typesContrats : ', typesContrats);
         const divEmployment = document.getElementById('map-accordion-body-employment');
         if(divEmployment) {
             divEmployment.innerHTML = '';
@@ -301,20 +312,6 @@ class MapVue {
             table.classList.add('display', 'mb-2', 'table', 'table-responsive', 'table-offers');
             //table.style.width = '100%';
             divEmployment.appendChild(table);
-/*
-            const dataSet = [];
-            offers.forEach(offer => {
-                const row = [];
-                row.push(offer.intitule);
-                //row.push(offer.dateCreation);
-                row.push(offer.lieuTravail.libelle);
-                row.push(offer.romeLibelle);
-                row.push(offer.typeContratLibelle);
-                row.push(offer.secteurActiviteLibelle);
-
-                dataSet.push(row);
-            });
-*/
             //console.log('sort : ', this.employmentService.getSort());
             
             
@@ -323,8 +320,8 @@ class MapVue {
             let self = this;
             //console.log('townCode : ', townCode);
             new DataTable('#table-offers', {
-                //dom: 'lrtip',
-                dom: '<"row justify-content-center mb-2 align-items-center"<"col-auto"l><"col-auto"B>>' +
+                //dom: 'lBStip',
+                dom: '<"row mb-3 align-items-center"<"col-sm-3"l><"col-sm-9"<"d-flex justify-content-center gap-1"B<"custom-selects-container">>>>' +
                     '<"row"<"col-sm-12"tr>>' +
                     '<"row justify-content-center gap-2 mb-3"<"col-sm-auto"i><"col-sm-auto custom-pagination"p>>',
                 language: {
@@ -399,6 +396,7 @@ class MapVue {
                             length: d.length,
                             draw: d.draw,
                             sort: self.sort,
+                            filters: self.filtersTypesContrats + self.filtersDomaines
                         });
                     }
                 },
@@ -408,7 +406,41 @@ class MapVue {
                     { title: 'Rome' },
                     { title: 'Contrat' },
                     { title: 'Secteur' },
-                ]
+                ],
+                initComplete: function(settings, json) {
+                    // Créer les selects
+                    var selectTypesHtml = '<select id="custom-select-types" class="form-select me-2">' +
+                                          '<option value="" disabled>Sélectionnez un type de contrat</option>' + 
+                                          '<option value="">Tous les types</option>';
+                    typesContrats.forEach(typeContrat => {
+                        selectTypesHtml += '<option value="' + typeContrat.code + '">' + typeContrat.libelle + '</option>';
+                    });               
+                    selectTypesHtml += '</select>';
+            
+                    var selectDomainsHtml = '<select id="custom-select-domaines" class="form-select">' +
+                                            '<option value="" disabled>Sélectionnez un domaine</option>' + 
+                                            '<option value="">Tous les domaines</option>';
+                    domaines.forEach(domaine => {
+                        selectDomainsHtml += '<option value="' + domaine.code + '">' + domaine.libelle + '</option>';
+                    });               
+                    selectDomainsHtml += '</select>';
+            
+                    // Ajouter les selects au conteneur
+                    $('.custom-selects-container').append(selectTypesHtml + selectDomainsHtml);
+            
+                    // Ajouter les gestionnaires d'événements
+                    $('#custom-select-types').on('change', function() {
+                        var selectedValue = $(this).val();
+                        self.filtersTypesContrats = selectedValue ? '&typeContrat=' + selectedValue : '';
+                        settings.oInstance.api().ajax.reload();
+                    });
+            
+                    $('#custom-select-domaines').on('change', function() {
+                        var selectedValue = $(this).val();
+                        self.filtersDomaines = selectedValue ? '&domaine=' + selectedValue : '';
+                        settings.oInstance.api().ajax.reload();
+                    });
+                }
             });
             //initOffersSortButtonsCB();
         }
