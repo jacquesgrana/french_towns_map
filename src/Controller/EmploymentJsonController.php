@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Dto\ApiFranceTravail\EmploymentOfferDto;
 use App\Dto\ApiFranceTravail\FiltreDto;
+use App\Repository\DomaineApiFTRepository;
+use App\Repository\TypeContratApiFTRepository;
 use App\Service\FranceTravailApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -126,17 +128,41 @@ class EmploymentJsonController extends AbstractController {
     }
 
     #[Route('/get-types-contrats-filters', name: 'get_type_contrat_filters', methods: ['GET'])]
-    public function getTypeContratFilters(FranceTravailApiService $franceTravailApiService): JsonResponse
+    public function getTypeContratFilters(
+        TypeContratApiFTRepository $typeContratApiFTRepository
+        ): JsonResponse //FranceTravailApiService $franceTravailApiService
     {
-        $result = $franceTravailApiService->getTypesContrats();
-        return new JsonResponse($result, 200);
+        //$result = $franceTravailApiService->getTypesContrats();
+        $result = $typeContratApiFTRepository->findAll();
+        //dd($result);
+        $toReturn = [];
+        foreach ($result as $value) {
+            $toReturn[] = [
+                'id' => $value->getId(),
+                'code' => $value->getCode(),
+                'libelle' => $value->getLibelle()
+            ];
+        }
+        return new JsonResponse($toReturn, 200);
     }
 
     #[Route('/get-domaines-filters', name: 'get_domaines_filters', methods: ['GET'])]
-    public function getDomaines(FranceTravailApiService $franceTravailApiService): JsonResponse
+    public function getDomaines(
+        DomaineApiFTRepository $domaineApiFTRepository
+    ): JsonResponse //FranceTravailApiService $franceTravailApiService
     {
-        $result = $franceTravailApiService->getDomaines();
-        return new JsonResponse($result, 200);
+        //$result = $franceTravailApiService->getDomaines();
+        $result = $domaineApiFTRepository->findAll();
+        $toReturn = [];
+        foreach ($result as $value) {
+            $toReturn[] = [
+                'id' => $value->getId(),
+                'code' => $value->getCode(),
+                'libelle' => $value->getLibelle()
+            ];
+        }
+        //dd($toReturn);
+        return new JsonResponse($toReturn, 200);
     }
 
 }
