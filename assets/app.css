@@ -809,6 +809,28 @@ div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
   gap: 10px;
 }
 
+.div-modal-offer {
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(5, 64, 87);
+  color: rgb(236, 250, 255);
+  padding: 10px;
+}
+
+.div-modal-offer-description {
+  background-color: rgb(3, 76, 105);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#modal-offer-body {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 #map {
   height: 600px;
   min-width: 500px;
