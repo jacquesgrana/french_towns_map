@@ -27,6 +27,20 @@ class EmploymentService {
         return await result.json();
     }
 
+    async getEmploymentOfferById(offerId) {
+        const result = await fetch('/get-employment-offer-by-id', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                offerId: offerId
+            })
+        });
+        return await result.json();
+    }
+
     calculateAndSetTotalCountFromFilters() {
         const filterTypeContrat = this.getFilters().filter(filter => filter.filtre === 'typeContrat')[0];
         //console.log('filterTypeContrat : ', filterTypeContrat);

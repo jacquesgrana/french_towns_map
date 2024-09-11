@@ -908,6 +908,18 @@ class MapManager {
         this.refreshMap(this.map, this.townsData);
     }
 
+    handleViewOffer = async (offerId) => {
+       //console.log('handle view offer : ', offerId);
+       // récuperer l'offre via l'id en appellant le service qui fera la requete
+       const offerData = await this.employmentService.getEmploymentOfferById(offerId);
+       //console.log('offerData : ', offerData);
+       // ouvrir modale avec l'offre
+       const modal = new bootstrap.Modal(document.getElementById('modal-offer'));
+        if(modal) modal.show();
+        this.mapVue.displayOfferInModal(offerData);
+       // ouvrir modale en 1e et afficher une icone de chargement qui s'affiche pendant le temps de la requete avant l'affichage des données
+    }
+
     async displayForecast(town) {
         //const forecastInfos0 = await this.townService.getForecastFromApis(town.townCode, 0);
         //this.mapVue.displayForecast(forecastInfos0, 0);
@@ -941,7 +953,7 @@ class MapManager {
         domaines.sort((a, b) => (a.libelle > b.libelle) ? 1 : -1);
         //console.log('typesContrats : ', typesContrats);
 
-        this.mapVue.displayOffers(town.townCode, typesContrats, domaines); //, initOffersSortButtons
+        this.mapVue.displayOffers(town.townCode, typesContrats, domaines, this.handleViewOffer); //, initOffersSortButtons
     }
 
     async displaySchools(town) {

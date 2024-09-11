@@ -268,6 +268,53 @@ class MapVue {
         divModal3.innerHTML += (school.web !== '' && school.web !== undefined) ? `</br><a class="link-02" target="_blank" href="${school.web}">Page web</a>` : '';
     }
 
+    displayOfferInModal(offer) {
+        console.log('displayOfferInModal : ', offer);
+        const modalTitle = document.getElementById('title-modal-offer');
+        modalTitle.classList.add('text-secondary');
+        modalTitle.innerHTML = 'Voir l\'offre d\'emploi : <span class="text-white">' + offer.id + '</span>';
+
+        const divModal = document.getElementById('modal-offer-body');
+        divModal.innerHTML = '';
+        const divModal1 = document.createElement('div');
+        divModal1.classList.add('div-modal-offer');
+        const divModal2 = document.createElement('div');
+        divModal2.classList.add('div-modal-offer');
+        const divModal3 = document.createElement('div');
+        divModal3.classList.add('div-modal-offer');
+
+        divModal1.innerHTML = offer.intitule !== '' ? '<span class="text-secondary">Intitule :</span> ' + offer.intitule : '';
+        divModal1.innerHTML += offer.dateCreation !== '' ? '</br><span class="text-secondary">Date d\'ajout :</span> ' + offer.dateCreation : '';
+        divModal1.innerHTML += offer.dateActualisation !== '' ? '</br><span class="text-secondary">Date d\'actualisation :</span> ' + offer.dateActualisation : '';
+
+        if (offer.description !== '') {
+            divModal1.innerHTML += `
+                <div class="mt-1">
+                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionCollapse" aria-expanded="false" aria-controls="descriptionCollapse">
+                        Description
+                    </button>
+                    <div class="collapse mt-2" id="descriptionCollapse">
+                        <div class="card card-body div-modal-offer-description">
+                            ${offer.description}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // mettre dans divModals un bagde pour romeCode, un pour romeLibelle et un pour appellationlibelle
+        divModal2.innerHTML = offer.romeCode !== '' ? '<span class="badge rounded-pill text-bg-primary">Rome : ' + offer.romeCode + '</span> ' : '';
+        divModal2.innerHTML += offer.romeLibelle !== '' ? '<span class="badge rounded-pill text-bg-secondary">Rome : ' + offer.romeLibelle + '</span> ' : '';
+        divModal2.innerHTML += offer.appellationlibelle !== '' ? '<span class="badge rounded-pill text-bg-secondary">' + offer.appellationlibelle + '</span> ' : '';
+
+
+        divModal3.innerHTML = '<a target="_blank" href="' + offer.origineOffre.urlOrigine + '" class="link-02">Lien offre France Travail</a> ';
+
+        divModal.appendChild(divModal1);
+        divModal.appendChild(divModal2);
+        divModal.appendChild(divModal3);
+    }
+
     updateOffersSortButtons() {
         const btnDistance = document.getElementById('btn-sort-offers-distance');
         const btnDate = document.getElementById('btn-sort-offers-date');
@@ -295,7 +342,7 @@ class MapVue {
         }
     }
 
-    displayOffers(townCode, typesContrats, domaines) {
+    displayOffers(townCode, typesContrats, domaines, viewOfferCB) {
         //console.log('display offers : offers : ', offers);
         //console.log('filters : ', filters);
         //console.log('typesContrats : ', typesContrats);
@@ -401,6 +448,7 @@ class MapVue {
                     }
                 },
                 columns: [
+                    { title: 'Id' },
                     { title: 'Intitulé' },
                     { title: 'Lieu' },
                     { title: 'Rome' },
@@ -440,7 +488,13 @@ class MapVue {
                         self.filtersDomaines = selectedValue ? '&domaine=' + selectedValue : '';
                         settings.oInstance.api().ajax.reload();
                     });
-                }
+                },
+
+                createdRow: function(row, data, dataIndex) {
+                    $(row).on('click', function() {
+                        viewOfferCB(data[0]); // Supposons que l'ID est dans la première colonne
+                    });
+                },
             });
             //initOffersSortButtonsCB();
         }

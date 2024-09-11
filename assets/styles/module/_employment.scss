@@ -153,4 +153,30 @@ div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
     align-items: center;
     gap: 10px;
 }
+
+
+
+
+.div-modal-offer {
+    width: 100%;
+    border-radius: 5px;
+    //border: 1px solid $primary-color-dark;
+    background-color: $primary-color-medium-dark;
+    color: $white;
+    padding: 10px;
+}
+
+.div-modal-offer-description {
+    background-color: $primary-color-medium;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#modal-offer-body {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
   

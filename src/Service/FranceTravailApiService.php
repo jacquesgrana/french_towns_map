@@ -17,7 +17,8 @@ class FranceTravailApiService
     private string $clientId;
     private string $clientSecret;
     private string $apiConnectUrl;
-    private string $apiRequestUrl;
+    private string $apiRequestByTownUrl;
+    private string $apiRequestByIdUrl;
     private string $apiRequestTypesContratsUrl;
     private string $apiRequestDomainesUrl;
     private ?string $accessToken = null;
@@ -31,9 +32,10 @@ class FranceTravailApiService
         $this->clientId = $_ENV['API_FT_CLIENT_ID'];
         $this->clientSecret = $_ENV['API_FT_CLIENT_SECRET'];
         $this->apiConnectUrl = "https://entreprise.francetravail.fr/connexion/oauth2/access_token?realm=partenaire";
-        $this->apiRequestUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search";
+        $this->apiRequestByTownUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search";
         $this->apiRequestTypesContratsUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/typesContrats";
         $this->apiRequestDomainesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/domaines";
+        $this->apiRequestByIdUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/";
     }
 
     private function connectToApiAndSetToken(): void
@@ -97,13 +99,18 @@ class FranceTravailApiService
 
     public function getOffersByTownFromApi(string $townCode): array
     {
-        $url = $this->apiRequestUrl . '?commune=' . $townCode; // . '&range=0-149'
+        $url = $this->apiRequestByTownUrl . '?commune=' . $townCode; // . '&range=0-149'
         return $this->callUrlByCurl($url);
     }
 
     public function getOffersByTownForDatatable($townCode, $start, $end, $sort = 2, $filters = '') {
         //$filters = '&typeContrat=CDI';
-        $url = $this->apiRequestUrl . '?commune=' . $townCode . '&range=' . $start . '-' . $end . '&sort=' . $sort . $filters;
+        $url = $this->apiRequestByTownUrl . '?commune=' . $townCode . '&range=' . $start . '-' . $end . '&sort=' . $sort . $filters;
+        return $this->callUrlByCurl($url);
+    }
+
+    public function getOfferById($id) {
+        $url = $this->apiRequestByIdUrl . $id;
         return $this->callUrlByCurl($url);
     }
 

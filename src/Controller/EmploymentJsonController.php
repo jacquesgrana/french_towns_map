@@ -95,13 +95,16 @@ class EmploymentJsonController extends AbstractController {
             }*/
         }
         $totalOffers = $totalOffers > 3000 ? 3000 : $totalOffers;
+        // ??? garder ???
         $totalFilteredOffers = $totalFilteredOffers === 0 ? $totalOffers : $totalFilteredOffers;
         $totalFilteredOffers = $totalFilteredOffers > 3000 ? 3000 : $totalFilteredOffers;
 
         // récupérer les filtres possibles et appeler fonction qui calcule le nombre d'offres possibles et affecter "recordsTotal" et "recordsFiltered" dans $response
 
         $offers = $result['resultats'];
+        // TODO ajouter id de l'offre
         $toReturn = array_map(function($offer) {
+            $id = isset($offer['id']) ? $offer['id'] : '';
             $intitule = isset($offer['intitule']) ? $offer['intitule'] : '';
             $lieuTravailLibelle = isset($offer['lieuTravail']['libelle']) ? $offer['lieuTravail']['libelle'] : '';
             $romeLibelle = isset($offer['romeLibelle']) ? $offer['romeLibelle'] : '';
@@ -109,6 +112,7 @@ class EmploymentJsonController extends AbstractController {
             $secteurActiviteLibelle = isset($offer['secteurActiviteLibelle']) ? $offer['secteurActiviteLibelle'] : '';
 
             return [
+                $id,
                 $intitule,
                 $lieuTravailLibelle,
                 $romeLibelle,
@@ -125,6 +129,20 @@ class EmploymentJsonController extends AbstractController {
         ];
 
         return new JsonResponse($response);
+    }
+
+    #[Route('/get-employment-offer-by-id', name: 'get_employment_offer_by_id', methods: ['POST'])]
+    public function getEmploymentOfferById(
+        Request $request,
+        FranceTravailApiService $franceTravailApiService
+    ) {
+        $data = json_decode($request->getContent(), true);
+        $offerId = $data['offerId'];
+        $result = $franceTravailApiService->getOfferById($offerId);
+        $dto = new EmploymentOfferDto();
+        $dto->hydrate($result);
+        $toReturn = $dto->serialize();
+        return new JsonResponse($toReturn, 200);
     }
 
     #[Route('/get-types-contrats-filters', name: 'get_type_contrat_filters', methods: ['GET'])]

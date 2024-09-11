@@ -218,4 +218,56 @@ class EmploymentOfferDto
     "offresManqueCandidats": false
 }
 
+par requete sur id :
+{
+    "id": "179PPHH",
+    "intitule": "Gestionnaire de stock",
+    "description": "Notre agence Adéquat de Montpellier recrute pour son client, un gestionnaire de stock (F/H)\nMissions : \n- Suivre et gérer le stock\n- Mise à jour de l'outil informatique\n- Assurer la propreté, sécurité et la qualité du suivi de stock \n\nProfil : \n- Formation BEP, CAP, BAC en logistique ou expérience similaire sur même poste\n- Connaissance des logiciels de stock\n- Expérience confirmée en gestion de stock \nRémunération et avantages :\n- Taux horaire fixe de 13.73 + 10% de fin de mission + 10% de congés payés ;\n- Primes collective et/ou individuelle + participation aux bénéfices + CET 5% ;\n- Possibilité d'intégration rapide, de formation et d'évolution ;\n- Bénéficier d'aides et de services dédiés (mutuelle, logement, garde enfant, déplacement...).\n\nPour toutes questions, vous pouvez nous joindre au ########## ",
+    "dateCreation": "2024-08-19T11:01:06.407Z",
+    "dateActualisation": "2024-09-04T22:45:54.742Z",
+    "lieuTravail": {
+        "libelle": "34 - Saint-Aunès",
+        "latitude": 43.63586,
+        "longitude": 3.962108,
+        "codePostal": "34130",
+        "commune": "34240"
+    },
+    "romeCode": "N1103",
+    "romeLibelle": "Préparateur / Préparatrice de commandes",
+    "appellationlibelle": "Agent / Agente logistique en magasinage",
+    "entreprise": {
+        "nom": "ADEQUAT INTERIM",
+        "logo": "https://entreprise.francetravail.fr/static/img/logos/0VjbZ5tftY9ngnun66nzbaN0WtNGkLUr.png",
+        "entrepriseAdaptee": false
+    },
+    "typeContrat": "MIS",
+    "typeContratLibelle": "Intérim - 6 Mois",
+    "natureContrat": "Contrat travail",
+    "experienceExige": "S",
+    "experienceLibelle": "1 An(s)",
+    "salaire": {
+        "libelle": "Mensuel de 1833.0 Euros à 2250.0 Euros sur 12.0 mois"
+    },
+    "dureeTravailLibelle": "35H",
+    "dureeTravailLibelleConverti": "Temps plein",
+    "alternance": false,
+    "contact": {
+        "nom": "ADEQUAT INTERIM - Mme Nelly BLAYA",
+        "coordonnees1": "https://www.lejobadequat.com/?job=251887&origine=POLEEMPLOI-API&utm_campaign=pole-emploi&utm_medium=organic&utm_source=pole-emploi&utm_term=064",
+        "urlPostulation": "https://www.lejobadequat.com/?job=251887&origine=POLEEMPLOI-API&utm_campaign=pole-emploi&utm_medium=organic&utm_source=pole-emploi&utm_term=064"
+    },
+    "agence": {},
+    "accessibleTH": false,
+    "qualificationCode": "5",
+    "qualificationLibelle": "Employé non qualifié",
+    "codeNAF": "78.20Z",
+    "secteurActivite": "78",
+    "secteurActiviteLibelle": "Activités des agences de travail temporaire",
+    "origineOffre": {
+        "origine": "1",
+        "urlOrigine": "https://candidat.francetravail.fr/offres/recherche/detail/179PPHH"
+    },
+    "offresManqueCandidats": true
+}
+
 */
