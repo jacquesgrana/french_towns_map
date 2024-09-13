@@ -282,10 +282,12 @@ class MapVue {
         divModal2.classList.add('div-modal-offer');
         const divModal3 = document.createElement('div');
         divModal3.classList.add('div-modal-offer');
+        const divModal4 = document.createElement('div');
+        divModal4.classList.add('div-modal-offer');
 
         divModal1.innerHTML = offer.intitule !== '' ? '<span class="text-secondary">Intitule :</span> ' + offer.intitule : '';
-        divModal1.innerHTML += offer.dateCreation !== '' ? '</br><span class="text-secondary">Date d\'ajout :</span> ' + offer.dateCreation : '';
-        divModal1.innerHTML += offer.dateActualisation !== '' ? '</br><span class="text-secondary">Date d\'actualisation :</span> ' + offer.dateActualisation : '';
+        divModal1.innerHTML += offer.dateCreation !== '' ? '</br><span class="text-secondary">Date d\'ajout :</span> ' + this.formatDateFR(offer.dateCreation) : '';
+        divModal1.innerHTML += offer.dateActualisation !== '' ? '</br><span class="text-secondary">Date d\'actualisation :</span> ' + this.formatDateFR(offer.dateActualisation) : '';
 
         if (offer.description !== '') {
             divModal1.innerHTML += `
@@ -301,18 +303,79 @@ class MapVue {
                 </div>
             `;
         }
+        //console.log('offer.formations : ', offer.formations);
+        //console.log('offer.formations.length : ', offer.formations.length);
 
-        // mettre dans divModals un bagde pour romeCode, un pour romeLibelle et un pour appellationlibelle
-        divModal2.innerHTML = offer.romeCode !== '' ? '<span class="badge rounded-pill text-bg-primary">Rome : ' + offer.romeCode + '</span> ' : '';
+        //divModal2.innerHTML = offer.formations.length > 0 ? '<span class="text-secondary">Formations :</span> ' : '';
+        if(offer.formations.length > 0) {
+            for(let i = 0; i < offer.formations.length; i++) {
+                const codeFormation = offer.formations[i].codeFormation !== '' ? offer.formations[i].codeFormation + ' • ' : '';
+                const domaineLibelle = offer.formations[i].domaineLibelle !== '' ? offer.formations[i].domaineLibelle + ' • ' : '';
+                const niveauLibelle = offer.formations[i].niveauLibelle !== '' ? offer.formations[i].niveauLibelle + ' • ' : '';
+                const exigence = offer.formations[i].exigence !== '' ? offer.formations[i].exigence : '';
+                divModal2.innerHTML += '<span class="badge rounded-pill text-bg-secondary">' +
+                    codeFormation +
+                    domaineLibelle +
+                    niveauLibelle +
+                    exigence +
+                     '</span></br>';
+            }
+        }
+
+        divModal2.innerHTML += offer.dureeTravailLibelle !== '' ? '<span class="badge rounded-pill text-bg-secondary-dark">' + offer.dureeTravailLibelle + '</span>': '';
+        divModal2.innerHTML += offer.dureeTravailLibelleConverti !== '' ? '<span class="badge rounded-pill text-bg-secondary-dark">' + offer.dureeTravailLibelleConverti + '</span>' : '';
+
+        divModal2.innerHTML += offer.salaire.libelle !== '' ? '<span class="badge rounded-pill text-bg-secondary-dark">Salaire : ' + offer.salaire.libelle + '</span></br>' : '';
+
+        divModal2.innerHTML += offer.romeCode !== '' ? '<span class="badge rounded-pill text-bg-primary">Rome : ' + offer.romeCode + '</span> ' : '';
         divModal2.innerHTML += offer.romeLibelle !== '' ? '<span class="badge rounded-pill text-bg-secondary">Rome : ' + offer.romeLibelle + '</span> ' : '';
         divModal2.innerHTML += offer.appellationlibelle !== '' ? '<span class="badge rounded-pill text-bg-secondary">' + offer.appellationlibelle + '</span> ' : '';
 
-
-        divModal3.innerHTML = '<a target="_blank" href="' + offer.origineOffre.urlOrigine + '" class="link-02">Lien offre France Travail</a> ';
+        divModal3.innerHTML = '';
+        divModal3.innerHTML += offer.lieuTravail.libelle !== '' ? '<span class="text-secondary">Lieu :</span> ' + offer.lieuTravail.libelle + '</br>': '';
+        divModal3.innerHTML += offer.entreprise.nom !== '' ? '<span class="text-secondary">Entreprise : </span>' + offer.entreprise.nom  + '</br>': '';
+        divModal3.innerHTML += offer.entreprise.entrepriseAdaptee === true ? '<span class="badge rounded-pill text-bg-secondary">Entreprise adaptee</span></br>' : '';
+        divModal3.innerHTML += '<a target="_blank" href="' + offer.origineOffre.urlOrigine + '" class="link-02">Lien offre France Travail</a> ';
 
         divModal.appendChild(divModal1);
         divModal.appendChild(divModal2);
         divModal.appendChild(divModal3);
+
+        offer.contact.nom = offer.contact.nom !== null ? offer.contact.nom : '';
+        offer.contact.coordonnees1 = offer.contact.coordonnees1 !== null ? offer.contact.coordonnees1 : '';
+        offer.contact.urlPostulation = offer.contact.urlPostulation !== null ? offer.contact.urlPostulation : '';
+
+        if(offer.contact.nom !== '' || offer.contact.coordonnees1 !== '' || offer.contact.urlPostulation !== '') {
+
+            divModal4.innerHTML = '';
+            if(offer.contact.nom !== '') {
+                divModal4.innerHTML += '<span class="text-secondary">Contact :</span> ' + offer.contact.nom + '</br>';
+            }
+            if(offer.contact.coordonnees1 !== '') {
+                if(offer.contact.coordonnees1.startsWith('https://') || offer.contact.coordonnees1.startsWith('http://'))
+                {
+                    divModal4.innerHTML += '<a target="_blank" href="' + offer.contact.coordonnees1 + '" class="link-02">Lien coordonnées</a></br>';
+                }
+                else {
+                    let link = '';
+                    const coordonneesTab = offer.contact.coordonnees1.split(' ');
+                    coordonneesTab.forEach(word => {
+                        if (word.startsWith('https://') || word.startsWith('http://')) {
+                            link = word;
+                        }
+                    })
+                    if(link !== '')divModal4.innerHTML += '<a target="_blank" href="' + link + '" class="link-02">Lien coordonnées</a>';
+                }
+            }
+            if(offer.contact.urlPostulation !== '') {
+                divModal4.innerHTML += '<a target="_blank" href="' + offer.contact.urlPostulation + '" class="link-02">Postuler</a>';
+            }
+
+            divModal.appendChild(divModal4);
+
+        }
+
+        
     }
 
     updateOffersSortButtons() {
@@ -925,6 +988,15 @@ Il est possible de trier les résultats de 3 façons :
             //return word.charAt(0).toUpperCase() + word.slice(1);
         })
         .join(' ');
+    }
+
+    formatDateFR(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
     }
 }
 
