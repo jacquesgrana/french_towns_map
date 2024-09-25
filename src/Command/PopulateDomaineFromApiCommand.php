@@ -13,7 +13,7 @@ use App\Service\FranceTravailApiService;
 
 #[AsCommand(
     name: 'app:populate-domaine-from-api',
-    description: 'Populate type contrat table domaine_api_ft from api'
+    description: 'Populate table domaine_api_ft from api'
     )]
 class PopulateDomaineFromApiCommand extends Command
 {

@@ -8,14 +8,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\TypeContratApiFT;
+use App\Entity\ThemeApiFT;
 use App\Service\FranceTravailApiService;
 
 #[AsCommand(
-    name: 'app:populate-type-contrat-from-api',
-    description: 'Populate table type_contrat_api_ft from api'
+    name: 'app:populate-theme-from-api',
+    description: 'Populate table theme_api_ft from api'
     )]
-class PopulateTypeContratFromApiCommand extends Command
+class PopulateThemeFromApiCommand extends Command
 {
     public function __construct(
         private EntityManagerInterface $em,
@@ -33,19 +33,19 @@ class PopulateTypeContratFromApiCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $datas = $this->apiFranceTravailService->getTypesContrats();
+        $datas = $this->apiFranceTravailService->getThemes();
         $this->em->getConnection()->beginTransaction();
         foreach ($datas as $row) {
-            $newTypeContrat = new TypeContratApiFT();
-            $newTypeContrat->setCode($row['code']);
-            $newTypeContrat->setLibelle($row['libelle']);
-            $io->text('Row : ' . $newTypeContrat->getCode() . ' - ' . $newTypeContrat->getLibelle());
-            $this->em->persist($newTypeContrat);
+            $newTheme = new ThemeApiFT();
+            $newTheme->setCode($row['code']);
+            $newTheme->setLibelle($row['libelle']);
+            $io->text('Row : ' . $newTheme->getCode() . ' - ' .    $newTheme->getLibelle());
+            $this->em->persist($newTheme);
         }
         $this->em->flush();
         $this->em->getConnection()->commit();
 
-        $io->success('Table type_contrat_api_ft populated from api');
+        $io->success('Table theme_api_ft populated from api');
         return Command::SUCCESS;
     }
 

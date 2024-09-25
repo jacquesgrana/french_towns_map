@@ -297,7 +297,7 @@ class MapVue {
                     </button>
                     <div class="collapse mt-2" id="descriptionCollapse">
                         <div class="card card-body div-modal-offer-description">
-                            ${offer.description}
+                            ${this.formatLongText(offer.description)}
                         </div>
                     </div>
                 </div>
@@ -307,6 +307,13 @@ class MapVue {
         //console.log('offer.formations.length : ', offer.formations.length);
 
         //divModal2.innerHTML = offer.formations.length > 0 ? '<span class="text-secondary">Formations :</span> ' : '';
+        divModal2.innerHTML = '';
+
+        divModal2.innerHTML += offer.typeContratLibelle !== '' ? '<span class="badge rounded-pill text-bg-primary">Contrat : ' + offer.typeContratLibelle + '</span>': '';
+
+        divModal2.innerHTML += offer.experienceLibelle !== '' ? '<span class="badge rounded-pill text-bg-primary">Expérience : ' + offer.experienceLibelle + '</span></br>': '';
+
+
         if(offer.formations.length > 0) {
             for(let i = 0; i < offer.formations.length; i++) {
                 const codeFormation = offer.formations[i].codeFormation !== '' ? offer.formations[i].codeFormation + ' • ' : '';
@@ -997,6 +1004,39 @@ Il est possible de trier les résultats de 3 façons :
             month: 'long',
             day: 'numeric'
         });
+    }
+
+    formatLongText(text) {
+        const textWords = text.split(' ');
+        let newText = '';
+        for(let i = 0; i < textWords.length; i++) {
+            // remplacer '\n' par '</br>'
+            let newWord = '';
+            for(let j = 0; j < textWords[i].length; j++) {
+                if((j < textWords[i].length - 1) && textWords[i].charAt(j) === '\\' && textWords[i].charAt(j + 1) === 'n') {
+                    newWord += '</br>';
+                }
+                else {
+                    newWord += textWords[i].charAt(j);
+                }
+            }
+            
+
+            textWords[i] = newWord;
+
+            if(textWords[i].charAt(textWords[i].length - 1) === '.'
+            || textWords[i].charAt(textWords[i].length - 1) === '!'
+            || textWords[i].charAt(textWords[i].length - 1) === '?') {
+                newText += textWords[i] + '</br></br>';
+            }
+            else if(textWords[i].charAt(0) === '-') {
+                newText += '</br>' + textWords[i] ;
+            }
+            else {
+                newText += textWords[i] + ' ';
+            }
+        }
+        return newText;
     }
 }
 
