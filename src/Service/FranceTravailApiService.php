@@ -21,7 +21,8 @@ class FranceTravailApiService
     private string $apiRequestByIdUrl;
     private string $apiRequestTypesContratsUrl;
     private string $apiRequestDomainesUrl;
-    private string $apiRequestThemessUrl;
+    private string $apiRequestThemesUrl;
+    private string $apiRequestMetiersRomesUrl;
     private ?string $accessToken = null;
     private ?int $tokenValidUntilTS = null; // à enlever qd l'entité sera créée et ok
 
@@ -36,7 +37,8 @@ class FranceTravailApiService
         $this->apiRequestByTownUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search";
         $this->apiRequestTypesContratsUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/typesContrats";
         $this->apiRequestDomainesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/domaines";
-        $this->apiRequestThemessUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/themes";
+        $this->apiRequestThemesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/themes";
+        $this->apiRequestMetiersRomesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/metiers";
         $this->apiRequestByIdUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/";
     }
 
@@ -127,7 +129,12 @@ class FranceTravailApiService
     }
 
     public function getThemes() {
-        $url = $this->apiRequestThemessUrl;
+        $url = $this->apiRequestThemesUrl;
+        return $this->callUrlByCurl($url);
+    }
+
+    public function getMetiersRome() {
+        $url = $this->apiRequestMetiersRomesUrl;
         return $this->callUrlByCurl($url);
     }
 
