@@ -6,6 +6,7 @@ use App\Dto\ApiFranceTravail\EmploymentOfferDto;
 use App\Dto\ApiFranceTravail\FiltreDto;
 use App\Repository\DomaineApiFTRepository;
 use App\Repository\TypeContratApiFTRepository;
+use App\Repository\MetierRomeApiFTRepository;
 use App\Service\FranceTravailApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -180,6 +181,22 @@ class EmploymentJsonController extends AbstractController {
             ];
         }
         //dd($toReturn);
+        return new JsonResponse($toReturn, 200);
+    }
+
+    #[Route('/get-metiers-rome-filters', name: 'get_metiers_rome_filters', methods: ['GET'])]
+    public function getMetiersRome(
+        MetierRomeApiFTRepository $metierRomeApiFTRepository
+    ): JsonResponse {
+        $result = $metierRomeApiFTRepository->findAll();
+        $toReturn = [];
+        foreach ($result as $value) {
+            $toReturn[] = [
+                'id' => $value->getId(),
+                'code' => $value->getCode(),
+                'libelle' => $value->getLibelle()
+            ];
+        }
         return new JsonResponse($toReturn, 200);
     }
 
