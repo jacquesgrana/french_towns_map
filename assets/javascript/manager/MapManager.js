@@ -951,9 +951,12 @@ class MapManager {
         typesContrats.sort((a, b) => (a.libelle > b.libelle) ? 1 : -1);
         const domaines = await this.employmentService.getDomainesFilters();
         domaines.sort((a, b) => (a.libelle > b.libelle) ? 1 : -1);
+        const metiers = await this.employmentService.getMetiersRomeFilters();
+        metiers.sort((a, b) => (a.id > b.id) ? 1 : -1);
+        //console.log('metiers : ', metiers);
         //console.log('typesContrats : ', typesContrats);
 
-        this.mapVue.displayOffers(town.townCode, typesContrats, domaines, this.handleViewOffer); //, initOffersSortButtons
+        this.mapVue.displayOffers(town.townCode, typesContrats, domaines, metiers, this.handleViewOffer); //, initOffersSortButtons
     }
 
     async displaySchools(town) {

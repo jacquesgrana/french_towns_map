@@ -74,6 +74,17 @@ class EmploymentService {
         });
         return await result.json();
     }
+
+    async getMetiersRomeFilters() {
+        const result = await fetch('/get-metiers-rome-filters', {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await result.json();
+    }
     
 
     getOffers() {

@@ -3,18 +3,21 @@ class MapVue {
     sort = 2;
     filtersTypesContrats = '';
     filtersDomaines = '';
+    filtersMetiersRome = '';
 
     employmentService = EmploymentService.getInstance();
     constructor() {
         this.sort = 2;
         this.filtersTypesContrats = '';
         this.filtersDomaines = '';
+        this.filtersMetiersRome = '';
     }
 
     initVars() {
         this.sort = 2;
         this.filtersTypesContrats = '';
         this.filtersDomaines = '';
+        this.filtersMetiersRome = '';
     }
 
     displayFavoriteTowns = (towns, that) => {
@@ -412,10 +415,11 @@ class MapVue {
         }
     }
 
-    displayOffers(townCode, typesContrats, domaines, viewOfferCB) {
+    displayOffers(townCode, typesContrats, domaines, metiers, viewOfferCB) {
         //console.log('display offers : offers : ', offers);
         //console.log('filters : ', filters);
         //console.log('typesContrats : ', typesContrats);
+        //console.log('metiers : ', metiers);
         const divEmployment = document.getElementById('map-accordion-body-employment');
         if(divEmployment) {
             divEmployment.innerHTML = '';
@@ -513,7 +517,7 @@ class MapVue {
                             length: d.length,
                             draw: d.draw,
                             sort: self.sort,
-                            filters: self.filtersTypesContrats + self.filtersDomaines
+                            filters: self.filtersTypesContrats + self.filtersDomaines + self.filtersMetiersRome
                         });
                     }
                 },
@@ -526,12 +530,11 @@ class MapVue {
                     { title: 'Secteur' },
                 ],
                 initComplete: function(settings, json) {
-                    // Créer les selects
                     var selectTypesHtml = '<select id="custom-select-types" class="form-select me-2">' +
                                           '<option value="" disabled>Sélectionnez un type de contrat</option>' + 
                                           '<option value="">Tous les types</option>';
                     typesContrats.forEach(typeContrat => {
-                        selectTypesHtml += '<option value="' + typeContrat.code + '">' + typeContrat.libelle + '</option>';
+                        selectTypesHtml += '<option value="' + typeContrat.code + '">'  + typeContrat.code + ' - ' + typeContrat.libelle + '</option>';
                     });               
                     selectTypesHtml += '</select>';
             
@@ -542,11 +545,30 @@ class MapVue {
                         selectDomainsHtml += '<option value="' + domaine.code + '">' + domaine.libelle + '</option>';
                     });               
                     selectDomainsHtml += '</select>';
+
+                    var selectMetiersRomeHtml = '<select id="custom-select-metiers-rome" class="form-select">' +
+                    '<option value="" disabled>Sélectionnez un métier Rome</option>' + 
+                    '<option value="">Tous les métiers</option>';
+                    metiers.forEach(metier => {
+                    selectMetiersRomeHtml += '<option value="' + metier.code + '">' + metier.libelle + '</option>';
+                    });               
+                    selectMetiersRomeHtml += '</select>';
             
-                    // Ajouter les selects au conteneur
-                    $('.custom-selects-container').append(selectTypesHtml + selectDomainsHtml);
+                    $('.custom-selects-container').append(selectTypesHtml + selectDomainsHtml + selectMetiersRomeHtml);
+
+                    $('#custom-select-metiers-rome').select2({
+                        placeholder: "Sélectionnez un métier Rome",
+                        allowClear: true
+                    });
+
+                    $('#custom-select-metiers-rome').on('change', function() {
+                        //console.log('custom-select-metiers-rome');
+                        var selectedValue = $(this).val();
+                        self.filtersMetiersRome = selectedValue ? '&codeROME=' + selectedValue : '';
+                        //console.log(self.filtersMetiersRome);
+                        settings.oInstance.api().ajax.reload();
+                    });
             
-                    // Ajouter les gestionnaires d'événements
                     $('#custom-select-types').on('change', function() {
                         var selectedValue = $(this).val();
                         self.filtersTypesContrats = selectedValue ? '&typeContrat=' + selectedValue : '';
