@@ -442,7 +442,7 @@ class MapVue {
             //console.log('townCode : ', townCode);
             new DataTable('#table-offers', {
                 //dom: 'lBStip',
-                dom: '<"row mb-3 align-items-center"<"col-sm-3"l><"col-sm-9"<"d-flex justify-content-center gap-1"B<"custom-selects-container">>>>' +
+                dom: '<"row mb-3 align-items-center"<"col-sm-3"l><"col-sm-9"<"d-flex justify-content-center gap-1"B>><"custom-selects-container">>' +
                     '<"row"<"col-sm-12"tr>>' +
                     '<"row justify-content-center gap-2 mb-3"<"col-sm-auto"i><"col-sm-auto custom-pagination"p>>',
                 language: {
@@ -555,6 +555,16 @@ class MapVue {
                     selectMetiersRomeHtml += '</select>';
             
                     $('.custom-selects-container').append(selectTypesHtml + selectDomainsHtml + selectMetiersRomeHtml);
+
+                    $('#custom-select-types').select2({
+                        placeholder: "Sélectionnez un type de contrat",
+                        allowClear: true
+                    });
+
+                    $('#custom-select-domaines').select2({
+                        placeholder: "Sélectionnez un domaine pro",
+                        allowClear: true
+                    });
 
                     $('#custom-select-metiers-rome').select2({
                         placeholder: "Sélectionnez un métier Rome",
