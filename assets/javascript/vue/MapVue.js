@@ -531,45 +531,121 @@ class MapVue {
                 ],
                 initComplete: function(settings, json) {
                     var selectTypesHtml = '<select id="custom-select-types" class="form-select me-2">' +
-                                          '<option value="" disabled>Sélectionnez un type de contrat</option>' + 
-                                          '<option value="">Tous les types</option>';
+                    '<option value="" disabled>Filtrer par type de contrat</option>' + 
+                    '<option value="">Tous les types</option>';
                     typesContrats.forEach(typeContrat => {
                         selectTypesHtml += '<option value="' + typeContrat.code + '">'  + typeContrat.code + ' - ' + typeContrat.libelle + '</option>';
                     });               
                     selectTypesHtml += '</select>';
             
                     var selectDomainsHtml = '<select id="custom-select-domaines" class="form-select">' +
-                                            '<option value="" disabled>Sélectionnez un domaine</option>' + 
-                                            '<option value="">Tous les domaines</option>';
+                    '<option value="" disabled>Filtrer par domaine</option>' + 
+                    '<option value="">Tous les domaines</option>';
                     domaines.forEach(domaine => {
                         selectDomainsHtml += '<option value="' + domaine.code + '">' + domaine.libelle + '</option>';
                     });               
                     selectDomainsHtml += '</select>';
 
                     var selectMetiersRomeHtml = '<select id="custom-select-metiers-rome" class="form-select">' +
-                    '<option value="" disabled>Sélectionnez un métier Rome</option>' + 
+                    '<option value="" disabled>Filtrer par métier Rome</option>' + 
                     '<option value="">Tous les métiers</option>';
                     metiers.forEach(metier => {
                     selectMetiersRomeHtml += '<option value="' + metier.code + '">' + metier.libelle + '</option>';
                     });               
                     selectMetiersRomeHtml += '</select>';
             
-                    $('.custom-selects-container').append(selectTypesHtml + selectDomainsHtml + selectMetiersRomeHtml);
+                    $('.custom-selects-container').append(selectTypesHtml + selectMetiersRomeHtml + selectDomainsHtml);
+
+                    /*
 
                     $('#custom-select-types').select2({
-                        placeholder: "Sélectionnez un type de contrat",
-                        allowClear: true
+                        placeholder: "Filtrer par type de contrat",
+                        allowClear: true,
+                        width: 'resolve', // Cela permettra au select de s'adapter à la largeur de son conteneur
+                        theme: "classic", // Vous pouvez changer le thème si nécessaire
+                        language: {
+                            noResults: function() {
+                                return "Aucun résultat trouvé";
+                            }
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
                     });
 
                     $('#custom-select-domaines').select2({
-                        placeholder: "Sélectionnez un domaine pro",
-                        allowClear: true
+                        placeholder: "Filtrer par domaine pro",
+                        allowClear: true,
+                        width: 'resolve', // Cela permettra au select de s'adapter à la largeur de son conteneur
+                        theme: "classic", // Vous pouvez changer le thème si nécessaire
+                        language: {
+                            noResults: function() {
+                                return "Aucun résultat trouvé";
+                            }
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
                     });
 
                     $('#custom-select-metiers-rome').select2({
-                        placeholder: "Sélectionnez un métier Rome",
-                        allowClear: true
+                        placeholder: "Filtrer par métier Rome",
+                        allowClear: true,
+                        width: 'resolve', // Cela permettra au select de s'adapter à la largeur de son conteneur
+                        theme: "dark", // Vous pouvez changer le thème si nécessaire
+                        language: {
+                            noResults: function() {
+                                return "Aucun résultat trouvé";
+                            }
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    });*/
+
+                    
+                    $('#custom-select-types').select2({
+                        placeholder: "Filtre : Type de Contrat",
+                        allowClear: true,
+                        width: 'style',
+                        language: {
+                            noResults: function() {
+                                return "Aucun résultat trouvé";
+                            }
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
                     });
+
+                    $('#custom-select-domaines').select2({
+                        placeholder: "Filtre : Domaine Pro",
+                        allowClear: true,
+                        width: 'style',
+                        language: {
+                            noResults: function() {
+                                return "Aucun résultat trouvé";
+                            }
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    });
+
+                    $('#custom-select-metiers-rome').select2({
+                        placeholder: "Filtre : Métier Rome",
+                        allowClear: true,
+                        width: 'style',
+                        language: {
+                            noResults: function() {
+                                return "Aucun résultat trouvé";
+                            }
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    });
+                    
 
                     $('#custom-select-metiers-rome').on('change', function() {
                         //console.log('custom-select-metiers-rome');

@@ -526,6 +526,89 @@ input[type=email]:-webkit-autofill:active {
   background-color: rgb(2, 52, 71);
 }
 
+/*
+#custom-select-types select,
+#custom-select-domaines select,
+#custom-select-metiers-rome select {
+    background-color: $primary-color-dark;
+    border: 1px solid $primary-color-medium;
+    padding: 6px 12px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+*/
+/* Style général pour les conteneurs Select2 */
+.select2-container {
+  margin-right: 10px;
+  min-width: 220px;
+  width: 220px;
+}
+
+/* Style pour le select lui-même */
+.select2-container .select2-selection--single {
+  height: 38px;
+  border: 1px solid rgb(5, 64, 87);
+  background-color: rgb(5, 64, 87);
+  border-radius: 5px;
+}
+
+/* Style pour le texte sélectionné */
+.select2-container .select2-selection--single .select2-selection__rendered {
+  line-height: 38px;
+  padding-left: 12px;
+  color: rgb(236, 250, 255);
+}
+
+/* Style pour la flèche déroulante */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 36px;
+}
+
+/* Style pour le placeholder */
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+  color: rgb(236, 250, 255);
+}
+
+/* Style pour le dropdown */
+.select2-dropdown {
+  border: 1px solid rgb(5, 64, 87);
+  border-radius: 5px;
+}
+
+/* Style pour les options dans le dropdown */
+.select2-results__option {
+  padding: 8px 12px;
+  background-color: rgb(5, 64, 87);
+  color: rgb(236, 250, 255);
+  font-size: 14px;
+}
+
+/* Style pour l'option survolée ou sélectionnée */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: rgb(241, 119, 53);
+  color: white;
+}
+
+/* Style pour le conteneur des selects personnalisés */
+.custom-selects-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.select2-search input,
+.select2-search input:focus {
+  background-color: rgb(5, 64, 87);
+  color: rgb(236, 250, 255);
+  background-image: none;
+  background: rgb(3, 76, 105);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
 .div-school {
   position: relative;
   margin-top: 10px;
