@@ -85,6 +85,17 @@ class EmploymentService {
         });
         return await result.json();
     }
+
+    async getCodesNafFilters() {
+        const result = await fetch('/get-codes-naf-filters', {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await result.json();
+    }
     
 
     getOffers() {

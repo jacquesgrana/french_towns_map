@@ -56,6 +56,7 @@ security:
         - { path: /get-types-contrats-filters, roles: PUBLIC_ACCESS }
         - { path: /get-domaines-filters, roles: PUBLIC_ACCESS }
         - { path: /get-metiers-rome-filters, roles: PUBLIC_ACCESS }
+        - { path: /get-codes-naf-filters, roles: PUBLIC_ACCESS }
         - { path: /get-is-favorite, roles: ROLE_USER }
         - { path: /toggle-favorite-for-town, roles: ROLE_USER }
         - { path: /get-favorites-by-user, roles: ROLE_USER }

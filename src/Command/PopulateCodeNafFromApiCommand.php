@@ -11,7 +11,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\CodeNafApiFT;
 use App\Service\FranceTravailApiService;
 
-#[AsCommand(name: 'app:populate-code-naf-from-api')]
+#[AsCommand(
+    name: 'app:populate-code-naf-from-api', 
+    description: 'Populate table code_naf_api_ft from api',
+    )]
 class PopulateCodeNafFromApiCommand extends Command
 {
     public function __construct(

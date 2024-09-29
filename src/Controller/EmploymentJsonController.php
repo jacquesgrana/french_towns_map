@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Dto\ApiFranceTravail\EmploymentOfferDto;
 use App\Dto\ApiFranceTravail\FiltreDto;
+use App\Repository\CodeNafApiFTRepository;
 use App\Repository\DomaineApiFTRepository;
 use App\Repository\TypeContratApiFTRepository;
 use App\Repository\MetierRomeApiFTRepository;
@@ -12,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class EmploymentJsonController extends AbstractController {
 
@@ -189,6 +189,22 @@ class EmploymentJsonController extends AbstractController {
         MetierRomeApiFTRepository $metierRomeApiFTRepository
     ): JsonResponse {
         $result = $metierRomeApiFTRepository->findAll();
+        $toReturn = [];
+        foreach ($result as $value) {
+            $toReturn[] = [
+                'id' => $value->getId(),
+                'code' => $value->getCode(),
+                'libelle' => $value->getLibelle()
+            ];
+        }
+        return new JsonResponse($toReturn, 200);
+    }
+
+    #[Route('/get-codes-naf-filters', name: 'get_codes_naf_filters', methods: ['GET'])]
+    public function getCodesNaf(
+        CodeNafApiFTRepository $codeNafApiFTRepository
+    ): JsonResponse {
+        $result = $codeNafApiFTRepository->findAll();
         $toReturn = [];
         foreach ($result as $value) {
             $toReturn[] = [
