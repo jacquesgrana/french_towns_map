@@ -4,6 +4,7 @@ class MapVue {
     filtersTypesContrats = '';
     filtersDomaines = '';
     filtersMetiersRome = '';
+    filtersCodesNaf = '';
 
     employmentService = EmploymentService.getInstance();
     constructor() {
@@ -11,6 +12,7 @@ class MapVue {
         this.filtersTypesContrats = '';
         this.filtersDomaines = '';
         this.filtersMetiersRome = '';
+        this.filtersCodesNaf = '';
     }
 
     initVars() {
@@ -18,6 +20,7 @@ class MapVue {
         this.filtersTypesContrats = '';
         this.filtersDomaines = '';
         this.filtersMetiersRome = '';
+        this.filtersCodesNaf = '';
     }
 
     displayFavoriteTowns = (towns, that) => {
@@ -415,7 +418,7 @@ class MapVue {
         }
     }
 
-    displayOffers(townCode, typesContrats, domaines, metiers, viewOfferCB) {
+    displayOffers(townCode, typesContrats, domaines, metiers, codesNaf, viewOfferCB) {
         //console.log('display offers : offers : ', offers);
         //console.log('filters : ', filters);
         //console.log('typesContrats : ', typesContrats);
@@ -517,7 +520,7 @@ class MapVue {
                             length: d.length,
                             draw: d.draw,
                             sort: self.sort,
-                            filters: self.filtersTypesContrats + self.filtersDomaines + self.filtersMetiersRome
+                            filters: self.filtersTypesContrats + self.filtersDomaines + self.filtersMetiersRome + self.filtersCodesNaf
                         });
                     }
                 },
@@ -550,11 +553,21 @@ class MapVue {
                     '<option value="" disabled>Filtrer par métier Rome</option>' + 
                     '<option value="">Tous les métiers</option>';
                     metiers.forEach(metier => {
-                    selectMetiersRomeHtml += '<option value="' + metier.code + '">' + metier.libelle + '</option>';
+                    selectMetiersRomeHtml += '<option value="' + metier.code + '">' + metier.code + ' - ' + metier.libelle + '</option>';
                     });               
                     selectMetiersRomeHtml += '</select>';
             
-                    $('.custom-selects-container').append(selectTypesHtml + selectMetiersRomeHtml + selectDomainsHtml);
+
+
+                    var selectCodesNafHtml = '<select id="custom-select-codes-naf" class="form-select">' +
+                    '<option value="" disabled>Filtrer par code NAF</option>' + 
+                    '<option value="">Tous les codes</option>';
+                    codesNaf.forEach(codeNaf => {
+                        selectCodesNafHtml += '<option value="' + codeNaf.code + '">' + codeNaf.code + ' - ' + codeNaf.libelle + '</option>';
+                    });               
+                    selectCodesNafHtml += '</select>';
+
+                    $('.custom-selects-container').append(selectTypesHtml + selectMetiersRomeHtml + selectCodesNafHtml + selectDomainsHtml);
 
                     /*
 
@@ -645,6 +658,21 @@ class MapVue {
                             return markup;
                         }
                     });
+
+
+                    $('#custom-select-codes-naf').select2({
+                        placeholder: "Filtre : Code NAF",
+                        allowClear: true,
+                        width: 'style',
+                        language: {
+                            noResults: function() {
+                                return "Aucun résultat";
+                            }
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    });
                     
 
                     $('#custom-select-metiers-rome').on('change', function() {
@@ -664,6 +692,13 @@ class MapVue {
                     $('#custom-select-domaines').on('change', function() {
                         var selectedValue = $(this).val();
                         self.filtersDomaines = selectedValue ? '&domaine=' + selectedValue : '';
+                        settings.oInstance.api().ajax.reload();
+                    });
+
+                    $('#custom-select-codes-naf').on('change', function() {
+                        //console.log('test');
+                        var selectedValue = $(this).val();
+                        self.filtersCodesNaf = selectedValue ? '&codeNAF=' + selectedValue : '';
                         settings.oInstance.api().ajax.reload();
                     });
                 },
