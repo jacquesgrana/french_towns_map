@@ -23,6 +23,7 @@ class FranceTravailApiService
     private string $apiRequestDomainesUrl;
     private string $apiRequestThemesUrl;
     private string $apiRequestMetiersRomesUrl;
+    private string $apiRequestCodesNafUrl;
     private ?string $accessToken = null;
     private ?int $tokenValidUntilTS = null; // à enlever qd l'entité sera créée et ok
 
@@ -39,6 +40,7 @@ class FranceTravailApiService
         $this->apiRequestDomainesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/domaines";
         $this->apiRequestThemesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/themes";
         $this->apiRequestMetiersRomesUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/metiers";
+        $this->apiRequestCodesNafUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel/nafs";
         $this->apiRequestByIdUrl = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/";
     }
 
@@ -135,6 +137,11 @@ class FranceTravailApiService
 
     public function getMetiersRome() {
         $url = $this->apiRequestMetiersRomesUrl;
+        return $this->callUrlByCurl($url);
+    }
+
+    public function getCodesNaf() {
+        $url = $this->apiRequestCodesNafUrl;
         return $this->callUrlByCurl($url);
     }
 
