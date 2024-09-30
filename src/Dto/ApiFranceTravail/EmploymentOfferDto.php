@@ -6,7 +6,16 @@ use App\Dto\ApiFranceTravail\LieuTravailDto;
 use App\Dto\ApiFranceTravail\EntrepriseDto;
 use App\Dto\ApiFranceTravail\SalaireDto;
 use App\Dto\ApiFranceTravail\ContactDto;
+use App\Dto\ApiFranceTravail\AgenceDto;
 use App\Dto\ApiFranceTravail\OrigineOffreDto;
+
+use App\Dto\ApiFranceTravail\FormationDto;
+use App\Dto\ApiFranceTravail\LangueDto;
+use App\Dto\ApiFranceTravail\PermiDto;
+use App\Dto\ApiFranceTravail\CompetenceDto;
+use App\Dto\ApiFranceTravail\QualiteProfessionnelleDto;
+use App\Dto\ApiFranceTravail\PartenaireDto;
+
 
 class EmploymentOfferDto 
 {
@@ -25,28 +34,95 @@ class EmploymentOfferDto
     private string $natureContrat;
     private string $experienceExige;
     private string $experienceLibelle;
+    private string $experienceCommentaire;
     private array $formations;
+
+    private array $langues;
+    private array $permis;
+    private array $outilsBureautiques;
+    private array $competences;
+
     private SalaireDto $salaire;
     private string $dureeTravailLibelle;
     private string $dureeTravailLibelleConverti;
+
+    private string $complementExercice;
+    private string $conditionExercice;
+
+
     private bool $alternance;
     private ContactDto $contact;
-    private string $urlPostulation;
+
+    private AgenceDto $agence;
+    private int $nombrePostes;
+    //private string $urlPostulation;
+
     private bool $accessibleTH;
+    private string $deplacementCode;
+    private string $deplacementLibelle;
+
     private string $qualificationCode;
     private string $qualificationLibelle;
     private string $codeNAF;
     private string $secteurActivite;
     private string $secteurActiviteLibelle;
+
+    private array $qualitesProfessionnelles;
+    private string $trancheEffectifEtab;
+
     private OrigineOffreDto $origineOffre;
+    private array $partenaires;
     private bool $offresManqueCandidats;
 
 
     public function __construct() {
+        $this->id = '';
+        $this->intitule = '';
+        $this->description = '';
+        $this->dateCreation = '';
+        $this->dateActualisation = '';
+        $this->lieuTravail = new LieuTravailDto();
+        $this->romeCode = '';
+        $this->romeLibelle = '';
+        $this->appellationlibelle = '';
+        $this->entreprise = new EntrepriseDto();
+        $this->typeContrat = '';
+        $this->typeContratLibelle = '';
+        $this->natureContrat = '';
+        $this->experienceExige = '';
+        $this->experienceLibelle = '';
+        $this->experienceCommentaire = '';
+        $this->formations = [];
+        $this->langues = [];
+        $this->permis = [];
+        $this->outilsBureautiques = [];
+        $this->salaire = new SalaireDto();
+        $this->dureeTravailLibelle = '';
+        $this->dureeTravailLibelleConverti = '';
+        $this->complementExercice = '';
+        $this->conditionExercice = '';
+        $this->alternance = false;
+        $this->contact = new ContactDto();
+        $this->agence = new AgenceDto();
+        $this->nombrePostes = 0;
+        //$this->urlPostulation = '';
+        $this->accessibleTH = false;
+        $this->deplacementCode = '';
+        $this->deplacementLibelle = '';
+        $this->qualificationCode = '';
+        $this->qualificationLibelle = '';
+        $this->codeNAF = '';
+        $this->secteurActivite = '';
+        $this->secteurActiviteLibelle = '';
+        $this->qualitesProfessionnelles = [];
+        $this->trancheEffectifEtab = '';
+        $this->origineOffre = new OrigineOffreDto();
+        $this->partenaires = [];
+        $this->offresManqueCandidats = false;
     }
 
     public function hydrate(array $data) {
-        $this->id = $data['id'];
+        $this->id = isset($data['id']) ? $data['id'] : '';
         $this->intitule = isset($data['intitule']) ? $data['intitule'] : '';
         $this->description = isset($data['description']) ? $data['description'] : '';
         $this->dateCreation = isset($data['dateCreation']) ? $data['dateCreation'] : '';
@@ -73,7 +149,8 @@ class EmploymentOfferDto
         $this->natureContrat = isset($data['natureContrat']) ? $data['natureContrat'] : '';
         $this->experienceExige = isset($data['experienceExige']) ? $data['experienceExige'] : '';
         $this->experienceLibelle = isset($data['experienceLibelle']) ? $data['experienceLibelle'] : '';
-        if (isset($data['formations'])) {
+        $this->experienceCommentaire = isset($data['experienceCommentaire']) ? $data['experienceCommentaire'] : '';
+        if (isset($data['formations']) && !empty($data['formations'])) {
             foreach ($data['formations'] as $formation) {
                 $newFormation = new FormationDto();
                 $newFormation->hydrate($formation);
@@ -83,6 +160,48 @@ class EmploymentOfferDto
         else {
             $this->formations = [];
         }
+        if (isset($data['langues']) && !empty($data['langues'])) {
+            foreach ($data['langues'] as $langue) {
+                $newLangue = new LangueDto();
+                $newLangue->hydrate($langue);
+                $this->langues[] = $newLangue;
+            }
+        } 
+        else {
+            $this->langues = [];
+        }
+
+        if (isset($data['permis']) && !empty($data['permis'])) {
+            foreach ($data['permis'] as $permis) {
+                $newPermis = new PermiDto();
+                $newPermis->hydrate($permis);
+                $this->permis[] = $newPermis;
+            }
+        } 
+        else {
+            $this->permis = [];
+        }
+
+        if (isset($data['outilsBureautiques']) && !empty($data['outilsBureautiques'])) {
+            foreach ($data['outilsBureautiques'] as $outilBureautique) {
+                $this->outilsBureautiques[] = $outilBureautique;
+            }
+        }
+        else {
+            $this->outilsBureautiques = [];
+        }
+        if(isset($data['competences']) && !empty($data['competences'])) {
+            foreach ($data['competences'] as $competence) {
+                $newCompetence = new CompetenceDto();
+                $newCompetence->hydrate($competence);
+                $this->competences[] = $newCompetence;
+            }
+        }
+        else {
+            $this->competences = [];
+        }
+
+
         if(isset($data['salaire'])) {
             $this->salaire = new SalaireDto();
             $this->salaire->hydrate($data['salaire']);
@@ -92,6 +211,8 @@ class EmploymentOfferDto
         }
         $this->dureeTravailLibelle = isset($data['dureeTravailLibelle']) ? $data['dureeTravailLibelle'] : '';
         $this->dureeTravailLibelleConverti = isset($data['dureeTravailLibelleConverti']) ? $data['dureeTravailLibelleConverti'] : '';
+        $this->complementExercice = isset($data['complementExercice']) ? $data['complementExercice'] : '';
+        $this->conditionExercice = isset($data['conditionExercice']) ? $data['conditionExercice'] : '';
         $this->alternance = isset($data['alternance']) ? $data['alternance'] : '';
         if(isset($data['contact'])) {
             $this->contact = new ContactDto();
@@ -100,13 +221,45 @@ class EmploymentOfferDto
         else {
             $this->contact = new ContactDto();
         }
-        $this->urlPostulation = isset($data['urlPostulation']) ? $data['urlPostulation'] : '';
+        //$this->urlPostulation = isset($data['urlPostulation']) ? $data['urlPostulation'] : '';
+
+
+        if(isset($data['agence'])) {
+            $this->agence = new AgenceDto();
+            $this->agence->hydrate($data['agence']);
+        }
+        else {
+            $this->agence = new AgenceDto();
+        }
+
+        $this->nombrePostes = isset($data['nombrePostes']) ? $data['nombrePostes'] : 0;
+
         $this->accessibleTH = isset($data['accessibleTH']) ? $data['accessibleTH'] : '';
+
+        $this->deplacementCode = isset($data['deplacementCode']) ? $data['deplacementCode'] : '';
+        $this->deplacementLibelle = isset($data['deplacementLibelle']) ? $data['deplacementLibelle'] : '';
+
         $this->qualificationCode = isset($data['qualificationCode']) ? $data['qualificationCode'] : '';
         $this->qualificationLibelle = isset($data['qualificationLibelle']) ? $data['qualificationLibelle'] : '';
         $this->codeNAF = isset($data['codeNAF']) ? $data['codeNAF'] : '';
         $this->secteurActivite = isset($data['secteurActivite']) ? $data['secteurActivite'] : '';
         $this->secteurActiviteLibelle = isset($data['secteurActiviteLibelle']) ? $data['secteurActiviteLibelle'] : '';
+
+        //$this->qualitesProfessionnelles
+
+        if(isset($data['qualitesProfessionnelles']) && !empty($data['qualitesProfessionnelles'])) {
+            foreach ($data['qualitesProfessionnelles'] as $qualiteProfessionnelle) {
+                $newQualiteProfessionnelle = new QualiteProfessionnelleDto();
+                $newQualiteProfessionnelle->hydrate($qualiteProfessionnelle);
+                $this->qualitesProfessionnelles[] = $newQualiteProfessionnelle;
+            }
+        }
+        else {
+            $this->qualitesProfessionnelles = [];
+        }
+
+        $this->trancheEffectifEtab = isset($data['trancheEffectifEtab']) ? $data['trancheEffectifEtab'] : '';
+
         if(isset($data['origineOffre'])) {
             $this->origineOffre = new OrigineOffreDto();
             $this->origineOffre->hydrate($data['origineOffre']);
@@ -114,14 +267,52 @@ class EmploymentOfferDto
         else {
             $this->origineOffre = new OrigineOffreDto();
         }
+        if(isset($data['partenaires']) && !empty($data['partenaires'])) {
+            foreach ($data['partenaires'] as $partenaire) {
+                $newPartenaire = new PartenaireDto();
+                $newPartenaire->hydrate($partenaire);
+                $this->partenaires[] = $newPartenaire;
+            }
+        }
+        else {
+            $this->partenaires = [];
+        }
+
         $this->offresManqueCandidats = isset($data['offresManqueCandidats']) ? $data['offresManqueCandidats'] : '';
     }
 
     public function serialize() {
+
         $formations = [];
         foreach ($this->formations as $formation) {
             $formations[] = $formation->serialize();
         }
+
+        $langues = [];
+        foreach ($this->langues as $langue) {
+            $langues[] = $langue->serialize();
+        }
+
+        $permis = [];
+        foreach ($this->permis as $permi) {
+            $permis[] = $permi->serialize();
+        }
+
+        $competences = [];
+        foreach ($this->competences as $competence) {
+            $competences[] = $competence->serialize();
+        }
+
+        $qualites = [];
+        foreach ($this->qualitesProfessionnelles as $qualite) {
+            $qualites[] = $qualite->serialize();
+        }
+
+        $partenaires = [];
+        foreach ($this->partenaires as $partenaire) {
+            $partenaires[] = $partenaire->serialize();
+        }
+
         return [
             'id' => $this->id,
             'intitule' => $this->intitule,
@@ -138,20 +329,42 @@ class EmploymentOfferDto
             'natureContrat' => $this->natureContrat,
             'experienceExige' => $this->experienceExige,
             'experienceLibelle' => $this->experienceLibelle,
+            'experienceCommentaire' => $this->experienceCommentaire,
             'formations' => $formations,
+            'langues' => $langues,
+            'permis' => $permis,
+            'outilsBureautiques' => $this->outilsBureautiques,
+            'competences' => $competences,
+
+
             'salaire' => $this->salaire->serialize(),
             'dureeTravailLibelle' => $this->dureeTravailLibelle,
             'dureeTravailLibelleConverti' => $this->dureeTravailLibelleConverti,
+            'complementExercice' => $this->complementExercice,
+            'conditionExercice' => $this->conditionExercice,
+
             'alternance' => $this->alternance,
             'contact' => $this->contact->serialize(),
-            'urlPostulation' => $this->urlPostulation,
+            //'urlPostulation' => $this->urlPostulation,
+
+            'agence' => $this->agence->serialize(),
+            'nombrePostes' => $this->nombrePostes,
+
             'accessibleTH' => $this->accessibleTH,
+            'deplacementCode' => $this->deplacementCode,
+            'deplacementLibelle' => $this->deplacementLibelle,
+
             'qualificationCode' => $this->qualificationCode,
             'qualificationLibelle' => $this->qualificationLibelle,
             'codeNAF' => $this->codeNAF,
             'secteurActivite' => $this->secteurActivite,
             'secteurActiviteLibelle' => $this->secteurActiviteLibelle,
+
+            'qualitesProfessionnelles' => $qualites,
+            'trancheEffectifEtab' => $this->trancheEffectifEtab,
             'origineOffre' => $this->origineOffre->serialize(),
+            'partenaires' => $partenaires,
+
             'offresManqueCandidats' => $this->offresManqueCandidats
         ];
     }

@@ -618,7 +618,7 @@ class MapVue {
 
                     
                     $('#custom-select-types').select2({
-                        placeholder: "Filtre : Type de Contrat",
+                        placeholder: "Type de Contrat",
                         allowClear: true,
                         width: 'style',
                         language: {
@@ -632,7 +632,7 @@ class MapVue {
                     });
 
                     $('#custom-select-domaines').select2({
-                        placeholder: "Filtre : Domaine Pro",
+                        placeholder: "Domaine Pro",
                         allowClear: true,
                         width: 'style',
                         language: {
@@ -646,7 +646,7 @@ class MapVue {
                     });
 
                     $('#custom-select-metiers-rome').select2({
-                        placeholder: "Filtre : Métier Rome",
+                        placeholder: "Métier Rome",
                         allowClear: true,
                         width: 'style',
                         language: {
@@ -661,7 +661,7 @@ class MapVue {
 
 
                     $('#custom-select-codes-naf').select2({
-                        placeholder: "Filtre : Code NAF",
+                        placeholder: "Code NAF",
                         allowClear: true,
                         width: 'style',
                         language: {
