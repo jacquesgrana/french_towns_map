@@ -10,6 +10,8 @@ class FiltreDto
     private array $agregation;
 
     public function __construct() {
+        $this->filtre = '';
+        $this->agregation = [];
     }
 
     public function hydrate(array $data) {

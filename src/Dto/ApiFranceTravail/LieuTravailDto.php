@@ -11,6 +11,11 @@ class LieuTravailDto
     private string  $commune;
 
     public function __construct() {
+        $this->libelle = '';
+        $this->latitude = 0.0;
+        $this->longitude = 0.0;
+        $this->codePostal = '';
+        $this->commune = '';
     }
 
     public function hydrate(array $data) {

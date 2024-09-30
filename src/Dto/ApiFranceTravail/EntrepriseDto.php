@@ -7,15 +7,22 @@ class EntrepriseDto
     private string $nom;
     private string $description;
     private string $logo;
+    private string $url;
     private bool $entrepriseAdaptee;
 
     public function __construct() {
+        $this->nom = '';
+        $this->description = '';
+        $this->logo = '';
+        $this->url = '';
+        $this->entrepriseAdaptee = false;
     }
 
     public function hydrate(array $data) {
         $this->nom = isset($data['nom']) ? $data['nom'] : '';
         $this->description = isset($data['description']) ? $data['description'] : '';
         $this->logo = isset($data['logo']) ? $data['logo'] : '';
+        $this->url = isset($data['url']) ? $data['url'] : '';
         $this->entrepriseAdaptee = isset($data['entrepriseAdaptee']) ? $data['entrepriseAdaptee'] : '';
     }
 
@@ -24,6 +31,7 @@ class EntrepriseDto
             'nom' => $this->nom,
             'description' => $this->description,
             'logo' => $this->logo,
+            'url' => $this->url,
             'entrepriseAdaptee' => $this->entrepriseAdaptee
         ];
     }
@@ -38,6 +46,10 @@ class EntrepriseDto
 
     public function getLogo() {
         return $this->logo;
+    }
+
+    public function getUrl() {
+        return $this->url;
     }
 
     public function getEntrepriseAdaptee() {
@@ -56,6 +68,11 @@ class EntrepriseDto
 
     public function setLogo($logo) {
         $this->logo = $logo;
+        return $this;
+    }
+
+    public function setUrl($url) {
+        $this->url = $url;
         return $this;
     }
 

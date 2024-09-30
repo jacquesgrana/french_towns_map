@@ -10,7 +10,10 @@ class AgregatFiltreDto
 
 
     public function __construct()
-    {}
+    {
+        $this->valeurPossible = '';
+        $this->nbResultats = -1;
+    }
 
     public function hydrate(array $data)
     {
