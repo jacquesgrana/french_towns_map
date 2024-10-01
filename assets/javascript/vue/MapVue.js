@@ -428,7 +428,7 @@ class MapVue {
             divEmployment.innerHTML = '';
             const title = document.createElement('h6');
             title.classList.add('text-white', 'text-center', 'mb-2');
-            title.textContent = 'Offres d\'emploi de France Travail';
+            title.textContent = 'Offres d\'emplois de France Travail';
             divEmployment.appendChild(title);
 
             const table = document.createElement('table');
