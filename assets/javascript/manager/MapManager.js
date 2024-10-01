@@ -13,6 +13,10 @@ class MapManager {
     schoolService;
     employmentService;
     isNewComment;
+    typesContratsApiFt;
+    domainesApiFt;
+    metiersApiFt;
+    codesNafApiFt;
     //isLoggedIn;
     constructor() {
         this.mapVue = new MapVue();
@@ -28,6 +32,10 @@ class MapManager {
         this.schoolService = SchoolService.getInstance();
         this.employmentService = EmploymentService.getInstance();
         this.isNewComment = true;
+        this.typesContratsApiFt = [];
+        this.domainesApiFt = [];
+        this.metiersApiFt = [];
+        this.codesNafApiFt = [];
         //this.isLoggedIn = this.securityService.checkAuthStatus();
     }
 
@@ -47,6 +55,7 @@ class MapManager {
     }
 
      async init() {
+        await this.initSelectorsLists();
         await this.securityService.checkAuthStatus();
         this.manageButtonsWithLoggedIn();
         //this.selectedTown = null;
@@ -87,12 +96,21 @@ class MapManager {
             await this.displayTownDetails(this.selectedTown);
             await this.displayForecast(this.selectedTown);
             await this.displaySchools(this.selectedTown);
+            await this.displayOffers(this.selectedTown);
             await this.updateComments(this.selectedTown);
         }
         this.updateMapFromBounds();
         this.map.on('moveend', this.updateMapFromBounds);
         if(this.securityService.isLoggedIn) await this.updateFavorites();
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
+    }
+
+    async initSelectorsLists() {
+        this.typesContratsApiFt = await this.employmentService.getTypesContratsFilters();
+        this.domainesApiFt = await this.employmentService.getDomainesFilters();
+        this.metiersApiFt = await this.employmentService.getMetiersRomeFilters();
+        this.codesNafApiFt = await this.employmentService.getCodesNafFilters();
+        // TODO trier les listes?
     }
 
     initListeners() {
@@ -947,6 +965,7 @@ class MapManager {
         //console.log('offers : ', this.employmentService.getOffers());
         //console.log('filters : ', this.employmentService.getFilters());
 
+        /*
         const typesContrats = await this.employmentService.getTypesContratsFilters();
         typesContrats.sort((a, b) => (a.libelle > b.libelle) ? 1 : -1);
         const domaines = await this.employmentService.getDomainesFilters();
@@ -956,10 +975,11 @@ class MapManager {
         const codesNaf = await this.employmentService.getCodesNafFilters();
         codesNaf.sort((a, b) => (a.id > b.id) ? 1 : -1);
         //console.log('codesNaf : ', codesNaf);
+        */
         //console.log('metiers : ', metiers);
         //console.log('typesContrats : ', typesContrats);
 
-        this.mapVue.displayOffers(town.townCode, typesContrats, domaines, metiers, codesNaf, this.handleViewOffer); //, initOffersSortButtons
+        this.mapVue.displayOffers(town.townCode, this.typesContratsApiFt, this.domainesApiFt, this.metiersApiFt, this.codesNafApiFt, this.handleViewOffer); //, initOffersSortButtons
     }
 
     async displaySchools(town) {
@@ -1023,7 +1043,7 @@ class MapManager {
         this.schoolService.updateFilters();
         this.schoolService.generateFilters();
         this.updateSchoolFiltersButtons();
-        //this.mapVue.initVars();
+        this.mapVue.initVars();
         await this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);
