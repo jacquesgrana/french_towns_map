@@ -30,7 +30,9 @@ jobs:
       run: |
         ssh -p 65002 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $HOSTINGER_USER@$HOSTINGER_SERVER '
           cd public_html/french_towns_map/ &&
-          git pull origin main &&
+          git fetch origin main &&
+          git reset --hard origin/main &&
+          cat > .env <<EOL
           sed -i "s|%APP_SECRET%|$APP_SECRET|g" .env &&
           sed -i "s|%DATABASE_URL%|$DATABASE_URL|g" .env &&
           sed -i "s|%MAILER_DSN%|$MAILER_DSN|g" .env &&
