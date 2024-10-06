@@ -1061,9 +1061,10 @@ class MapManager {
             //console.log('isFavorite : ', isFavorite);
              // appeler fonction qui change le bouton selon isFavorite
             this.manageFavoriteButton(isFavorite);
+            /*
             if(isFavorite) {
                
-            }
+            }*/
         }
         
         //console.log('isFavorite : ', isFavorite);
