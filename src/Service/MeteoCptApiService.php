@@ -9,9 +9,7 @@ class MeteoCptApiService
     public function __construct()
     {
         $this->meteoCptUrl = "https://api.meteo-concept.com";
-        $this->meteoCptToken = "b75b70653ce0aeb7a0893e8079651fcf5b9a4e2a60ba28d19946c97d7471ba2a";
-        // b75b70653ce0aeb7a0893e8079651fcf5b9a4e2a60ba28d19946c97d7471ba2a
-        //$this->meteoCptToken = "06a3e3f2f54d0caa80e3915bca02c559b6d425804cd52155164e57c6d48bd43e";
+        $this->meteoCptToken = $_ENV['API_METEO_CPT_TOKEN'];
     }
 
     public function callEphemerideMeteoCptApi($code)
