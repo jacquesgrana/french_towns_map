@@ -27,6 +27,7 @@ jobs:
         MAILER_DSN: ${{ secrets.MAILER_DSN }}
         API_FT_CLIENT_ID: ${{ secrets.API_FT_CLIENT_ID }}
         API_FT_CLIENT_SECRET: ${{ secrets.API_FT_CLIENT_SECRET }}
+        API_METEO_CPT_TOKEN: ${{ secrets.API_METEO_CPT_TOKEN }}
       run: |
         ssh -p 65002 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $HOSTINGER_USER@$HOSTINGER_SERVER "
         cd public_html/french_towns_map/ &&
@@ -37,6 +38,7 @@ jobs:
         sed -i 's|^MAILER_DSN=.*|MAILER_DSN=\"$MAILER_DSN\"|' .env &&
         sed -i 's|^API_FT_CLIENT_ID=.*|API_FT_CLIENT_ID=\"$API_FT_CLIENT_ID\"|' .env &&
         sed -i 's|^API_FT_CLIENT_SECRET=.*|API_FT_CLIENT_SECRET=\"$API_FT_CLIENT_SECRET\"|' .env &&
+        sed -i 's|^API_METEO_CPT_TOKEN=.*|API_METEO_CPT_TOKEN=\"$API_METEO_CPT_TOKEN\"|' .env &&
         ../composer.phar install --no-dev --optimize-autoloader &&
         php bin/console cache:clear --env=prod &&
         php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration &&

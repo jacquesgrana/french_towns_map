@@ -63,11 +63,18 @@
 }
 
 /* Style pour le conteneur des selects personnalisés */
+/*
 .custom-selects-container {
     display: flex;
     justify-content: center;
     margin-top: 15px;
     margin-bottom: 15px;
+
+}
+*/
+
+.select2-search {
+    background-color: $primary-color-medium-dark !important;
 }
 
 .select2-search input,
@@ -83,3 +90,60 @@
 }
 
 
+// Ajoutez ceci à la fin de votre fichier SCSS existant
+
+// Styles pour la barre de défilement dans le dropdown de Select2
+.select2-results__options {
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: $primary-color-medium-dark;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: $secondary-color;
+      border-radius: 4px;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: darken($secondary-color, 10%);
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: $primary-color-medium-dark;
+      border-radius: 4px;
+    }
+  }
+  
+  // Pour Firefox
+  .select2-results__options {
+    scrollbar-width: thin;
+    scrollbar-color: $secondary-color $primary-color-medium-dark;
+  }
+  
+  // Assurez-vous que le conteneur des options a une hauteur maximale
+  .select2-results__options {
+    max-height: 200px; // Ajustez cette valeur selon vos besoins
+    overflow-y: auto;
+  }
+  
+
+/*
+    &::-webkit-scrollbar {
+        width: 10px !important;
+        background-color: $primary-color-medium-dark !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary-color !important;
+        border-radius: px !important;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: $secondary-color !important;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: $primary-color-medium !important;
+        border-radius: 5px !important;
+    }
+        */

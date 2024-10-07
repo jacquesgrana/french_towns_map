@@ -590,11 +590,17 @@ input[type=email]:-webkit-autofill:active {
 }
 
 /* Style pour le conteneur des selects personnalisés */
+/*
 .custom-selects-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+*/
+.select2-search {
+  background-color: rgb(5, 64, 87) !important;
 }
 
 .select2-search input,
@@ -609,6 +615,52 @@ input[type=email]:-webkit-autofill:active {
   border: none;
 }
 
+.select2-results__options::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgb(5, 64, 87);
+}
+.select2-results__options::-webkit-scrollbar-thumb {
+  background-color: rgb(241, 119, 53);
+  border-radius: 4px;
+}
+.select2-results__options::-webkit-scrollbar-thumb:hover {
+  background-color: #e35a10;
+}
+.select2-results__options::-webkit-scrollbar-track {
+  background-color: rgb(5, 64, 87);
+  border-radius: 4px;
+}
+
+.select2-results__options {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(241, 119, 53) rgb(5, 64, 87);
+}
+
+.select2-results__options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/*
+    &::-webkit-scrollbar {
+        width: 10px !important;
+        background-color: $primary-color-medium-dark !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary-color !important;
+        border-radius: px !important;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: $secondary-color !important;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: $primary-color-medium !important;
+        border-radius: 5px !important;
+    }
+        */
 .div-school {
   position: relative;
   margin-top: 10px;
