@@ -5,12 +5,12 @@ namespace App\Service;
 class DataEduGouvService
 {
     private string $dataEduGouvUrlStart;
-    private string $dataEduGouvUrlEnd;
+    //private string $dataEduGouvUrlEnd;
 
     public function __construct()
     {
         $this->dataEduGouvUrlStart = "https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_commune%3D";
-        $this->dataEduGouvUrlEnd = "&limit=100&offset=50";
+        //$this->dataEduGouvUrlEnd = "&limit=100&offset=50";
 
         ///api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_commune%3D77288&order_by=nom_etablissement&limit=20
     }

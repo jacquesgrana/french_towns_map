@@ -1044,7 +1044,19 @@ class MapManager {
         this.schoolService.generateFilters();
         this.updateSchoolFiltersButtons();
         this.mapVue.initVars();
-        await this.displayTownDetails(this.selectedTown);
+        const fct = async () => {
+             this.displayTownDetails(this.selectedTown);
+             this.displayForecast(this.selectedTown);
+             this.displaySchools(this.selectedTown);
+             this.displayOffers(this.selectedTown);
+            this.mapVue.updateOffersSortButtons();
+             this.updateComments(this.selectedTown);
+            this.refreshMap(this.map, this.townsData);
+            this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
+        };
+        await fct();
+        /*
+        this.displayTownDetails(this.selectedTown);
         await this.displayForecast(this.selectedTown);
         await this.displaySchools(this.selectedTown);
         await this.displayOffers(this.selectedTown);
@@ -1052,6 +1064,7 @@ class MapManager {
         await this.updateComments(this.selectedTown);
         this.refreshMap(this.map, this.townsData);
         this.manageButtonsWithLoggedIn(this.securityService.isLoggedIn);
+        */
         // TODO ajouter vérification si deja favori : changer le bouton en '-'
         // TODO faire requete qui check si la ville est dans la liste des favoris de l'user
         if(this.securityService.isLoggedIn) {

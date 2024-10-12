@@ -129,7 +129,7 @@ class EmploymentJsonController extends AbstractController {
             "data" => $toReturn
         ];
 
-        return new JsonResponse($response);
+        return new JsonResponse($response, 200);
     }
 
     #[Route('/get-employment-offer-by-id', name: 'get_employment_offer_by_id', methods: ['POST'])]
